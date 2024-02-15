@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "template",
-    "slug": "template",
+    "name": "Avatar_V2",
+    "slug": "Avatar_V2",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -22,7 +22,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.eido321.template"
+      "package": "com.eido321.Avatar_V2"
     },
     "web": {
       "favicon": "./assets/favicon.png"
