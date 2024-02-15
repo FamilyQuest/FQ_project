@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ScrollView, View, Image, TouchableOpacity, Text, ImageBackground } from 'react-native';
 
 import Avatar from './Avatar';
-import styles from './avatarCreationForm.style';
+import styles from './avatarItemScroll.style';
 
 const AvatarItemScroll = ({
     hairStyle,
