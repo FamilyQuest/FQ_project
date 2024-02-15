@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "alpha",
-    "slug": "alpha",
+    "name": "Avatar_V2",
+    "slug": "Avatar_V2",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -22,14 +22,14 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.eido321.alpha"
+      "package": "com.eido321.Avatar_V2"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "extra": {
       "eas": {
-        "projectId": "55fb3985-ea61-4e2b-8eef-a70826daf5d3"
+        "projectId": "9318aaba-1ba2-4b13-9350-1cab77d19dbe"
       }
     }
   }
