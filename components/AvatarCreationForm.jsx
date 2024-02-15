@@ -9,7 +9,6 @@ I18nManager.allowRTL(false);
 import AvatarCreation from './AvatarCreation';
 import AvatarItemScroll from './AvatarItemScroll';
 import styles from './avatarCreationForm.style';
-import { StatusBar } from 'expo-status-bar';
 
 const AvatarCreationForm = () => {
   const [hairStyle, setHairStyle] = useState('short01');
