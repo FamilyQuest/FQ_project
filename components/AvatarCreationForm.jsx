@@ -1,6 +1,6 @@
 // AvatarCreationForm
 import React, { useState } from 'react';
-import { ScrollView, View, Image, TouchableOpacity, Text, ImageBackground } from 'react-native';
+import { View, Text, ImageBackground } from 'react-native';
 import { I18nManager } from "react-native";
 
 I18nManager.forceRTL(false);
@@ -9,6 +9,8 @@ I18nManager.allowRTL(false);
 import AvatarCreation from './AvatarCreation';
 import AvatarItemScroll from './AvatarItemScroll';
 import styles from './avatarCreationForm.style';
+import Header from './Page-Format/Header';
+import Footer from './Page-Format/Footer';
 
 const AvatarCreationForm = () => {
   const [hairStyle, setHairStyle] = useState('short01');
@@ -25,17 +27,9 @@ const AvatarCreationForm = () => {
     <ImageBackground
       source={require('../assets/Backgrounds/bg1.png')}
       style={styles.scrollContainer}>
-      <View style={styles.topScreenContainer}><Image style={{ resizeMode: "cover", width: "100%" }} source={require('../assets/General/Header.png')} /></View>
-      <View style={styles.header}>
-        <TouchableOpacity style={styles.headerButton} onPress={() => { }}>
-          <Image style={styles.headerButtonImg} source={require('../assets/General/Back.png')} />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.headerLogo} onPress={() => { }}>
-          <Image style={styles.headerLogoImg} source={require('../assets/General/Share.png')} />
-        </TouchableOpacity>
-      </View>
+      <Header/>
       <View style={styles.titleContainer}>
-        <Text style={styles.titleText}>customization</Text>
+            <Text style={styles.titleText}>customization</Text>
       </View>
       {showAvatar && (
         <AvatarCreation
@@ -76,21 +70,7 @@ const AvatarCreationForm = () => {
         showAvatar={showAvatar}
         setShowAvatar={setShowAvatar}
       />
-      <View style={styles.footer}>
-        <TouchableOpacity style={styles.createButton}>
-          <Image style={{ width: 30, height: 30, }} source={require('../assets/General/Plus.png')} />
-        </TouchableOpacity>
-        <Image style={styles.footerImage} source={require('../assets/General/Footer.png')}>
-
-        </Image>
-        <View style={styles.footerIcons}>
-          <TouchableOpacity><Image style={styles.footerIcon} source={require('../assets/General/Home.png')} /></TouchableOpacity>
-          <TouchableOpacity><Image style={styles.footerIcon} source={require('../assets/General/Achievements.png')} /></TouchableOpacity>
-          <View style={styles.sperator} />
-          <TouchableOpacity><Image style={styles.footerIcon} source={require('../assets/General/Shop.png')} /></TouchableOpacity>
-          <TouchableOpacity><Image style={styles.selectedFooterIcon} source={require('../assets/General/Profile.png')} /></TouchableOpacity>
-        </View>
-      </View>
+      <Footer/>
     </ImageBackground>
 
   );
