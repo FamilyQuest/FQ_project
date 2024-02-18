@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { StyleSheet, Button, TextInput, Text, View, ImageBackground } from 'react-native';
-import { I18nManager } from "react-native";
+import { StyleSheet, Button, TextInput, Text, View, ImageBackground, Dimensions } from 'react-native';
+import { I18nManager, ScrollView,StatusBar } from "react-native";
 import { Formik } from 'formik';
 import DropDownPicker from 'react-native-dropdown-picker';
 
@@ -16,22 +16,21 @@ const PageTemplate = () => {
 
   return (
     <ImageBackground
-      style={{ height: "100%", width: "100%" }}
+      style={styles.background}
       source={require('../assets/Backgrounds/bg1.png')}>
       <Header />
-      <View style={styles.container}>
+      <Text style={styles.title}>New Task</Text>
+      <ScrollView contentContainerStyle={styles.container}>
         <Formik initialValues={{ TaskName: '', Assign: '', category: '', points: '', Description: '' }}
           onSubmit={(values) => {
             console.log(values);
-          }}
-        >
+          }}>
           {(props) => (
-            <View style={styles.container}>
-              <Text style={{ marginBottom: 80, marginTop: -150, fontSize: 40 }}>New Task</Text>
-
-              <View style={[styles.inputContainer, { width: 350, marginBottom: 40 }]}>
+            <View style={styles.form}>
+              <StatusBar backgroundColor="#A4E7DD" barStyle="dark-content" />
+              <View style={styles.inputContainer}>
                 <TextInput
-                  style={[styles.input, { fontSize: 18 }]}
+                  style={styles.input}
                   placeholder='Task Name'
                   placeholderTextColor='black'
                   onChangeText={props.handleChange('TaskName')}
@@ -39,26 +38,25 @@ const PageTemplate = () => {
                 />
               </View>
 
-              <View style={[styles.inputContainer, { marginBottom: 40 }]}>
+              <View style={styles.inputContainer}>
                 <DropDownPicker
                   placeholder='Assign to'
-                  placeholderTextColor='black'
                   items={[
                     { label: 'Assign To', value: '' },
                     { label: 'Assignee 1', value: 'Assignee 1' },
                     { label: 'Assignee 2', value: 'Assignee 2' }
                   ]}
                   defaultValue={assignToValue}
-                  containerStyle={{ height: 40 }}
-                  style={styles.input}
-                  itemStyle={{ justifyContent: 'flex-start' }}
-                  dropDownStyle={{ backgroundColor: '#fafafa' }}
+                  containerStyle={styles.dropDownContainer}
+                  style={styles.dropDown}
+                  itemStyle={styles.dropDownItem}
+                  dropDownStyle={styles.dropDown}
                   onChangeItem={item => setAssignToValue(item.value)}
-                  placeholderStyle={{ fontSize: 18 }} 
+                  placeholderStyle={styles.dropDownPlaceholder}
                 />
               </View>
 
-              <View style={[styles.inputContainer, { marginBottom: 40 }]}>
+              <View style={styles.inputContainer}>
                 <DropDownPicker
                   placeholder='Category'
                   items={[
@@ -67,36 +65,31 @@ const PageTemplate = () => {
                     { label: 'Category 2', value: 'Category 2' }
                   ]}
                   defaultValue={categoryValue}
-                  containerStyle={{ height: 40 }}
-                  style={styles.input}
-                  itemStyle={{ justifyContent: 'flex-start' }}
-                  dropDownStyle={{ backgroundColor: '#fafafa' }}
+                  containerStyle={styles.dropDownContainer}
+                  style={styles.dropDown}
+                  itemStyle={styles.dropDownItem}
+                  dropDownStyle={styles.dropDown}
                   onChangeItem={item => setCategoryValue(item.value)}
-                  placeholderStyle={{ fontSize: 18 }} 
+                  placeholderStyle={styles.dropDownPlaceholder}
                 />
-
               </View>
 
-              <View style={[styles.inputContainer, { width: 350, marginBottom: 40 }]}>
-              <TextInput
-                  style={[styles.input, { fontSize: 18 }]}
+              <View style={styles.inputContainer}>
+                <TextInput
+                  style={styles.input}
                   placeholder='Points'
                   placeholderTextColor='black'
                   onChangeText={props.handleChange('Points')}
                   value={props.values.Points}
+                  
+                  
                 />
               </View>
 
-              <View style={[styles.inputContainer, { marginBottom: 40 }]}>
+              <View style={styles.inputContainer}>
                 <TextInput
-                  style={[
-                    styles.input,
-                    styles.multilineInput,
-                    { width: 330 },
-                    { fontSize: 18 }
-                  ]}
+                  style={[styles.input, styles.multilineInput]}
                   multiline
-
                   placeholder='Description'
                   placeholderTextColor='black'
                   onChangeText={props.handleChange('Description')}
@@ -104,7 +97,7 @@ const PageTemplate = () => {
                 />
               </View>
 
-              <View style={{ backgroundColor: '#FF6E6B', borderRadius: 5, width: 330, marginBottom: 10 }}>
+              <View style={styles.buttonContainer}>
                 <Button
                   title='Add now'
                   color='#FFFFFF'
@@ -112,35 +105,46 @@ const PageTemplate = () => {
                 />
               </View>
             </View>
-
           )}
         </Formik>
-      </View>
+      </ScrollView>
       <Footer />
     </ImageBackground>
-
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  background: {
     flex: 1,
+    width: '100%',
+    height: '100%',
+  },
+  container: {
+    flexGrow: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 20,
-    marginTop: 50,
-    backgroundColor: 'transparent',
-
+    marginBottom: 40,
+  },
+  form: {
+    width: '80%',
+    alignItems: 'center',
+  },
+  title: {
+    fontSize: 40,
+    justifyContent: 'center',
+    textAlign: 'center',
+    marginTop:35,
+    
   },
   inputContainer: {
-    marginBottom: 20,
-    padding: 10,
-    borderWidth: 1,
-    borderColor: '#8DE1D5',
-    borderStyle: 'dashed',
-    borderRadius: 5,
+    marginBottom: 60,
     width: '100%',
-    borderWidth: 3
+    justifyContent: 'center',
+    textAlign: 'center',
+    borderColor:'#8DE1D5',
+    borderWidth: 3,
+    borderRadius:10,
+    borderStyle:'dotted',
   },
   input: {
     paddingHorizontal: 10,
@@ -149,14 +153,34 @@ const styles = StyleSheet.create({
     borderColor: 'transparent',
     backgroundColor: 'transparent',
     width: '100%',
-
-  }
-
-  ,
+    fontSize:18,
+  },
   multilineInput: {
     height: 100,
   },
+  dropDownContainer: {
+    height: 40,
+    width: '100%',
+  },
+  dropDown: {
+    backgroundColor: 'rgba(255, 255, 255, 0.5)',
+    borderStyle: 'dotted', 
+    borderColor:'#8DE1D5',
+    borderWidth: 0,
+    borderRadius:0,
+    
+  },
+  dropDownItem: {
+    justifyContent: 'flex-start',
+  },
+  dropDownPlaceholder: {
+    fontSize: 18,
+  },
+  buttonContainer: {
+    backgroundColor: '#FF6E6B',
+    borderRadius: 5,
+    width: '70%',
+  },
 });
-
 
 export default PageTemplate;
