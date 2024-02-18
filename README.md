@@ -1,1 +1,0 @@
-# FQ_project
