@@ -5,11 +5,11 @@ import Task from './Task';
 import dbConnectionUsers from './DataBase/dbConnectionUsers';
 import dbConnectionTasks from "./DataBase/dbConnectionTasks";
 
-const SubHeader = ({navigation,id}) => {
+const SubHeader = ({navigation,userId}) => {
   const { users, getUserById, getUserByUsername, confirmLogIn } = dbConnectionUsers();
-  const { tasks, getTasksByUserId } = dbConnectionTasks();
+  const { tasks, getTasksByUserId, updateStatusTaskByTaskIdAndUserId } = dbConnectionTasks();
 
-  const tasksArray = getTasksByUserId(id);
+  const tasksArray = getTasksByUserId(userId);
   return (
     <View style={styles.container}>
         <Text style={styles.sectionTitle}>Welcome Back!</Text>
@@ -20,7 +20,7 @@ const SubHeader = ({navigation,id}) => {
                       contentContainerStyle={styles.scrollViewContent}
           >
             {tasksArray.map((task, index) => (
-              <Task navigation={navigation} key={index} text={task.title} time={task.time} points={task.points} category={task.category} description={task.description} status={task.status} id={id}/>
+              <Task navigation={navigation} key={index} taskId={task.id} text={task.title} time={task.time} points={task.points} category={task.category} description={task.description} status={task.status} userId={userId}/>
             ))}
         </ScrollView>
         </View>

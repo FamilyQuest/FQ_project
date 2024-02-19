@@ -3,10 +3,12 @@ import { StyleSheet, Text, View, Image } from 'react-native';
 import { Camera } from 'expo-camera';
 import * as MediaLibrary from 'expo-media-library';
 import { firebase } from '../DataBase/dbConnection';
+import dbConnectionTasks from "../DataBase/dbConnectionTasks";
 
 import Button from './Button';
 
-export default function MyCamera( {navigation, id} ) {
+export default function MyCamera( {navigation, userId, taskId} ) {
+  const { tasks, getTasksByUserId, updateStatusTaskByTaskIdAndUserId } = dbConnectionTasks();
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
   const [image, setImage] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
@@ -40,9 +42,10 @@ export default function MyCamera( {navigation, id} ) {
         const filename = image.split('/').pop();
         const response = await fetch(image);
         const blob = await response.blob();
-        const ref = firebase.storage().ref().child(`images/user_id_${id}/${filename}`);
+        const ref = firebase.storage().ref().child(`images/user_id_${userId}/${filename}`);
         await ref.put(blob);
         setImage(null);
+        updateStatusTaskByTaskIdAndUserId(userId, taskId, 'pending');
         navigation.goBack()
       } catch (error) {
         console.error(error);
