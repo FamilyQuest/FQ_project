@@ -6,7 +6,6 @@ import { Formik } from 'formik';
 import CustomSelectList from './dropDown';
 import MySelectComponent from './MultipleSelectList ';
 
-
 import styles from './taskCreation.style';
 
 function TaskCreation() {

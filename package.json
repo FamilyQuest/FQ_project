@@ -18,12 +18,15 @@
     "expo-status-bar": "~1.11.1",
     "formik": "^2.4.5",
     "metro-config": "^0.80.6",
+    "native-notify": "^3.3.1",
     "react": "18.2.0",
     "react-native": "0.73.2",
     "react-native-dropdown-picker": "^5.4.6",
     "react-native-dropdown-select-list": "^2.0.5",
     "react-native-picker-select": "^9.0.1",
-    "react-native-svg": "^14.1.0"
+    "react-native-svg": "^14.1.0",
+    "expo-device": "~5.9.3",
+    "expo-notifications": "~0.27.6"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
