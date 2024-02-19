@@ -2,7 +2,14 @@
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import Task from './Task';
 
+import dbConnectionUsers from './DataBase/dbConnectionUsers';
+import dbConnectionTasks from "./DataBase/dbConnectionTasks";
+
 const SubHeader = () => {
+  const { users, getUserById, getUserByUsername, confirmLogIn } = dbConnectionUsers();
+  const { tasks, getTasksByUserId } = dbConnectionTasks();
+
+  const tasksArray = getTasksByUserId(1);
   return (
     <View style={styles.container}>
         <Text style={styles.sectionTitle}>Welcome Back!</Text>
@@ -12,21 +19,9 @@ const SubHeader = () => {
                       showsHorizontalScrollIndicator={false}
                       contentContainerStyle={styles.scrollViewContent}
           >
-            <Task text={'Dishes'} time={'10:00'} points={20} />
-            <Task text={'Laundry'} time={'12:00'} points={50}/>
-            <Task text={'Grocery Shopping'} time={'09:00'} points={35}/>
-            <Task text={'Exercise'} time={'16:00'} points={10}/>
-            <Task text={'Exercise'} time={'16:00'} points={10}/>
-            <Task text={'Exercise'} time={'16:00'} points={10}/>
-            <Task text={'drugs'} time={'16:00'} points={10}/>
-            <Task text={'cocaine'} time={'16:00'} points={10}/>
-            <Task text={'lsd'} time={'16:00'} points={10}/>
-            <Task text={'Heroin '} time={'16:00'} points={10}/>
-            <Task text={'Exercise'} time={'16:00'} points={10}/>
-            <Task text={'Exercise'} time={'16:00'} points={10}/>
-            <Task text={'Exercise'} time={'16:00'} points={10}/>
-            <Task text={'Exercise'} time={'16:00'} points={10}/>
-            <Task text={'Exercise'} time={'16:00'} points={10}/>
+            {tasksArray.map((task, index) => (
+              <Task key={index} text={task.title} time={task.time} points={task.points} category={task.category} description={task.description} />
+            ))}
         </ScrollView>
         </View>
     </View>

@@ -2,7 +2,11 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Task from './Task';
 
+
+
 const TasksList = () => {
+
+
     return(
         <View style={styles.tasksWrapper}>
             <View style={styles.items}>
