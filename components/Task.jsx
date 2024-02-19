@@ -8,6 +8,11 @@ import styles from './tasks.style';
 const Task = (props) => {
     const [modalVisible, setModalVisible] = useState(false);
     const { users, getUserById, getUserByUsername, confirmLogIn } = dbConnectionUsers();
+    const [statusColor, setStatusColor] = useState({
+        'in progress': '#E4E4E4',
+        'pending': '#ffd166',
+        'done': '#57cc99',
+    });
 
     const openModal = () => {
         setModalVisible(true);
@@ -18,15 +23,15 @@ const Task = (props) => {
     };
 
     const openCamera = () => {
-        console.log('open camera');
-        props.navigation.navigate("Camera",{id:props.id});
-
+        if (props.status === 'in progress') {
+            props.navigation.navigate("Camera", { userId: props.userId, taskId: props.taskId });
+        }
     }
 
-    const user = getUserById(1);
+    const user = getUserById(props.userId);
     return (
         <View style={styles.container}>
-            <StatusBar backgroundColor={'#A4E7DD'} barStyle={'dark-content'}/>
+            <StatusBar backgroundColor={'#A4E7DD'} barStyle={'dark-content'} />
             <TouchableOpacity onPress={openModal}>
                 <View style={styles.item}>
                     <View style={styles.itemLeft}>
@@ -34,7 +39,9 @@ const Task = (props) => {
                         <View style={styles.timeLeft}>
                             <Image style={styles.clockImage} source={require('../assets/Home/Clock.png')} />
                             <Text style={styles.timetext}>{props.time}</Text>
-                            <Text style={styles.progresstext}>{props.status}</Text>
+                            <Text style={[styles.progresstext, { backgroundColor: statusColor[props.status] }]}>
+                                {props.status}
+                            </Text>
                         </View>
                     </View>
                     <View style={styles.itemRight}>
@@ -60,27 +67,27 @@ const Task = (props) => {
                                 <Text style={styles.textModal}>points: {props.points}</Text>
                                 <Text style={styles.textModal}>description:</Text>
                                 <View style={styles.modalScrollView}>
-                                <ScrollView
-                                showsVerticalScrollIndicator={false}
-                                showsHorizontalScrollIndicator={false}
-                                >
-                                    <Text style={styles.textModalBox}> 
-                                    {props.description}
-                                    </Text>
-                                </ScrollView>
+                                    <ScrollView
+                                        showsVerticalScrollIndicator={false}
+                                        showsHorizontalScrollIndicator={false}
+                                    >
+                                        <Text style={styles.textModalBox}>
+                                            {props.description}
+                                        </Text>
+                                    </ScrollView>
                                 </View>
-                               
+
                             </View>
                             <View style={styles.buttonContainer}>
-                                    <TouchableOpacity style={styles.Btn1} onPress={closeModal}>
-                                        <Text style={styles.textBtn}>Not yet</Text>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity style={styles.Btn2} onPress={openCamera}>
-                                        <Text style={styles.textBtn}>Finished</Text>
-                                    </TouchableOpacity>
-                                </View>
+                                <TouchableOpacity style={styles.Btn1} onPress={closeModal}>
+                                    <Text style={styles.textBtn}>Not yet</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={styles.Btn2} onPress={openCamera}>
+                                    <Text style={styles.textBtn}>Finished</Text>
+                                </TouchableOpacity>
+                            </View>
                         </View>
-                        
+
                     </View>
                 </View>
             </Modal>

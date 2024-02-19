@@ -21,8 +21,8 @@ const Login = ({ navigation }) => {
     
     // console.log('User by Username:', getUserByUsername('john_doe'));
     if(confirmLogIn(username, password) === true){
-      const id = getUserByUsername(username)['id'];
-      navigation.navigate("Home", {id: id});
+      const userId = getUserByUsername(username)['id'];
+      navigation.navigate("Home", {userId: userId});
     }
     // console.log(confirmLogIn(username, password));
   };
