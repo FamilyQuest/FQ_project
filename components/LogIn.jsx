@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import { Image, View, Text, TextInput, TouchableOpacity, StatusBar } from 'react-native';
 import Checkbox from 'expo-checkbox';
 
-import useDbConnection from './DataBase/dbConnection';
+import dbConnectionUsers from './DataBase/dbConnectionUsers';
 import styles from './logIn.style';
 
 const Login = ({ navigation }) => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { users, getUserById, getUserByUsername, confirmLogIn } = useDbConnection();
+  const { users, getUserById, getUserByUsername, confirmLogIn } = dbConnectionUsers();
 
 
   const handleLogin = () => {
@@ -19,11 +19,11 @@ const Login = ({ navigation }) => {
     // console.log('Users:', users);
     // console.log('User by ID:', getUserById(1));
     
-    console.log('User by Username:', getUserByUsername('john_doe'));
+    // console.log('User by Username:', getUserByUsername('john_doe'));
     if(confirmLogIn(username, password) === true){
-      
+      const id = getUserByUsername(username)['id'];
+      navigation.navigate("Home", {id: id});
     }
-    navigation.navigate("Home");
     // console.log(confirmLogIn(username, password));
   };
 
