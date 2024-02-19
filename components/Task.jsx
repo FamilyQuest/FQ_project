@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity, Image, Modal, ScrollView, StatusBar } from 'react-native';
 
+import dbConnectionUsers from './DataBase/dbConnectionUsers';
 import styles from './tasks.style';
+
 
 const Task = (props) => {
     const [modalVisible, setModalVisible] = useState(false);
+    const { users, getUserById, getUserByUsername, confirmLogIn } = dbConnectionUsers();
 
     const openModal = () => {
         setModalVisible(true);
@@ -14,6 +17,7 @@ const Task = (props) => {
         setModalVisible(false);
     };
 
+    const user = getUserById(1);
     return (
         <View style={styles.container}>
             <StatusBar backgroundColor={'#A4E7DD'} barStyle={'dark-content'}/>
@@ -45,21 +49,17 @@ const Task = (props) => {
                         <View style={styles.modalTextContainer}>
                             <View>
                                 <Text style={styles.textModal}>the task is {props.text} </Text>
-                                <Text style={styles.textModal}>assigned to: </Text>
-                                <Text style={styles.textModal}>category: </Text>
-                                <Text style={styles.textModal}>points: </Text>
-                                <Text style={styles.textModal}>description: </Text>
-                                <Text style={styles.textModal}>description: </Text>
+                                <Text style={styles.textModal}>assigned to: {user && user.first_name ? user.first_name : ''} {user && user.last_name ? user.last_name : ''}</Text>
+                                <Text style={styles.textModal}>category: {props.category}</Text>
+                                <Text style={styles.textModal}>points: {props.points}</Text>
+                                <Text style={styles.textModal}>description:</Text>
                                 <View style={styles.modalScrollView}>
                                 <ScrollView
                                 showsVerticalScrollIndicator={false}
                                 showsHorizontalScrollIndicator={false}
                                 >
                                     <Text style={styles.textModalBox}> 
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                    {props.description}
                                     </Text>
                                 </ScrollView>
                                 </View>
