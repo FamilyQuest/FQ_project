@@ -6,7 +6,6 @@ I18nManager.forceRTL(false);
 I18nManager.allowRTL(false);
 
 import Header from '../components/Page-Format/Header';
-import Footer_v2 from '../components/Page-Format/Footer_v2';
 import Login from '../components/LogIn';
 
 const LoginScreen = ({navigation}) => {
@@ -17,7 +16,6 @@ const LoginScreen = ({navigation}) => {
       source={require('../assets/Backgrounds/bg1.png')}>
       <Header navigation={navigation}/>
       <Login navigation={navigation}/>
-      <Footer_v2/>
     </ImageBackground>
 
   );

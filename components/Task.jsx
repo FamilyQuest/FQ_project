@@ -17,6 +17,12 @@ const Task = (props) => {
         setModalVisible(false);
     };
 
+    const openCamera = () => {
+        console.log('open camera');
+        props.navigation.navigate("Camera",{id:props.id});
+
+    }
+
     const user = getUserById(1);
     return (
         <View style={styles.container}>
@@ -28,7 +34,7 @@ const Task = (props) => {
                         <View style={styles.timeLeft}>
                             <Image style={styles.clockImage} source={require('../assets/Home/Clock.png')} />
                             <Text style={styles.timetext}>{props.time}</Text>
-                            <Text style={styles.progresstext}>in progress</Text>
+                            <Text style={styles.progresstext}>{props.status}</Text>
                         </View>
                     </View>
                     <View style={styles.itemRight}>
@@ -69,7 +75,7 @@ const Task = (props) => {
                                     <TouchableOpacity style={styles.Btn1} onPress={closeModal}>
                                         <Text style={styles.textBtn}>Not yet</Text>
                                     </TouchableOpacity>
-                                    <TouchableOpacity style={styles.Btn2}>
+                                    <TouchableOpacity style={styles.Btn2} onPress={openCamera}>
                                         <Text style={styles.textBtn}>Finished</Text>
                                     </TouchableOpacity>
                                 </View>

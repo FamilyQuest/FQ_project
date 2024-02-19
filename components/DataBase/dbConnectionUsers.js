@@ -1,19 +1,20 @@
 import { useState, useEffect } from 'react';
 import { initializeApp } from 'firebase/app';
 import { getDatabase, ref, get } from 'firebase/database';
+import { API_KEY, AUTH_DOMAIN, PROJECT_ID, STORAGE_BUCKET, MESSAGINGSENDER_ID, APP_ID, MEASUREMETN_ID  } from '@env'; 
 
 const dbConnectionUsers = () => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
     const firebaseConfig = {
-        apiKey: "AIzaSyAEhAIE9OBu4EIpaW2Xff-wuzNVYrx6Iow",
-        authDomain: "familyquest-43f50.firebaseapp.com",
-        projectId: "familyquest-43f50",
-        storageBucket: "familyquest-43f50.appspot.com",
-        messagingSenderId: "435404741742",
-        appId: "1:435404741742:web:e964f4ae7470e38fa11a7f",
-        measurementId: "G-VG2Z4F1K75",
+        apiKey: API_KEY,
+        authDomain: AUTH_DOMAIN,
+        projectId: PROJECT_ID,
+        storageBucket: STORAGE_BUCKET,
+        messagingSenderId: MESSAGINGSENDER_ID,
+        appId: APP_ID,
+        measurementId: MEASUREMETN_ID,
     };
 
     const app = initializeApp(firebaseConfig);

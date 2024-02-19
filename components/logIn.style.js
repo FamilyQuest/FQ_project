@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     logoImg: {
-        marginTop: 100,
+        marginTop: '10%',
         marginLeft: 40,
         marginBottom: 10,
         width: 220,

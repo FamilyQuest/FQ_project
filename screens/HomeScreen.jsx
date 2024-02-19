@@ -9,15 +9,16 @@ I18nManager.allowRTL(false);
 import Header from '../components/Page-Format/Header';
 import Footer from '../components/Page-Format/Footer';
 
-const HomeScreen = ({navigation}) => {
-
+const HomeScreen = ({route,navigation}) => {
+  const { id } = route.params;
+  console.log("HomeScreen id: ",id);
   return (
     <ImageBackground
       style={{height: "100%",width: "100%"}}
       source={require('../assets/Backgrounds/bg1.png')}>
       <Header navigation={navigation}/>
       <View style={{height: "100%",width: "100%"}}>
-        <SubHeader navigation={navigation}/>
+        <SubHeader navigation={navigation} id={id} />
       </View>
       <Footer/>
     </ImageBackground>
