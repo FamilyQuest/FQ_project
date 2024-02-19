@@ -1,16 +1,15 @@
 import React from 'react';
 import { View, ImageBackground, Text } from 'react-native';
 import { I18nManager } from "react-native";
-import SubHeader from './SubHeaderWelcomPage';
-import TaskList from './ListForWelcomPage';
+import SubHeader from '../components/SubHeaderWelcomPage';
 
 I18nManager.forceRTL(false);
 I18nManager.allowRTL(false);
 
-import Header from './Page-Format/Header';
-import Footer from './Page-Format/Footer';
+import Header from '../components/Page-Format/Header';
+import Footer from '../components/Page-Format/Footer';
 
-const PageTemplate = () => {
+const HomeScreen = () => {
 
   return (
     <ImageBackground
@@ -27,4 +26,4 @@ const PageTemplate = () => {
   );
 };
 
-export default PageTemplate;
+export default HomeScreen;
