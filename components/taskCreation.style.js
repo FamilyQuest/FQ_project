@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
       borderWidth: 3,
       borderRadius:10,
       borderStyle:'dashed',
-      paddingHorizontal: 10,
+      paddingHorizontal: 23,
       paddingVertical: 8,
       width: '100%',
       fontSize:18,
@@ -39,22 +39,6 @@ const styles = StyleSheet.create({
       height: 40,
       width: '100%',
       marginBottom: 30,
-
-    },
-    dropDown: {
-      backgroundColor: '#fff',
-      borderStyle: 'dashed', 
-      borderColor:'#8DE1D5',
-      borderWidth: 3,
-      borderRadius:10,
-      paddingHorizontal: 10,
-      paddingVertical: 8,
-    },
-    dropDownItem: {
-      justifyContent: 'flex-start',
-    },
-    dropDownPlaceholder: {
-      fontSize: 18,
     },
     buttonContainer: {
       justifyContent: 'center',
