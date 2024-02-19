@@ -5,7 +5,7 @@ import Checkbox from 'expo-checkbox';
 import useDbConnection from './DataBase/dbConnection';
 import styles from './logIn.style';
 
-const Login = () => {
+const Login = ({ navigation }) => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -16,11 +16,15 @@ const Login = () => {
     console.log('Username:', username);
     console.log('Email:', email);
     console.log('Password:', password);
-
     // console.log('Users:', users);
     // console.log('User by ID:', getUserById(1));
+    
     console.log('User by Username:', getUserByUsername('john_doe'));
-    console.log('Log in:', confirmLogIn(username, password));
+    if(confirmLogIn(username, password) === true){
+      
+    }
+    navigation.navigate("Home");
+    // console.log(confirmLogIn(username, password));
   };
 
   return (
