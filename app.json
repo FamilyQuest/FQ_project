@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "template",
-    "slug": "template",
+    "slug": "Avatar_V2",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -31,6 +31,7 @@
       "eas": {
         "projectId": "9318aaba-1ba2-4b13-9350-1cab77d19dbe"
       }
-    }
+    },
+    "owner": "eido321"
   }
 }
