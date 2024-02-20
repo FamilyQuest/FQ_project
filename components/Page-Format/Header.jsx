@@ -12,7 +12,7 @@ function Header({navigation}) {
             <TouchableOpacity style={styles.headerButton} onPress={() => navigation.goBack()} >
             <Image style={styles.headerButtonImg} source={require('../../assets/General/Back.png')} />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.headerLogo} onPress={() => navigation.navigate("Home")}>
+            <TouchableOpacity style={styles.headerLogo}>
             <Image style={styles.headerLogoImg} source={require('../../assets/General/Share.png')} />
             </TouchableOpacity>
         </View>
