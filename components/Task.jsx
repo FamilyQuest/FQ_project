@@ -1,34 +1,60 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity, Image, Modal, ScrollView, StatusBar } from 'react-native';
 
+import 'firebase/compat/storage';
 import dbConnectionUsers from './DataBase/dbConnectionUsers';
+import dbConnectionTasks from './DataBase/dbConnectionTasks';
+import { firebase } from './DataBase/dbConnection';
 import styles from './tasks.style';
 
-
 const Task = (props) => {
-    const [modalVisible, setModalVisible] = useState(false);
-    const { users, getUserById, getUserByUsername, confirmLogIn } = dbConnectionUsers();
+    const [childModalVisible, setChildModalVisible] = useState(false);
+    const [adminModalVisible, setAdminModalVisible] = useState(false);
+    const { getUserById } = dbConnectionUsers();
+    const { getUserIdByTaskId } = dbConnectionTasks();
     const [statusColor, setStatusColor] = useState({
         'in progress': '#E4E4E4',
         'pending': '#ffd166',
         'done': '#57cc99',
     });
 
+    const user = getUserById(props.userId);
+    let taskUser = null;
+    if (user && user.userType === 'admin') {
+        const taskUserId = getUserIdByTaskId(props.taskId);
+        if (taskUserId) {
+            taskUser = getUserById(taskUserId);
+        }
+    }
+
     const openModal = () => {
-        setModalVisible(true);
+        if (user && user.userType === 'admin') {
+            setAdminModalVisible(true);
+        } else {
+            setChildModalVisible(true);
+        }
     };
 
     const closeModal = () => {
-        setModalVisible(false);
+        setChildModalVisible(false);
+        setAdminModalVisible(false);
     };
 
     const openCamera = () => {
         if (props.status === 'in progress') {
-            props.navigation.navigate("Camera", { userId: props.userId, taskId: props.taskId });
+            props.navigation.navigate("Camera", { userId: props.userId, taskId: props.taskId, taskTitle: props.text });
         }
     }
+    if (taskUser) {
+        firebase.storage().ref().child(`images/user_id_${taskUser.userId}/${props.text.replace(/\s/g, '_')}.jpg`).getDownloadURL().then((url) => {
+            const img = url;
+            console.log(img);
+        }
+        ).catch((error) => {
+            return '';
+        });
+    }
 
-    const user = getUserById(props.userId);
     return (
         <View style={styles.container}>
             <StatusBar backgroundColor={'#A4E7DD'} barStyle={'dark-content'} />
@@ -48,16 +74,17 @@ const Task = (props) => {
                         <Image style={styles.pointImage} source={require('../assets/Home/Points.png')} />
                         <Text style={styles.pointstext}>{props.points}</Text>
                     </View>
+
                 </View>
             </TouchableOpacity>
             <Modal
                 animationType="slide"
                 transparent={true}
-                visible={modalVisible}
+                visible={childModalVisible}
                 onRequestClose={closeModal}
             >
                 <View style={styles.modalContainer}>
-                    <View style={styles.modalContent}>
+                    <View style={styles.childModalContent}>
                         <Text style={styles.titleModal}>Assignment</Text>
                         <View style={styles.modalTextContainer}>
                             <View>
@@ -76,7 +103,6 @@ const Task = (props) => {
                                         </Text>
                                     </ScrollView>
                                 </View>
-
                             </View>
                             <View style={styles.buttonContainer}>
                                 <TouchableOpacity style={styles.Btn1} onPress={closeModal}>
@@ -87,7 +113,38 @@ const Task = (props) => {
                                 </TouchableOpacity>
                             </View>
                         </View>
+                    </View>
+                </View>
+            </Modal>
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={adminModalVisible}
+                onRequestClose={closeModal}
+            >
+                <View style={styles.modalContainer}>
+                    <View style={styles.adminModalContent}>
+                        <Text style={styles.titleModal}>Assignment</Text>
+                        {user && taskUser && user.userType === 'admin' && (
+                            <Text style={styles.assigned}>
+                                Assigned to: {taskUser.first_name ?? ''} {taskUser.last_name ?? ''}
+                            </Text>
+                        )}
 
+                        <View style={styles.imageBox}>
+
+                        </View>
+                        <View style={styles.buttonContainer}>
+                            <TouchableOpacity style={styles.Btn1} onPress={closeModal}>
+                                <Text style={styles.textBtn}>Not yet</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.Btn2} onPress={openCamera}>
+                                <Text style={styles.textBtn}>Finished</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <TouchableOpacity style={styles.Btn1} onPress={closeModal}>
+                            <Text style={styles.textBtn}>Not yet</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </Modal>
