@@ -45,7 +45,7 @@ export default function MyCamera( {navigation, userId, taskId, taskTitle} ) {
         const ref = firebase.storage().ref().child(`images/user_id_${userId}/${filename}`);
         await ref.put(blob);
         setImage(null);
-        await updateStatusTaskByTaskIdAndUserId(userId, taskId, 'pending');
+        updateStatusTaskByTaskIdAndUserId(userId, taskId, 'pending');
         navigation.goBack()
       } catch (error) {
         console.error(error);
