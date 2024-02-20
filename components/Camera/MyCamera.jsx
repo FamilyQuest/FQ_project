@@ -7,7 +7,7 @@ import dbConnectionTasks from "../DataBase/dbConnectionTasks";
 
 import Button from './Button';
 
-export default function MyCamera( {navigation, userId, taskId} ) {
+export default function MyCamera( {navigation, userId, taskId, taskTitle} ) {
   const { tasks, getTasksByUserId, updateStatusTaskByTaskIdAndUserId } = dbConnectionTasks();
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
   const [image, setImage] = useState(null);
@@ -39,13 +39,13 @@ export default function MyCamera( {navigation, userId, taskId} ) {
     if (image) {
       try {
         const asset = await MediaLibrary.createAssetAsync(image);
-        const filename = image.split('/').pop();
+        const filename = taskTitle.replace(/\s/g, '_') + '.jpg';
         const response = await fetch(image);
         const blob = await response.blob();
         const ref = firebase.storage().ref().child(`images/user_id_${userId}/${filename}`);
         await ref.put(blob);
         setImage(null);
-        updateStatusTaskByTaskIdAndUserId(userId, taskId, 'pending');
+        await updateStatusTaskByTaskIdAndUserId(userId, taskId, 'pending');
         navigation.goBack()
       } catch (error) {
         console.error(error);

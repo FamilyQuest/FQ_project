@@ -1,29 +1,49 @@
-// import React from 'react';
+import React from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import Task from './Task';
 
-import dbConnectionUsers from './DataBase/dbConnectionUsers';
 import dbConnectionTasks from "./DataBase/dbConnectionTasks";
+import dbConnectionUsers from "./DataBase/dbConnectionUsers";
 
-const SubHeader = ({navigation,userId}) => {
-  const { users, getUserById, getUserByUsername, confirmLogIn } = dbConnectionUsers();
-  const { tasks, getTasksByUserId, updateStatusTaskByTaskIdAndUserId } = dbConnectionTasks();
+const SubHeader = ({ navigation, userId }) => {
+  const { getTasksByUserId, getTasksByAdminId } = dbConnectionTasks();
+  const { getUserById } = dbConnectionUsers();
+  const user = getUserById(userId);
+  let tasksArray = [];
+  if (user) {
+    if(user.userType === 'admin'){
+       tasksArray = getTasksByAdminId(userId);
+    }else{
+       tasksArray = getTasksByUserId(userId);
+    }
+  }
 
-  const tasksArray = getTasksByUserId(userId);
   return (
     <View style={styles.container}>
-        <Text style={styles.sectionTitle}>Welcome Back!</Text>
-        <Text style={styles.sectionSubTitle}>Today's Tasks </Text>
-        <View style={{height: "60%"}}>
-          <ScrollView showsVerticalScrollIndicator={false}
-                      showsHorizontalScrollIndicator={false}
-                      contentContainerStyle={styles.scrollViewContent}
-          >
-            {tasksArray.map((task, index) => (
-              <Task navigation={navigation} key={index} taskId={task.id} text={task.title} time={task.time} points={task.points} category={task.category} description={task.description} status={task.status} userId={userId}/>
-            ))}
+      <Text style={styles.sectionTitle}>Welcome Back!</Text>
+      <Text style={styles.sectionSubTitle}>Today's Tasks </Text>
+      <View style={{ height: "60%" }}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.scrollViewContent}
+        >
+          {tasksArray.map((task, index) => (
+            <Task
+              navigation={navigation}
+              key={index}
+              taskId={task.id}
+              text={task.title}
+              time={task.time}
+              points={task.points}
+              category={task.category}
+              description={task.description}
+              status={task.status}
+              userId={userId}
+            />
+          ))}
         </ScrollView>
-        </View>
+      </View>
     </View>
   );
 };
@@ -42,15 +62,14 @@ const styles = StyleSheet.create({
     marginTop: 20,
     color: '#363636',
     fontWeight: 'bold',
-    alignSelf:'center',
+    alignSelf: 'center',
   },
   sectionSubTitle: {
     fontSize: 20,
     color: '#363636',
     fontWeight: 'bold',
-    alignSelf:'center',
-    marginVertical:10,
-    
+    alignSelf: 'center',
+    marginVertical: 10,
   },
 });
 

@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(0, 0, 0, 0.5)',
         
     },
-    modalContent: {
+    childModalContent: {
         backgroundColor: '#fff',
         width: '90%',
         height: '70%',
@@ -83,10 +83,24 @@ const styles = StyleSheet.create({
         borderWidth:6,
         flexDirection:'column',
     },
+    adminModalContent: {
+        backgroundColor: '#fff',
+        width: '90%',
+        height: '70%',
+        paddingHorizontal:'5%',
+        paddingVertical:'5%',
+        borderRadius: 10,
+        alignItems: 'center',
+        justifyContent:'space-between',
+        borderColor:'#8DE1D5',
+        borderWidth:6,
+        flexDirection:'column',
+    },
     buttonContainer:{
         width:"90%",
         flexDirection:'row',
         justifyContent:'space-between',
+        marginBottom:15,
     },
     modalTextContainer:{
         width:'100%',
@@ -131,6 +145,17 @@ const styles = StyleSheet.create({
     textBtn: {
         fontSize: 16,
         fontWeight: 'bold',
+    },
+    imageBox: {
+        minWidth: '100%',
+        width: '100%',
+        height: '50%',
+        backgroundColor: '#fff',
+        borderWidth: 3,
+        borderColor: '#8DE1D5',
+        borderStyle: 'dashed',
+        borderRadius: 10,
+        marginVertical: 20,
     }
 });
 

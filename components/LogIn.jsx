@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Image, View, Text, TextInput, TouchableOpacity, StatusBar } from 'react-native';
 import Checkbox from 'expo-checkbox';
+import { useFocusEffect } from '@react-navigation/native'; // Import useFocusEffect
 
 import dbConnectionUsers from './DataBase/dbConnectionUsers';
 import styles from './logIn.style';
@@ -11,21 +12,25 @@ const Login = ({ navigation }) => {
   const [password, setPassword] = useState('');
   const { users, getUserById, getUserByUsername, confirmLogIn } = dbConnectionUsers();
 
-
   const handleLogin = () => {
     console.log('Username:', username);
     console.log('Email:', email);
     console.log('Password:', password);
-    // console.log('Users:', users);
-    // console.log('User by ID:', getUserById(1));
-    
-    // console.log('User by Username:', getUserByUsername('john_doe'));
     if(confirmLogIn(username, password) === true){
       const userId = getUserByUsername(username)['id'];
       navigation.navigate("Home", {userId: userId});
     }
-    // console.log(confirmLogIn(username, password));
   };
+
+  // Use useFocusEffect to clear fields when screen gains focus
+  useFocusEffect(
+    React.useCallback(() => {
+      // Clear fields when screen gains focus
+      setUsername('');
+      setEmail('');
+      setPassword('');
+    }, [])
+  );
 
   return (
     <View style={styles.container}>
