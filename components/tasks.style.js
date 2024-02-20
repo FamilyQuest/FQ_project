@@ -156,7 +156,14 @@ const styles = StyleSheet.create({
         borderStyle: 'dashed',
         borderRadius: 10,
         marginVertical: 20,
-    }
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    image: {
+        width: '95%',
+        height: '95%',
+        borderRadius: 10,
+    },
 });
 
 export default styles;

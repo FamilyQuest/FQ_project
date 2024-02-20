@@ -10,12 +10,14 @@ import styles from './tasks.style';
 const Task = (props) => {
     const [childModalVisible, setChildModalVisible] = useState(false);
     const [adminModalVisible, setAdminModalVisible] = useState(false);
-    const { getUserById } = dbConnectionUsers();
-    const { getUserIdByTaskId } = dbConnectionTasks();
+    const [img, setImg] = useState('../assets/Empty.png');
+    const { getUserById, updatePointsByUserId } = dbConnectionUsers();
+    const { getUserIdByTaskId, updateStatusTaskByTaskIdAndUserId } = dbConnectionTasks();
     const [statusColor, setStatusColor] = useState({
         'in progress': '#E4E4E4',
         'pending': '#ffd166',
         'done': '#57cc99',
+        'to fix': '#ff6b6b'
     });
 
     const user = getUserById(props.userId);
@@ -28,6 +30,7 @@ const Task = (props) => {
     }
 
     const openModal = () => {
+        if(props.status === 'done') return;
         if (user && user.userType === 'admin') {
             setAdminModalVisible(true);
         } else {
@@ -45,16 +48,32 @@ const Task = (props) => {
             props.navigation.navigate("Camera", { userId: props.userId, taskId: props.taskId, taskTitle: props.text });
         }
     }
-    if (taskUser) {
-        firebase.storage().ref().child(`images/user_id_${taskUser.userId}/${props.text.replace(/\s/g, '_')}.jpg`).getDownloadURL().then((url) => {
-            const img = url;
-            console.log(img);
+
+    const AcceptTask = () => {
+        if (user && user.userType === 'admin') {
+            updateStatusTaskByTaskIdAndUserId(props.userId, props.taskId, 'done');
+            updatePointsByUserId(props.userId, user.Points + props.points);
+            closeModal();
         }
-        ).catch((error) => {
-            return '';
-        });
     }
 
+    const DeclineTask = () => {
+        if (user && user.userType === 'admin') {
+            updateStatusTaskByTaskIdAndUserId(props.userId, props.taskId, 'to fix');
+            closeModal();
+        }
+    }
+
+    if (taskUser && props.status === 'pending') {
+        firebase.storage().ref().child(`images/user_id_${taskUser.id}/${props.text.replace(/\s/g, '_')}.jpg`)
+            .getDownloadURL()
+            .then((url) => {
+                setImg(url); // Set the image URL using state
+            })
+            .catch((error) => {
+                console.error("Error fetching image URL:", error);
+            });
+    }
     return (
         <View style={styles.container}>
             <StatusBar backgroundColor={'#A4E7DD'} barStyle={'dark-content'} />
@@ -132,14 +151,17 @@ const Task = (props) => {
                         )}
 
                         <View style={styles.imageBox}>
-
+                            <Image
+                                source={{ uri: img }}
+                                style={styles.image}
+                            />
                         </View>
                         <View style={styles.buttonContainer}>
-                            <TouchableOpacity style={styles.Btn1} onPress={closeModal}>
-                                <Text style={styles.textBtn}>Not yet</Text>
+                            <TouchableOpacity style={styles.Btn1} onPress={DeclineTask}>
+                                <Text style={styles.textBtn}>Decline</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.Btn2} onPress={openCamera}>
-                                <Text style={styles.textBtn}>Finished</Text>
+                            <TouchableOpacity style={styles.Btn2} onPress={AcceptTask}>
+                                <Text style={styles.textBtn}>Accept</Text>
                             </TouchableOpacity>
                         </View>
                         <TouchableOpacity style={styles.Btn1} onPress={closeModal}>

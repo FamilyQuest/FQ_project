@@ -45,7 +45,23 @@ const Login = ({ navigation }) => {
           onChangeText={setUsername}
           returnKeyType="next"
           blurOnSubmit={false}
+          onSubmitEditing={() => { passwordInput.focus(); }}
+        />
+        <View style={styles.empty} />
+      </View>
+      
+      <View style={styles.inputContainer}>
+        <Image style={styles.inputLogo} source={require(`../assets/LogIn/Pass.png`)} />
+        <TextInput
+          style={styles.input}
+          placeholder='Password'
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry={true}
+          ref={(input) => { passwordInput = input; }}
           onSubmitEditing={() => { emailInput.focus(); }}
+          returnKeyType="next"
+          blurOnSubmit={false}
         />
         <View style={styles.empty} />
       </View>
@@ -57,22 +73,6 @@ const Login = ({ navigation }) => {
           value={email}
           onChangeText={setEmail}
           ref={(input) => { emailInput = input; }}
-          returnKeyType="next"
-          onSubmitEditing={() => { passwordInput.focus(); }}
-          blurOnSubmit={false}
-        />
-        <View style={styles.empty} />
-      </View>
-      <View style={styles.inputContainer}>
-        <Image style={styles.inputLogo} source={require(`../assets/LogIn/Pass.png`)} />
-        <TextInput
-          style={styles.input}
-          placeholder='Password'
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry={true}
-          ref={(input) => { passwordInput = input; }}
-
         />
         <View style={styles.empty} />
       </View>
