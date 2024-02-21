@@ -15,7 +15,7 @@ const HomeScreen = ({route,navigation}) => {
     <ImageBackground
       style={{height: "100%",width: "100%"}}
       source={require('../assets/Backgrounds/bg1.png')}>
-      <Header navigation={navigation}/>
+      <Header navigation={navigation} screenName={'Login'}/>
       <View style={{height: "100%",width: "100%"}}>
         <SubHeader navigation={navigation} userId={userId} />
       </View>

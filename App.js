@@ -27,6 +27,8 @@ export default function App() {
   const responseListener = useRef();
   const [expoPushToken, setExpoPushToken] = useState(null);
   const [notification, setNotification] = useState(false);
+  const { getTasksByUserId, getTasksByAdminId } = dbConnectionTasks();
+  const { getUserById } = dbConnectionUsers();
 
   useEffect(() => {
     registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
@@ -50,43 +52,52 @@ export default function App() {
 
   // Function to periodically check for tasks
   const checkForTasks = () => {
-    AsyncStorage.getItem('userId').then(userId => {
-      if (userId) {
-        checkTasks(userId);
-      }
-    });
+    // console.log('Checking for tasks');
+    // AsyncStorage.getItem('userId').then(userId => {
+    //   if (userId) {
+    //     console.log('userId: ', userId);
+    //     const userTasks = getTasksByAdminId(userId);
+    //     console.log('userTasks: ', userTasks);
+    //     if(userTasks){
+    //       console.log('here');
+
+    //     }
+    //   }
+    // });
   };
 
-  // Function to check for changed tasks
-  const checkTasks = async (userId) => {
-    console.log("this is my before test"); // it gets stuck here
-    const { getTasksByAdminId } = dbConnectionTasks();
-    console.log("this is my before test v2");
-    const { getUserById } = dbConnectionUsers();
-    console.log("this is my before test v1");
-    const user = getUserById(userId);
-    let tasksArray = [];
+
+
+  // // Function to check for changed tasks
+  // const checkTasks = async (userId) => {
+  //   console.log("this is my before test"); // it gets stuck here
+  //   const { getTasksByAdminId } = dbConnectionTasks();
+  //   console.log("this is my before test v2");
+  //   const { getUserById } = dbConnectionUsers();
+  //   console.log("this is my before test v1");
+  //   const user = getUserById(userId);
+  //   let tasksArray = [];
    
-    if (user) {
-      console.log("this is my test", user);
-      if (user.userType === 'admin') {
-        tasksArray = getTasksByAdminId(userId);
-      } 
-      if (tasksHaveChanged(tasksArray)) {
-        await schedulePushNotification();
-      }
-    }
-  };
+  //   if (user) {
+  //     console.log("this is my test", user);
+  //     if (user.userType === 'admin') {
+  //       tasksArray = getTasksByAdminId(userId);
+  //     } 
+  //     if (tasksHaveChanged(tasksArray)) {
+  //       await schedulePushNotification();
+  //     }
+  //   }
+  // };
 
-  // Function to check if tasks have changed
-  const tasksHaveChanged = (newTasksArray) => {
-    for (const task of newTasksArray) {
-      if (task.status === 'pending') {
-        return true; 
-      }
-    }
-    return false; 
-  };
+  // // Function to check if tasks have changed
+  // const tasksHaveChanged = (newTasksArray) => {
+  //   for (const task of newTasksArray) {
+  //     if (task.status === 'pending') {
+  //       return true; 
+  //     }
+  //   }
+  //   return false; 
+  // };
 
   return (
     <NavigationContainer>
