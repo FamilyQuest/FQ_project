@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Image, View, Text, TextInput, TouchableOpacity, StatusBar } from 'react-native';
 import Checkbox from 'expo-checkbox';
 import { useFocusEffect } from '@react-navigation/native'; // Import useFocusEffect
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import dbConnectionUsers from './DataBase/dbConnectionUsers';
 import styles from './logIn.style';
 
@@ -18,6 +18,8 @@ const Login = ({ navigation }) => {
     console.log('Password:', password);
     if(confirmLogIn(username, password) === true){
       const userId = getUserByUsername(username)['id'];
+      console.log("this is my test",userId);
+      AsyncStorage.setItem('userId', JSON.stringify(userId));
       navigation.navigate("Home", {userId: userId});
     }
   };
