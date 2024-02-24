@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "template",
-    "slug": "template",
+    "name": "alpha",
+    "slug": "alpha",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -22,14 +22,14 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.eido321.template"
+      "package": "com.eido321.alpha"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "extra": {
       "eas": {
-        "projectId": "9318aaba-1ba2-4b13-9350-1cab77d19dbe"
+        "projectId": "55fb3985-ea61-4e2b-8eef-a70826daf5d3"
       }
     }
   }
