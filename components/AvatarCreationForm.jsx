@@ -13,14 +13,15 @@ import Header from './Page-Format/Header';
 import Footer from './Page-Format/Footer';
 
 const AvatarCreationForm = () => {
-  const [hairStyle, setHairStyle] = useState('short01');
-  const [hairColor, setHairColor] = useState('000000');
-  const [mouthStyle, setMouthStyle] = useState('variant01');
-  const [glassesStyle, setGlassesStyle] = useState('');
-  const [eyesStyle, setEyesStyle] = useState('variant01');
-  const [eyesBrowsStyle, setEyesBrowsStyle] = useState('variant02');
+  const [hairStyle, setHairStyle] = useState('shortFlat');
+  const [hairColor, setHairColor] = useState('000000');     
+  const [mouthStyle, setMouthStyle] = useState('default'); 
+  const [clothingColorStyle, setClothingColorStyle] = useState('3c4f5c');
+  const [eyesStyle, setEyesStyle] = useState('default');
+  const [eyesBrowsStyle, setEyesBrowsStyle] = useState('default');
   const [skinColorStyle, setSkinColorStyle] = useState('f2d3b1');
-  const [earringsStyle, setEarringsStyle] = useState('');
+  const [clothingStyle, setClothingStyle] = useState('hoodie');
+
   const [showAvatar, setShowAvatar] = useState(true);
 
   return (
@@ -34,16 +35,14 @@ const AvatarCreationForm = () => {
       {showAvatar && (
         <AvatarCreation
           params={{
-            hair: [hairStyle],
+            top: [hairStyle],
             hairColor: [hairColor],
             mouth: [mouthStyle],
             skinColor: [skinColorStyle],
-            glasses: [glassesStyle],
-            glassesProbability: 100,
             eyes: [eyesStyle],
             eyebrows: [eyesBrowsStyle],
-            earringsProbability: 100,
-            earrings: [earringsStyle],
+            clothing: [clothingStyle],
+            clothesColor: [clothingColorStyle],
           }}
           name={"Eido Peretz"}
           age={11}
@@ -57,16 +56,16 @@ const AvatarCreationForm = () => {
         setHairColor={setHairColor}
         mouthStyle={mouthStyle}
         setMouthStyle={setMouthStyle}
-        glassesStyle={glassesStyle}
-        setGlassesStyle={setGlassesStyle}
+        clothingColorStyle={clothingColorStyle}
+        setClothingColorStyle={setClothingColorStyle}
         eyesStyle={eyesStyle}
         setEyesStyle={setEyesStyle}
         eyesBrowsStyle={eyesBrowsStyle}
         setEyesBrowsStyle={setEyesBrowsStyle}
         skinColorStyle={skinColorStyle}
         setSkinColorStyle={setSkinColorStyle}
-        earringsStyle={earringsStyle}
-        setEarringsStyle={setEarringsStyle}
+        clothingStyle={clothingStyle}
+        setClothingStyle={setClothingStyle}
         showAvatar={showAvatar}
         setShowAvatar={setShowAvatar}
       />
