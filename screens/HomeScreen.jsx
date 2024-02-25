@@ -18,7 +18,7 @@ const HomeScreen = ({route,navigation}) => {
       <View style={{height: "100%",width: "100%"}}>
         <HomePage navigation={navigation} userId={userId} />
       </View>
-      <Footer/>
+      <Footer userId={userId} navigation={navigation} screenName={'Home'}/>
     </ImageBackground>
 
   );

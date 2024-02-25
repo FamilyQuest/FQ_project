@@ -26,10 +26,6 @@ const styles = StyleSheet.create({
         height: 30,
         opacity: 0.5,
     },
-    selectedFooterIcon: {
-        width: 30,
-        height: 30,
-    },
     createButton: {
         width: 45,
         height: 45,

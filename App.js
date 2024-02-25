@@ -1,6 +1,7 @@
 import HomeScreen from './screens/HomeScreen';
 import LoginScreen from './screens/LoginScreen';
 import CameraScreen from './screens/CameraScreen';
+import AvatarScreen from './screens/AvatarScreen';
 // import { useState, useEffect, useRef } from 'react';
 // import { Text, View, Button, Platform } from 'react-native';
 // import * as Device from 'expo-device';
@@ -105,6 +106,7 @@ export default function App() {
         <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Camera" component={CameraScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="Avatar" component={AvatarScreen} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
