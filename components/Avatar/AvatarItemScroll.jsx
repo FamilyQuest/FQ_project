@@ -156,6 +156,7 @@ const AvatarItemScroll = ({
   };
 
   const { items, getItemsByUserId } = dbConnectionItems();
+  let dataJson = null
   const userItems = getItemsByUserId(userId);
   if (userItems) {
     dataJson = userItems['itemsArray']
@@ -173,7 +174,7 @@ const AvatarItemScroll = ({
         onTouchStart={(e) => e.stopPropagation()}
         onTouchMove={(e) => e.stopPropagation()}>
         <View>
-          {dataJson.Top.reduce((rows, key, index) => (index % 3 === 0 ? rows.push([key]) : rows[rows.length - 1].push(key)) && rows, []).map((row, index) => (
+          {dataJson && dataJson.Top.reduce((rows, key, index) => (index % 3 === 0 ? rows.push([key]) : rows[rows.length - 1].push(key)) && rows, []).map((row, index) => (
             <View key={index} style={styles.rowContainer}>
               {row.map((item, index) => (
                 <TouchableOpacity key={index} style={styles.item} onPress={() => handleHairStyleChange(item.name)}>
