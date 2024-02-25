@@ -193,9 +193,6 @@ const AvatarItemScroll = ({
             </View>
           ))}
         </View>
-
-
-
       </ScrollView>
 
       )}
@@ -205,7 +202,7 @@ const AvatarItemScroll = ({
         onTouchMove={(e) => e.stopPropagation()}>
 
         <View>
-          {dataJson.HairColor.reduce((rows, key, index) => (index % 3 === 0 ? rows.push([key]) : rows[rows.length - 1].push(key)) && rows, []).map((row, index) => (
+          {dataJson && dataJson.HairColor.reduce((rows, key, index) => (index % 3 === 0 ? rows.push([key]) : rows[rows.length - 1].push(key)) && rows, []).map((row, index) => (
             <View key={index} style={styles.rowContainer}>
               {row.map((item, index) => (
                 <TouchableOpacity key={index} style={styles.item} onPress={() => handleHairColorStyleChange(item.name)}>
@@ -230,10 +227,8 @@ const AvatarItemScroll = ({
         showsVerticalScrollIndicator={false}
         onTouchStart={(e) => e.stopPropagation()}
         onTouchMove={(e) => e.stopPropagation()}>
-
-
         <View>
-          {dataJson.SkinColor.reduce((rows, key, index) => (index % 3 === 0 ? rows.push([key]) : rows[rows.length - 1].push(key)) && rows, []).map((row, index) => (
+          {dataJson && dataJson.SkinColor.reduce((rows, key, index) => (index % 3 === 0 ? rows.push([key]) : rows[rows.length - 1].push(key)) && rows, []).map((row, index) => (
             <View key={index} style={styles.rowContainer}>
               {row.map((item, index) => (
                 <TouchableOpacity key={index} style={styles.item} onPress={() => handleSkinColorStyleChange(item.name)}>
@@ -261,7 +256,7 @@ const AvatarItemScroll = ({
         onTouchMove={(e) => e.stopPropagation()}>
 
         <View>
-          {dataJson.Eyes.reduce((rows, key, index) => (index % 3 === 0 ? rows.push([key]) : rows[rows.length - 1].push(key)) && rows, []).map((row, index) => (
+          {dataJson && dataJson.Eyes.reduce((rows, key, index) => (index % 3 === 0 ? rows.push([key]) : rows[rows.length - 1].push(key)) && rows, []).map((row, index) => (
             <View key={index} style={styles.rowContainer}>
               {row.map((item, index) => (
                 <TouchableOpacity key={index} style={styles.item} onPress={() => handleEyesStyleChange(item.name)}>
@@ -280,7 +275,6 @@ const AvatarItemScroll = ({
             </View>
           ))}
         </View>
-
       </ScrollView>
 
       )}
@@ -289,7 +283,7 @@ const AvatarItemScroll = ({
         onTouchStart={(e) => e.stopPropagation()}
         onTouchMove={(e) => e.stopPropagation()}>
         <View>
-          {dataJson.Eyebrows.reduce((rows, key, index) => (index % 3 === 0 ? rows.push([key]) : rows[rows.length - 1].push(key)) && rows, []).map((row, index) => (
+          {dataJson && dataJson.Eyebrows.reduce((rows, key, index) => (index % 3 === 0 ? rows.push([key]) : rows[rows.length - 1].push(key)) && rows, []).map((row, index) => (
             <View key={index} style={styles.rowContainer}>
               {row.map((item, index) => (
                 <TouchableOpacity key={index} style={styles.item} onPress={() => handleEyesBrowsStyleChange(item.name)}>
@@ -315,7 +309,7 @@ const AvatarItemScroll = ({
         onTouchStart={(e) => e.stopPropagation()}
         onTouchMove={(e) => e.stopPropagation()}>
         <View>
-          {dataJson.Mouth.reduce((rows, key, index) => (index % 3 === 0 ? rows.push([key]) : rows[rows.length - 1].push(key)) && rows, []).map((row, index) => (
+          {dataJson && dataJson.Mouth.reduce((rows, key, index) => (index % 3 === 0 ? rows.push([key]) : rows[rows.length - 1].push(key)) && rows, []).map((row, index) => (
             <View key={index} style={styles.rowContainer}>
               {row.map((item, index) => (
                 <TouchableOpacity key={index} style={styles.item} onPress={() => handleMouthStyleChange(item.name)}>
@@ -341,7 +335,7 @@ const AvatarItemScroll = ({
         onTouchStart={(e) => e.stopPropagation()}
         onTouchMove={(e) => e.stopPropagation()}>
         <View>
-          {dataJson.ClothingColor.reduce((rows, key, index) => (index % 3 === 0 ? rows.push([key]) : rows[rows.length - 1].push(key)) && rows, []).map((row, index) => (
+          {dataJson && dataJson.ClothingColor.reduce((rows, key, index) => (index % 3 === 0 ? rows.push([key]) : rows[rows.length - 1].push(key)) && rows, []).map((row, index) => (
             <View key={index} style={styles.rowContainer}>
               {row.map((item, index) => (
                 <TouchableOpacity key={index} style={styles.item} onPress={() => handleClothingColorStyleChange(item.name)}>
@@ -367,7 +361,7 @@ const AvatarItemScroll = ({
         onTouchStart={(e) => e.stopPropagation()}
         onTouchMove={(e) => e.stopPropagation()}>
         <View>
-          {dataJson.Clothing.reduce((rows, key, index) => (index % 3 === 0 ? rows.push([key]) : rows[rows.length - 1].push(key)) && rows, []).map((row, index) => (
+          {dataJson && dataJson.Clothing.reduce((rows, key, index) => (index % 3 === 0 ? rows.push([key]) : rows[rows.length - 1].push(key)) && rows, []).map((row, index) => (
             <View key={index} style={styles.rowContainer}>
               {row.map((item, index) => (
                 <TouchableOpacity key={index} style={styles.item} onPress={() => handleClothesStyleChange(item.name)}>

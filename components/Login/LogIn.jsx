@@ -12,16 +12,19 @@ I18nManager.allowRTL(false);
 const Login = ({ navigation }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [incorrect, setIncorrect] = useState(false);
   const { users, getUserById, getUserByUsername, confirmLogIn } = dbConnectionUsers();
 
   const handleLogin = () => {
     console.log('Username:', username);
     console.log('Password:', password);
-    if(confirmLogIn(username, password) === true){
+    if (confirmLogIn(username, password) === true) {
       const userId = getUserByUsername(username)['id'];
       // console.log("this is my test",userId);
       // AsyncStorage.setItem('userId', JSON.stringify(userId));
-      navigation.navigate("Home", {userId: userId});
+      navigation.navigate("Home", { userId: userId });
+    } else {
+      setIncorrect(true);
     }
   };
 
@@ -42,7 +45,7 @@ const Login = ({ navigation }) => {
         <Image style={styles.inputLogo} source={require(`../../assets/LogIn/User.png`)} />
         <TextInput
           style={styles.input}
-          placeholder='Username'
+          placeholder='* Username'
           value={username}
           onChangeText={setUsername}
           returnKeyType="next"
@@ -51,12 +54,12 @@ const Login = ({ navigation }) => {
         />
         <View style={styles.empty} />
       </View>
-      
+
       <View style={styles.inputContainer}>
         <Image style={styles.inputLogo} source={require(`../../assets/LogIn/Pass.png`)} />
         <TextInput
           style={styles.input}
-          placeholder='Password'
+          placeholder='* Password'
           value={password}
           onChangeText={setPassword}
           secureTextEntry={true}
@@ -64,6 +67,11 @@ const Login = ({ navigation }) => {
         />
         <View style={styles.empty} />
       </View>
+      {incorrect && (
+        <View style={styles.incorrectBox}>
+          <Text style={styles.incorrectText}>Incorrect username or password</Text>
+        </View>
+      )}
       <View style={styles.logInContainer}>
         <View style={styles.rememberContainer}>
           <Checkbox style={styles.checkbox} />

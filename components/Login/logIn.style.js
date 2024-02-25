@@ -93,6 +93,17 @@ const styles = StyleSheet.create({
         height: '100%',
         alignItems: 'center'
     },
+    incorrectText: {
+        color: '#B30400',
+        fontSize: 12,
+        fontWeight: 'bold',
+        margin: 5,
+    },
+    incorrectBox: {
+        width: '70%',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
 });
 
 export default styles;
