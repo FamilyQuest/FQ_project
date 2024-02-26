@@ -37,7 +37,7 @@ function TaskCreation() {
         const counterRef = ref(db, 'counters/taskCount');
         get(counterRef).then((snapshot) => {
             if (snapshot.exists()) {
-                setCurrentCount(snapshot.val().count);
+                setCurrentCount(5);
             } else {
                 setCurrentCount(5);
             }
@@ -53,13 +53,14 @@ function TaskCreation() {
             console.log('Category value:', values.category);
             const tasksRef = ref(db, `tasks/${newCount}`);
             await set(tasksRef, {
+                admin_id: 'null',
                 category: selected,
-                title: values.title,
-                points: values.points,
                 description: values.Description,
+                id: newCount+1,
+                points: values.points,
                 status: 'pending',
                 time: formattedTime,
-                id: newCount+1,
+                title: values.title,
                 user_id: 'null'
             });
 

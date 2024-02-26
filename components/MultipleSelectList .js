@@ -25,7 +25,7 @@ const useUserData = () => {
       try {
         const snapshot = await get(ref(db, 'users'));
         const userData = snapshot.val();
-        const userDataArray = Object.entries(userData).map(([userId, userData]) => ({ userId, ...userData }));
+        const userDataArray = Object.entries(userData).map(([id, userData]) => ({ id, ...userData }));
         setUserData(userDataArray);
       } catch (error) {
         console.error('Error fetching data: ', error);
@@ -41,8 +41,7 @@ const useUserData = () => {
 const MySelectComponent = () => {
   const [selected, setSelected] = useState([]);
   const userData = useUserData();
-
-  const firstNames = userData.map(user => ({ key: user.userId, value: user.first_name }));
+  const firstNames = userData.map(user => ({ key: user.id, value: `${user.first_name} (${user.id})` }));
 
   const boxStyles = {
     backgroundColor: '#fff',
@@ -50,8 +49,8 @@ const MySelectComponent = () => {
     borderColor: '#8DE1D5',
     borderWidth: 3,
     borderRadius: 10,
-    width:'100%',
-    marginBottom:'10%',
+    width: '100%',
+    marginBottom: '10%',
   };
 
   return (
@@ -62,9 +61,9 @@ const MySelectComponent = () => {
       label="Assign To"
       placeholder='Assign To'
       boxStyles={boxStyles}
-      inputStyles={{fontSize:18}}
+      inputStyles={{fontSize: 18}}
     />
   );
 };
 
-export { MySelectComponent};
+export { MySelectComponent };
