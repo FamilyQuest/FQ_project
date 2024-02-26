@@ -23,7 +23,7 @@ const CustomSelectList = ({ setSelected }) => {
 
   return (
     <SelectList setSelected={setSelected}
-      data={data} // Changed data to customData
+      data={data} 
       save="value" 
       boxStyles={boxStyles}
       placeholder='Category'

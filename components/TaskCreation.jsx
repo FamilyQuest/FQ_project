@@ -1,46 +1,103 @@
-import React, { useState } from 'react';
-import { Button, TextInput, Text, View, ImageBackground, Dimensions, TouchableOpacity } from 'react-native';
-import { ScrollView, StatusBar } from "react-native";
+import React, { useState, useEffect } from 'react';
+import { TextInput, Text, View, TouchableOpacity } from 'react-native';
+import { StatusBar } from "react-native";
 import { Formik } from 'formik';
-// import DropDownPicker from 'react-native-dropdown-picker';
+import { initializeApp } from "firebase/app";
+import { getDatabase, ref, push, set, get } from "firebase/database";
 import CustomSelectList from './dropDown';
-import MySelectComponent from './MultipleSelectList ';
-
-
 import styles from './taskCreation.style';
+import {MySelectComponent} from './MultipleSelectList ';
+
+
+const firebaseConfig = {
+    apiKey: "AIzaSyAEhAIE9OBu4EIpaW2Xff-wuzNVYrx6Iow",
+    authDomain: "familyquest-43f50.firebaseapp.com",
+    databaseURL: "https://familyquest-43f50-default-rtdb.firebaseio.com",
+    projectId: "familyquest-43f50",
+    storageBucket: "familyquest-43f50.appspot.com",
+    messagingSenderId: "435404741742",
+    appId: "1:435404741742:web:e964f4ae7470e38fa11a7f",
+    measurementId: "G-VG2Z4F1K75"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+const currentTime = new Date();
+const hours = currentTime.getHours();
+const minutes = currentTime.getMinutes();
+const formattedHours = String(hours).padStart(2, '0');
+const formattedMinutes = String(minutes).padStart(2, '0');
+const formattedTime = `${formattedHours}:${formattedMinutes}`;
 
 function TaskCreation() {
-    const [assignToValue, setAssignToValue] = useState('');
-    const [categoryValue, setCategoryValue] = useState('');
-    const [selected, setSelected] = useState("");
+    const [selected, setSelected] = useState('');
+    const [currentCount, setCurrentCount] = useState(0);
+
+    useEffect(() => {
+        const counterRef = ref(db, 'counters/taskCount');
+        get(counterRef).then((snapshot) => {
+            if (snapshot.exists()) {
+                setCurrentCount(snapshot.val().count);
+            } else {
+                setCurrentCount(5);
+            }
+        }).catch((error) => {
+            console.error('Error retrieving counter:', error);
+        });
+    }, []);
+
+    const addTask = async (values) => {
+       
+        try {
+            const newCount = currentCount + 1;
+            console.log('Category value:', values.category);
+            const tasksRef = ref(db, `tasks/${newCount}`);
+            await set(tasksRef, {
+                category: selected,
+                title: values.title,
+                points: values.points,
+                description: values.Description,
+                status: 'pending',
+                time: formattedTime,
+                id: newCount+1,
+                user_id: 'null'
+            });
+
+            const counterRef = ref(db, 'counters/taskCount');
+            await set(counterRef, { count: newCount });
+
+            console.log('Task added successfully with ID:', newCount);
+            setCurrentCount(newCount);
+        } catch (error) {
+            console.error('Error adding task:', error);
+        }
+    };
+   
     return (
         <View>
             <StatusBar backgroundColor="#A4E7DD" barStyle="dark-content" />
             <Text style={styles.title}>New Task</Text>
-            <View style={styles.container} >
-                <Formik initialValues={{ TaskName: '', Assign: '', category: '', points: '', Description: '' }}
-                    onSubmit={(values) => {
-                        console.log(values);
-                    }}>
+            <View style={styles.container}>
+                <Formik initialValues={{ title: '', user_id: '',status: '', category: '', points: '', Description: '' }}
+                    onSubmit={(values) => addTask(values)}>
                     {(props) => (
                         <View style={styles.form}>
                             <TextInput
                                 style={styles.input}
                                 placeholder='Task Name'
                                 placeholderTextColor='black'
-                                onChangeText={props.handleChange('TaskName')}
-                                value={props.values.TaskName}
-
+                                onChangeText={props.handleChange('title')}
+                                value={props.values.title}
                             />
-                            <CustomSelectList setSelected={setSelected} />
+                        <CustomSelectList setSelected={setSelected} />
+                        <MySelectComponent />
                             <TextInput
                                 style={styles.input}
-                                placeholder='Points'
+                                placeholder='points'
                                 placeholderTextColor='black'
-                                onChangeText={props.handleChange('Points')}
-                                value={props.values.Points}
+                                onChangeText={props.handleChange('points')}
+                                value={props.values.points}
                             />
-                            <MySelectComponent />
                             <TextInput
                                 style={[styles.input, styles.multilineInput]}
                                 multiline
@@ -49,7 +106,6 @@ function TaskCreation() {
                                 onChangeText={props.handleChange('Description')}
                                 value={props.values.Description}
                             />
-
                             <TouchableOpacity
                                 style={styles.buttonContainer}
                                 color='#FFFFFF'
@@ -57,6 +113,7 @@ function TaskCreation() {
                             >
                                 <Text style={styles.btnText}>Add now</Text>
                             </TouchableOpacity>
+                           
                         </View>
                     )}
                 </Formik>
