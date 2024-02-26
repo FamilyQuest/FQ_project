@@ -35,7 +35,7 @@ function Footer({ userId, navigation, screenName }) {
         <TouchableOpacity onPress={() => navigation.navigate("Home", { userId: userId })}><Image style={[styles.footerIcon, { opacity: opc1 }]} source={require('../../assets/General/Home.png')} /></TouchableOpacity>
         <TouchableOpacity><Image style={[styles.footerIcon, { opacity: opc2 }]} source={require('../../assets/General/Achievements.png')} /></TouchableOpacity>
         <View style={styles.seperator} />
-        <TouchableOpacity><Image style={[styles.footerIcon, { opacity: opc3 }]} source={require('../../assets/General/Shop.png')} /></TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("Shop", { userId: userId })}><Image style={[styles.footerIcon, { opacity: opc3 }]} source={require('../../assets/General/Shop.png')} /></TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate("Avatar", {  userId: userId })}><Image style={[styles.footerIcon, { opacity: opc4 }]} source={require('../../assets/General/Profile.png')} /></TouchableOpacity>
       </View>
     </View>
