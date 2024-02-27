@@ -7,7 +7,8 @@ I18nManager.forceRTL(false);
 I18nManager.allowRTL(false);
 
 import AvatarCreation from '../Avatar/AvatarCreation';
-import AvatarItemScroll from '../Avatar/AvatarItemScroll';
+// import AvatarItemScroll from '../Avatar/AvatarItemScroll';
+import AvatarShopScroll from './AvatarShopScroll';
 import styles from './ShopCreation.style';
 
 const ShopCreation = ({ userId, navigation }) => {
@@ -31,13 +32,13 @@ const ShopCreation = ({ userId, navigation }) => {
       </View>
       <View style={styles.buttonsContainer}>
         <TouchableOpacity style={styles.Btn1}>
-          <Text style={styles.textBtn}>Decline</Text>
+          <Text style={styles.textBtn}>Virtual</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.Btn2}>
-          <Text style={styles.textBtn}>Accept</Text>
+          <Text style={styles.textBtn}>Physical</Text>
         </TouchableOpacity>
       </View>
-      <AvatarItemScroll
+      <AvatarShopScroll
         userId={userId}
         hairStyle={hairStyle}
         // setHairStyle={setHairStyle}
@@ -56,7 +57,7 @@ const ShopCreation = ({ userId, navigation }) => {
         clothingStyle={clothingStyle}
         // setClothingStyle={setClothingStyle}
         showAvatar={showAvatar}
-      // setShowAvatar={setShowAvatar}
+      setShowAvatar={setShowAvatar}
       />
     </View>
 

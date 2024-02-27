@@ -18,8 +18,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#8DE1D5',
         padding: 10,
         borderRadius: 35,
-        fontSize: 16,
-        fontWeight: 'bold',
     },
     Btn2: {
         width: '40%',
@@ -28,15 +26,17 @@ const styles = StyleSheet.create({
         backgroundColor: '#DAF4F0',
         padding: 10,
         borderRadius: 35,
+    },
+    textBtn:{
         fontSize: 16,
         fontWeight: 'bold',
     },
     buttonsContainer:{
         flexDirection:'row',
         marginVertical:"5%",
-        justifyContent:'space-between',
-        alignContent:'space-between',
+        justifyContent:'space-around',
         alignItems:'center',
+        width:"100%",
     },
     avatar: {
         width: 200,
