@@ -51,11 +51,9 @@ const dbConnectionAvatars = () => {
     }
   }
 
-
-
   function updateAvatarByUserId(userId, avatar) {
     const db = getDatabase();
-    const avatarRef = ref(db, `Avatars/${userId-1}`);
+    const avatarRef = ref(db, `Avatars/${userId - 1}`);
 
     set(avatarRef, avatar)
       .then(() => {
@@ -64,10 +62,39 @@ const dbConnectionAvatars = () => {
       .catch((error) => {
         console.error("Error updating avatar: ", error);
       });
-}
+  }
+
+  function newAvatarsKey() {
+    const lastAvatar = avatars[avatars.length - 1];
+    return lastAvatar.user_id + 1;
+  }
+
+  function addAvatar(userId) {
+    const newAvatarKey = newAvatarsKey();
+    const newAvatar = {
+      "Clothing": "hoodie",
+      "ClothingColor": "3c4f5c",
+      "Eyebrows": "frownNatural",
+      "Eyes": "default",
+      "HairColor": "000000",
+      "Mouth": "default",
+      "SkinColor": "f2d3b1",
+      "Top": "shortFlat",
+      "user_id": userId,
+    }
+  const db = getDatabase();
+  const avatarRef = ref(db, `Avatars/${newAvatarKey - 1}`);
+  set(avatarRef, newAvatar)
+    .then(() => {
+      console.log("Avatar added successfully");
+    })
+    .catch((error) => {
+      console.error("Error adding avatar: ", error);
+    });
+  }
 
 
-  return { avatars, getAvatarById, updateAvatarByUserId };
+  return { avatars, getAvatarById, updateAvatarByUserId, addAvatar, newAvatarsKey };
 }
 
 export default dbConnectionAvatars;

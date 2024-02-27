@@ -51,7 +51,72 @@ const dbConnectionItems = () => {
     }
   }
 
-  return { items, getItemsByUserId };
+  function newItemsKey() {
+    const lastItem = items[items.length - 1];
+    return lastItem.user_id + 1;
+  }
+
+  function addItems(userId){
+    const newItem = {
+      "itemsArray": {
+        "Clothing": [
+          {
+            "id": 1,
+            "name": "hoodie"
+          }
+        ],
+        "ClothingColor": [
+          {
+            "id": 1,
+            "name": "3c4f5c"
+          }
+        ],
+        "Eyebrows": [
+          {
+            "id": 1,
+            "name": "default"
+          }
+        ],
+        "Eyes": [
+          {
+            "id": 1,
+            "name": "default"
+          }
+        ],
+        "HairColor": [
+          {
+            "id": 1,
+            "name": "000000"
+          }
+        ],
+        "Mouth": [
+          {
+            "id": 1,
+            "name": "default"
+          }
+        ],
+        "SkinColor": [
+          {
+            "id": 1,
+            "name": "f2d3b1"
+          }
+        ],
+        "Top": [
+          {
+            "id": 1,
+            "name": "shortFlat"
+          }
+        ]
+      },
+      "user_id": userId
+    }
+    const db = getDatabase();
+    const newItemKey = newItemsKey();
+    set(ref(db, `items/${newItemKey - 1}`), newItem);
+  }
+
+
+  return { items, getItemsByUserId, addItems };
 
 }
 

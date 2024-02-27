@@ -23,7 +23,19 @@ const HomePage = ({ navigation, userId }) => {
     }
   }
 
+  if( tasksArray[0] === 'no tasks found'){
+    return (
+      <View style={styles.container}>
+        <Text style={styles.sectionTitle}>Welcome Back!</Text>
+        <View style={{ height: "60%",alignItems:'center',justifyContent:'center' }}>
+        <Text style={styles.sectionSubTitle}>No tasks found for today</Text>
+        </View>
+      </View>
+    );
+  }
   if (tasksArray.length === 0) {
+    
+
     return (
       <View style={[styles.container, styles.loadingContainer]}>
         <ActivityIndicator size="large" color="#FF6E6B" />

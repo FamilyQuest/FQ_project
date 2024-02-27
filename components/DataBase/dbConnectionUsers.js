@@ -83,16 +83,33 @@ const dbConnectionUsers = () => {
         return user;
       }
     });
-    setUsers(updatedUser); // Update local state
-    
+    setUsers(updatedUser); 
+
     const db = getDatabase();
     const userRef = ref(db, `users/${userId - 1}/Points`);
-    set(userRef, points) // Update only the status in the database
+    set(userRef, points) 
       .then(() => console.log("Task status updated successfully"))
       .catch((error) => console.error("Error updating task status:", error));
   }
 
-    return { users, getUserById, getUserByUsername, confirmLogIn, updatePointsByUserId };
+  function newUserKey() {
+    const lastUser = users[users.length - 1];
+    return lastUser.id + 1;
   }
 
-  export default dbConnectionUsers;
+  function addUser(newUser) {
+    const db = getDatabase();
+    const lastUser = users[users.length - 1];
+    const newUserKey = lastUser.id + 1;
+    console.log('New user key:', newUserKey);
+    newUserWithId = { ...newUser, id: newUserKey };
+    const userRef = ref(db, `users/${newUserKey-1}`);
+    set(userRef, newUserWithId)
+      .then(() => console.log("New user added successfully"))
+      .catch((error) => console.error("Error adding new user:", error));
+  }  
+
+  return { users, getUserById, getUserByUsername, confirmLogIn, updatePointsByUserId, addUser, newUserKey };
+}
+
+export default dbConnectionUsers;

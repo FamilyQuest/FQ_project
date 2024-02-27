@@ -66,7 +66,7 @@ const dbConnectionTasks = () => {
       return foundTasks;
     } else {
       console.log("No tasks found for user with ID " + userId);
-      return [];
+      return ['no tasks found'];
     }
   }
 
@@ -76,7 +76,7 @@ const dbConnectionTasks = () => {
       return foundTasks;
     } else {
       console.log("No tasks found for user with ID " + adminId);
-      return [];
+      return ['no tasks found'];
     }
   }
 
