@@ -162,85 +162,85 @@ const AvatarItemScroll = ({
 //     dataJson = shopItems;
 //     // console.log(dataJson);
 //   }
-if(shopItems){
-    console.log("my test: ",shopItems);
-}
+// if(shopItems){
+//     console.log("my test: ",shopItems);
+// }
 
- return(
-    <View>
-     {/* <View style={styles.formContainer}> */}
-    {/* {showLoading && (
-      <View style={styles.loading}>
-        <Image style={{ width: 100, height: 100 }} source={require('../../assets/Avatar-Shop/loading.gif')} />
-      </View>
-    )} */}
+//  return(
+  
+//       <View style={styles.formContainer}> 
+//      {showLoading && (
+//       <View style={styles.loading}>
+//         <Image style={{ width: 100, height: 100 }} source={require('../../assets/Avatar-Shop/loading.gif')} />
+//       </View>
+//     )} 
     
-  {showHairStylePage && shopItems && shopItems.Top && (
+//   {showHairStylePage && shopItems && shopItems.Top && (
     
-  <ScrollView style={styles.listContainer} showsVerticalScrollIndicator={false}>
-    <View>
+//   <ScrollView style={styles.listContainer} showsVerticalScrollIndicator={false}>
+//     <View>
         
-      {Object.values(shopItems.Top).map((item, index) => (
-        <TouchableOpacity key={index} style={styles.item} onPress={() => handleHairStyleChange(item.name)}>
-          <Avatar params={{
-            top: [item.name],
-            hairColor: [hairColor],
-            skinColor: [skinColorStyle],
-            clothing: [clothingStyle],
-            clothesColor: [clothingColorStyle],
-            mouth: [],
-            eyes: [],
-            eyebrows: [],
-          }} />
-        </TouchableOpacity>
-      ))}
-    </View>
-  </ScrollView>
-)}
+//       {Object.values(shopItems.Top).map((item, index) => (
+//         <TouchableOpacity key={index} style={styles.item} onPress={() => handleHairStyleChange(item.name)}>
+//           <Avatar params={{
+//             top: [item.name],
+//             hairColor: [hairColor],
+//             skinColor: [skinColorStyle],
+//             clothing: [clothingStyle],
+//             clothesColor: [clothingColorStyle],
+//             mouth: [],
+//             eyes: [],
+//             eyebrows: [],
+//           }} />
+//         </TouchableOpacity>
+//       ))}
+//     </View>
+//   </ScrollView>
+// )}
 
-   {/* </View> */}
-</View>
+//    </View> 
+
   
 
- )
-//   return (
-//     <View style={styles.formContainer}>
-//       {showLoading && (
-//         <View style={styles.loading}>
-//           <Image style={{ width: 100, height: 100 }} source={require('../../assets/Avatar-Shop/loading.gif')} />
-//         </View>
-//       )}
-//       {showHairStylePage && (<ScrollView style={styles.listContainer}
-//         showsVerticalScrollIndicator={false}
-//         onTouchStart={(e) => e.stopPropagation()}
-//         onTouchMove={(e) => e.stopPropagation()}>
-//         <View>
-//           {shopItems && shopItems.Top.reduce((rows, key, index) => (index % 3 === 0 ? rows.push([key]) : rows[rows.length - 1].push(key)) && rows, []).map((row, index) => (
-//             <View key={index} style={styles.rowContainer}>
-//               {row.map((item, index) => (
-//                 <TouchableOpacity key={index} style={styles.item} onPress={() => handleHairStyleChange(item.name)}>
-//                   <Avatar params={{
-//                     top: [item.name],
-//                     hairColor: [hairColor],
-//                     skinColor: [skinColorStyle],
-//                     clothing: [clothingStyle],
-//                     clothesColor: [clothingColorStyle],
-//                     mouth: [],
-//                     eyes: [],
-//                     eyebrows: [],
-//                   }} />
-//                 </TouchableOpacity>
-//               ))}
-//             </View>
-//           ))}
-//         </View>
+//  )
+  return (
+    <View style={styles.formContainer}>
+      {showLoading && (
+        <View style={styles.loading}>
+          <Image style={{ width: 100, height: 100 }} source={require('../../assets/Avatar-Shop/loading.gif')} />
+        </View>
+      )}
+      {showHairStylePage && (<ScrollView style={styles.listContainer}
+        showsVerticalScrollIndicator={false}
+        onTouchStart={(e) => e.stopPropagation()}
+        onTouchMove={(e) => e.stopPropagation()}>
+        <View>
+          {shopItems && shopItems.Top.reduce((rows, key, index) => (index % 3 === 0 ? rows.push([key]) : rows[rows.length - 1].push(key)) && rows, []).map((row, index) => (
+            <View key={index} style={styles.rowContainer}>
+              {row.map((item, index) => (
+                <TouchableOpacity key={index} style={styles.item} onPress={() => handleHairStyleChange(item.name)}>
+                  <Avatar params={{
+                    top: [item.name],
+                    hairColor: [hairColor],
+                    skinColor: [skinColorStyle],
+                    clothing: [clothingStyle],
+                    clothesColor: [clothingColorStyle],
+                    mouth: [],
+                    eyes: [],
+                    eyebrows: [],
+                  }} />
+                </TouchableOpacity>
+              ))}
+            </View>
+          ))}
+        </View>
 
 
 
-//       </ScrollView>
+      </ScrollView>
 
-//       )}
-      {/* {showHairColorStylePage && (<ScrollView style={styles.listContainer}
+      )}
+       {showHairColorStylePage && (<ScrollView style={styles.listContainer}
         showsVerticalScrollIndicator={false}
         onTouchStart={(e) => e.stopPropagation()}
         onTouchMove={(e) => e.stopPropagation()}>
@@ -472,9 +472,9 @@ if(shopItems){
           <Image style={styles.stylePickerImg} source={require('../../assets/Avatar-Shop/clothingColorStyle.png')} />
         </TouchableOpacity>
       </View>
-      )} */}
-//     </View>
-//   );
+      )} 
+    </View>
+  );
 };
 
 export default AvatarItemScroll;

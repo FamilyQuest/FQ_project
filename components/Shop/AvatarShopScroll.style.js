@@ -4,7 +4,7 @@ const styles = StyleSheet.create({
     formContainer: {
         width: "90%",
         height: "100%",
-        maxHeight: 620,
+        maxHeight: 420,
         marginBottom: 20,
         justifyContent: "center",
         alignItems: "center",

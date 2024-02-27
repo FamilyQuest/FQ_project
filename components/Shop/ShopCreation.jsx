@@ -44,20 +44,20 @@ const ShopCreation = ({ userId, navigation }) => {
         // setHairStyle={setHairStyle}
         hairColor={hairColor}
         // setHairColor={setHairColor}
-        mouthStyle={mouthStyle}
+        // mouthStyle={mouthStyle}
         // setMouthStyle={setMouthStyle}
-        clothingColorStyle={clothingColorStyle}
+        // clothingColorStyle={clothingColorStyle}
         // setClothingColorStyle={setClothingColorStyle}
-        eyesStyle={eyesStyle}
+        // eyesStyle={eyesStyle}
         // setEyesStyle={setEyesStyle}
-        eyesBrowsStyle={eyesBrowsStyle}
+        // eyesBrowsStyle={eyesBrowsStyle}
         // setEyesBrowsStyle={setEyesBrowsStyle}
-        skinColorStyle={skinColorStyle}
+        // skinColorStyle={skinColorStyle}
         // setSkinColorStyle={setSkinColorStyle}
-        clothingStyle={clothingStyle}
+        // clothingStyle={clothingStyle}
         // setClothingStyle={setClothingStyle}
-        showAvatar={showAvatar}
-      setShowAvatar={setShowAvatar}
+        // showAvatar={showAvatar}
+      // setShowAvatar={setShowAvatar}
       />
     </View>
 

@@ -82,28 +82,18 @@ const dbConnectionShopItems = () => {
     const db = getDatabase();
 
     const shopItemsRef = ref(db, '/ShopItems');
-    get(shopItemsRef)
-      .then((snapshot) => {
-        if (snapshot.exists()) {
-          const shopItemsData = snapshot.val();
-          const shopItemsArray = Object.keys(shopItemsData).map((key) => ({
-            id: key,
-            ...shopItemsData[key],
-          }));
-          setShopItems(shopItemsArray);
-        } else {
-          console.log("No data available");
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    get(shopItemsRef).then((snapshot) => {
+      if (snapshot.exists()) {
+        setShopItems(snapshot.val());
+      } else {
+        console.log('No data available');
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
   }, []);
 
- 
-  
-    return {shopItems};
-  }
+  return { shopItems };
+}
 
-  export default dbConnectionShopItems;
-
+export default dbConnectionShopItems;
