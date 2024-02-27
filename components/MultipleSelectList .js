@@ -38,11 +38,11 @@ const useUserData = () => {
   return userData;
 };
 
-const MySelectComponent = () => {
-  const [selected, setSelected] = useState([]);
+const MySelectComponent = ({ setSelected }) => {
+  
   const userData = useUserData();
   const firstNames = userData.map(user => ({ key: user.id, value: `${user.first_name} (${user.id})` }));
-
+  // const useIDs = userData.map(user => ({ key: user.id, value: `(${user.id})` }));
   const boxStyles = {
     backgroundColor: '#fff',
     borderStyle: 'dashed',
@@ -52,12 +52,11 @@ const MySelectComponent = () => {
     width: '100%',
     marginBottom: '10%',
   };
-
   return (
     <MultipleSelectList
       setSelected={val => setSelected(val)}
       data={firstNames}
-      save="value"
+      // save="value"
       label="Assign To"
       placeholder='Assign To'
       boxStyles={boxStyles}
@@ -66,4 +65,4 @@ const MySelectComponent = () => {
   );
 };
 
-export { MySelectComponent };
+export { MySelectComponent};

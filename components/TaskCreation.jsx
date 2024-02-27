@@ -32,7 +32,7 @@ const formattedTime = `${formattedHours}:${formattedMinutes}`;
 function TaskCreation() {
     const [selected, setSelected] = useState('');
     const [currentCount, setCurrentCount] = useState(0);
-
+    const [multiSelected, multiSetSelected] = useState([]);
     useEffect(() => {
         const counterRef = ref(db, 'counters/taskCount');
         get(counterRef).then((snapshot) => {
@@ -47,7 +47,6 @@ function TaskCreation() {
     }, []);
 
     const addTask = async (values) => {
-       
         try {
             const newCount = currentCount + 1;
             console.log('Category value:', values.category);
@@ -58,10 +57,10 @@ function TaskCreation() {
                 description: values.Description,
                 id: newCount+1,
                 points: values.points,
-                status: 'pending',
+                status: 'in progress',
                 time: formattedTime,
                 title: values.title,
-                user_id: 'null'
+                user_id: multiSelected,
             });
 
             const counterRef = ref(db, 'counters/taskCount');
@@ -90,8 +89,9 @@ function TaskCreation() {
                                 onChangeText={props.handleChange('title')}
                                 value={props.values.title}
                             />
-                        <CustomSelectList setSelected={setSelected} />
-                        <MySelectComponent />
+                        <CustomSelectList setSelected={setSelected}  />
+                        <MySelectComponent setSelected={multiSetSelected}  />
+                        
                             <TextInput
                                 style={styles.input}
                                 placeholder='points'
