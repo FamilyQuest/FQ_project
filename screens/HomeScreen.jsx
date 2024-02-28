@@ -9,7 +9,7 @@ import Header from '../components/Page-Format/Header';
 import Footer from '../components/Page-Format/Footer';
 
 const HomeScreen = ({route,navigation}) => {
-  const { userId } = route.params;
+  const { userId,userType } = route.params;
   return (
     <ImageBackground
       style={{height: "100%",width: "100%"}}
@@ -18,7 +18,7 @@ const HomeScreen = ({route,navigation}) => {
       <View style={{height: "100%",width: "100%"}}>
         <HomePage navigation={navigation} userId={userId} />
       </View>
-      <Footer userId={userId} navigation={navigation} screenName={'Home'}/>
+      <Footer userId={userId} userType={userType} navigation={navigation} screenName={'Home'}/>
     </ImageBackground>
 
   );

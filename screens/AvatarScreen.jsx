@@ -9,7 +9,7 @@ import Header from '../components/Page-Format/Header';
 import Footer from '../components/Page-Format/Footer';
 
 const AvatarScreen = ({ route, navigation }) => {
-  const { userId } = route.params;
+  const { userId,userType } = route.params;
 
   return (
     <ImageBackground
@@ -22,7 +22,7 @@ const AvatarScreen = ({ route, navigation }) => {
           <AvatarCreationForm userId={userId} navigation={navigation}/>
         </SafeAreaView>
       </View>
-      <Footer userId={userId} navigation={navigation} screenName={'Avatar'}/>
+      <Footer userId={userId} userType={userType} navigation={navigation} screenName={'Avatar'}/>
     </ImageBackground>
 
   );
