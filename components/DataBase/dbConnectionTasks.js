@@ -61,7 +61,17 @@ const dbConnectionTasks = () => {
   }, []);
 
   function getTasksByUserId(userId) {
-    const foundTasks = tasks.filter(task => task.user_id === userId);
+    const foundTasks = tasks.filter(task => {
+      if (Array.isArray(task.user_id)) {
+        return task.user_id.includes(userId);
+      } else if (typeof task.user_id === 'number' || typeof task.user_id === 'string') {
+        return task.user_id === userId;
+      } else {
+        console.log("Invalid user_id for task:", task);
+        return false;
+      }
+    });
+  
     if (foundTasks.length > 0) {
       return foundTasks;
     } else {
@@ -69,13 +79,16 @@ const dbConnectionTasks = () => {
       return ['no tasks found'];
     }
   }
+  
 
   function getTasksByAdminId(adminId) {
-    const foundTasks = tasks.filter(task => task.admin_id === adminId);
+    console.log('tasks: ',tasks)
+    console.log('adminId: ', adminId)
+    const foundTasks = tasks.filter(task => task.admin_id == adminId);
     if (foundTasks.length > 0) {
       return foundTasks;
     } else {
-      console.log("No tasks found for user with ID " + adminId);
+      console.log("No tasks found for admin with ID " + adminId);
       return ['no tasks found'];
     }
   }
