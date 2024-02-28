@@ -19,10 +19,10 @@ const Login = ({ navigation }) => {
     console.log('Username:', username);
     console.log('Password:', password);
     if (confirmLogIn(username, password) === true) {
-      const userId = getUserByUsername(username)['id'];
+      const user = getUserByUsername(username);
       // console.log("this is my test",userId);
       // AsyncStorage.setItem('userId', JSON.stringify(userId));
-      navigation.navigate("Home", { userId: userId });
+      navigation.navigate("Home", { userId: user['id'],userType: user['userType'] } );
     } else {
       setIncorrect(true);
     }
