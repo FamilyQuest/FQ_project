@@ -2,18 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { MultipleSelectList } from 'react-native-dropdown-select-list';
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, push, set, get } from "firebase/database";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyAEhAIE9OBu4EIpaW2Xff-wuzNVYrx6Iow",
-  authDomain: "familyquest-43f50.firebaseapp.com",
-  databaseURL: "https://familyquest-43f50-default-rtdb.firebaseio.com",
-  projectId: "familyquest-43f50",
-  storageBucket: "familyquest-43f50.appspot.com",
-  messagingSenderId: "435404741742",
-  appId: "1:435404741742:web:e964f4ae7470e38fa11a7f",
-  measurementId: "G-VG2Z4F1K75"
-};
-
+import firebaseConfig from './firebaseConfig';
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 

@@ -7,18 +7,7 @@ import { getDatabase, ref, push, set, get } from "firebase/database";
 import CustomSelectList from './dropDown';
 import styles from './taskCreation.style';
 import {MySelectComponent} from './MultipleSelectList ';
-
-
-const firebaseConfig = {
-    apiKey: "AIzaSyAEhAIE9OBu4EIpaW2Xff-wuzNVYrx6Iow",
-    authDomain: "familyquest-43f50.firebaseapp.com",
-    databaseURL: "https://familyquest-43f50-default-rtdb.firebaseio.com",
-    projectId: "familyquest-43f50",
-    storageBucket: "familyquest-43f50.appspot.com",
-    messagingSenderId: "435404741742",
-    appId: "1:435404741742:web:e964f4ae7470e38fa11a7f",
-    measurementId: "G-VG2Z4F1K75"
-};
+import firebaseConfig from './firebaseConfig';
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
@@ -28,7 +17,6 @@ const minutes = currentTime.getMinutes();
 const formattedHours = String(hours).padStart(2, '0');
 const formattedMinutes = String(minutes).padStart(2, '0');
 const formattedTime = `${formattedHours}:${formattedMinutes}`;
-
 function TaskCreation() {
     const [selected, setSelected] = useState('');
     const [currentCount, setCurrentCount] = useState(0);
@@ -37,7 +25,8 @@ function TaskCreation() {
         const counterRef = ref(db, 'counters/taskCount');
         get(counterRef).then((snapshot) => {
             if (snapshot.exists()) {
-                setCurrentCount(5);
+
+                setCurrentCount(snapshot.val().count);
             } else {
                 setCurrentCount(5);
             }
