@@ -192,6 +192,26 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         top: 10,
     },
+    currentPointsContainer:{
+        width: '90%',
+        alignItems: 'flex-start',
+        textAlign:'auto',
+        marginLeft:'15%',
+        // justifyContent: 'center',
+        // backgroundColor: '#FF6E6B',
+        // alignSelf:'flex-end',
+        // borderWidth:3,
+        // borderColor: '#FF6E6B',
+        // padding: 10,
+        // borderRadius: 35,
+        // marginBottom:'1%',
+        // marginTop:'4%',
+        
+    },
+    pointImage:{
+        width:40,
+        height:40,
+    },
 });
 
 export default styles;

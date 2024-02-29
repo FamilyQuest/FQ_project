@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     item: {
         backgroundColor: "#F2F2F2",
         width: "25%",
-        height: 90,
+        height: 119,
         borderWidth: 2,
         borderColor: "#FF6E6B",
         borderStyle: "dashed",
@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-around",
         alignItems: "center",
+        width: "100%",
         width: "100%",
         minHeight: 50,
         marginVertical: 15,
@@ -55,6 +56,17 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
+    },
+    points:{
+        alignSelf:'center',
+        marginBottom:'10%',
+    },
+    modalContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        
     },
 });
 

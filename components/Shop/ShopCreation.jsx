@@ -26,9 +26,13 @@ const ShopCreation = ({ userId, navigation }) => {
   return (
     <View style={{ alignItems: 'center' }}>
       <View style={styles.titleContainer}>
-        <Image source={require('../../assets/Avatar-Shop/confetti2.png')} />
+        {/* <Image source={require('../../assets/Avatar-Shop/confetti2.png')} /> */}
         <Text style={styles.titleText}>Shop</Text>
-        <Image source={require('../../assets/Avatar-Shop/confetti1.png')} />
+        {/* <Image source={require('../../assets/Avatar-Shop/confetti1.png')} /> */}
+      </View>
+      <View style={styles.currentPointsContainer}>
+      {/* <Image style={styles.pointImage} source={require('../../assets/Home/Points.png')} /> */}
+      <Text style={{fontWeight:'bold',}}></Text>
       </View>
       <View style={styles.buttonsContainer}>
         <TouchableOpacity style={styles.Btn1}>
@@ -38,27 +42,29 @@ const ShopCreation = ({ userId, navigation }) => {
           <Text style={styles.textBtn}>Physical</Text>
         </TouchableOpacity>
       </View>
+    
       <AvatarShopScroll
         userId={userId}
         hairStyle={hairStyle}
         // setHairStyle={setHairStyle}
         hairColor={hairColor}
         // setHairColor={setHairColor}
-        // mouthStyle={mouthStyle}
+        mouthStyle={mouthStyle}
         // setMouthStyle={setMouthStyle}
-        // clothingColorStyle={clothingColorStyle}
+        clothingColorStyle={clothingColorStyle}
         // setClothingColorStyle={setClothingColorStyle}
-        // eyesStyle={eyesStyle}
+        eyesStyle={eyesStyle}
         // setEyesStyle={setEyesStyle}
-        // eyesBrowsStyle={eyesBrowsStyle}
+        eyesBrowsStyle={eyesBrowsStyle}
         // setEyesBrowsStyle={setEyesBrowsStyle}
-        // skinColorStyle={skinColorStyle}
+        skinColorStyle={skinColorStyle}
         // setSkinColorStyle={setSkinColorStyle}
-        // clothingStyle={clothingStyle}
+        clothingStyle={clothingStyle}
         // setClothingStyle={setClothingStyle}
-        // showAvatar={showAvatar}
+        showAvatar={showAvatar}
       // setShowAvatar={setShowAvatar}
       />
+  
     </View>
 
   );

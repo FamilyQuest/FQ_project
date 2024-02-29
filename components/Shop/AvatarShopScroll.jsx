@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, View, Image, TouchableOpacity, Text, ImageBackground } from 'react-native';
+import { ScrollView, View, Image, TouchableOpacity, Text, ImageBackground,Modal } from 'react-native';
 
 import Avatar from '../Avatar/Avatar';
 import dbConnectionShop from '../DataBase/dbConnectionShop';
@@ -36,6 +36,7 @@ const AvatarItemScroll = ({
   const [showClothingStylePage, setShowClothingStylePage] = useState(false);
   const [showPages, setShowPages] = useState(true);
   const [showLoading, setShowLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const [buttonColor, setButtonColor] = useState({
     'Hair Style': '#FF6E6B',
     'Hair Color': '#D9D9D9',
@@ -123,7 +124,9 @@ const AvatarItemScroll = ({
 
 
   const handleHairStyleChange = (itemValue) => {
-    setHairStyle(itemValue);
+    // setHairStyle(itemValue);
+    setShowModal(true);
+    
   };
 
   const handleMouthStyleChange = (itemValue) => {
@@ -155,54 +158,6 @@ const AvatarItemScroll = ({
   };
 
   const { shopItems } = dbConnectionShop();
-//   console.log(shopItems);
-//   let dataJson = null
-//   const userItems = getItemsByUserId(userId);
-//   if (shopItems) {
-//     dataJson = shopItems;
-//     // console.log(dataJson);
-//   }
-// if(shopItems){
-//     console.log("my test: ",shopItems);
-// }
-
-//  return(
-  
-//       <View style={styles.formContainer}> 
-//      {showLoading && (
-//       <View style={styles.loading}>
-//         <Image style={{ width: 100, height: 100 }} source={require('../../assets/Avatar-Shop/loading.gif')} />
-//       </View>
-//     )} 
-    
-//   {showHairStylePage && shopItems && shopItems.Top && (
-    
-//   <ScrollView style={styles.listContainer} showsVerticalScrollIndicator={false}>
-//     <View>
-        
-//       {Object.values(shopItems.Top).map((item, index) => (
-//         <TouchableOpacity key={index} style={styles.item} onPress={() => handleHairStyleChange(item.name)}>
-//           <Avatar params={{
-//             top: [item.name],
-//             hairColor: [hairColor],
-//             skinColor: [skinColorStyle],
-//             clothing: [clothingStyle],
-//             clothesColor: [clothingColorStyle],
-//             mouth: [],
-//             eyes: [],
-//             eyebrows: [],
-//           }} />
-//         </TouchableOpacity>
-//       ))}
-//     </View>
-//   </ScrollView>
-// )}
-
-//    </View> 
-
-  
-
-//  )
   return (
     <View style={styles.formContainer}>
       {showLoading && (
@@ -215,9 +170,10 @@ const AvatarItemScroll = ({
         onTouchStart={(e) => e.stopPropagation()}
         onTouchMove={(e) => e.stopPropagation()}>
         <View>
-          {shopItems && shopItems.Top.reduce((rows, key, index) => (index % 3 === 0 ? rows.push([key]) : rows[rows.length - 1].push(key)) && rows, []).map((row, index) => (
+          {shopItems && shopItems.Top && shopItems.Top.reduce((rows, key, index) => (index % 3 === 0 ? rows.push([key]) : rows[rows.length - 1].push(key)) && rows, []).map((row, index) => (
             <View key={index} style={styles.rowContainer}>
               {row.map((item, index) => (
+
                 <TouchableOpacity key={index} style={styles.item} onPress={() => handleHairStyleChange(item.name)}>
                   <Avatar params={{
                     top: [item.name],
@@ -228,27 +184,28 @@ const AvatarItemScroll = ({
                     mouth: [],
                     eyes: [],
                     eyebrows: [],
-                  }} />
+                  }}
+                    points={item.points}
+                  />
+                  <Text style={styles.points}>{item.points}P</Text>
                 </TouchableOpacity>
               ))}
             </View>
           ))}
         </View>
-
-
-
       </ScrollView>
 
       )}
-       {showHairColorStylePage && (<ScrollView style={styles.listContainer}
+      {showHairColorStylePage && (<ScrollView style={styles.listContainer}
         showsVerticalScrollIndicator={false}
         onTouchStart={(e) => e.stopPropagation()}
         onTouchMove={(e) => e.stopPropagation()}>
 
         <View>
-          {shopItems && shopItems.HairColor.reduce((rows, key, index) => (index % 3 === 0 ? rows.push([key]) : rows[rows.length - 1].push(key)) && rows, []).map((row, index) => (
+          {shopItems && shopItems.HairColor && shopItems.HairColor.reduce((rows, key, index) => (index % 3 === 0 ? rows.push([key]) : rows[rows.length - 1].push(key)) && rows, []).map((row, index) => (
             <View key={index} style={styles.rowContainer}>
               {row.map((item, index) => (
+
                 <TouchableOpacity key={index} style={styles.item} onPress={() => handleHairColorStyleChange(item.name)}>
                   <Avatar params={{
                     top: [hairStyle],
@@ -259,8 +216,13 @@ const AvatarItemScroll = ({
                     mouth: [],
                     eyes: [],
                     eyebrows: [],
-                  }} />
+                  }}
+                    points={item.points}
+                  />
+                  <Text style={styles.points}>{item.points}P</Text>
                 </TouchableOpacity>
+
+
               ))}
             </View>
           ))}
@@ -274,7 +236,7 @@ const AvatarItemScroll = ({
 
 
         <View>
-          {shopItems && shopItems.SkinColor.reduce((rows, key, index) => (index % 3 === 0 ? rows.push([key]) : rows[rows.length - 1].push(key)) && rows, []).map((row, index) => (
+          {shopItems && shopItems.SkinColor && shopItems.SkinColor.reduce((rows, key, index) => (index % 3 === 0 ? rows.push([key]) : rows[rows.length - 1].push(key)) && rows, []).map((row, index) => (
             <View key={index} style={styles.rowContainer}>
               {row.map((item, index) => (
                 <TouchableOpacity key={index} style={styles.item} onPress={() => handleSkinColorStyleChange(item.name)}>
@@ -287,7 +249,10 @@ const AvatarItemScroll = ({
                     mouth: [],
                     eyes: [],
                     eyebrows: [],
-                  }} />
+                  }}
+                    points={item.points}
+                  />
+                  <Text style={styles.points}>{item.points}P</Text>
                 </TouchableOpacity>
               ))}
             </View>
@@ -302,7 +267,7 @@ const AvatarItemScroll = ({
         onTouchMove={(e) => e.stopPropagation()}>
 
         <View>
-          {shopItems && shopItems.Eyes.reduce((rows, key, index) => (index % 3 === 0 ? rows.push([key]) : rows[rows.length - 1].push(key)) && rows, []).map((row, index) => (
+          {shopItems && shopItems.Eyes && shopItems.Eyes.reduce((rows, key, index) => (index % 3 === 0 ? rows.push([key]) : rows[rows.length - 1].push(key)) && rows, []).map((row, index) => (
             <View key={index} style={styles.rowContainer}>
               {row.map((item, index) => (
                 <TouchableOpacity key={index} style={styles.item} onPress={() => handleEyesStyleChange(item.name)}>
@@ -315,7 +280,10 @@ const AvatarItemScroll = ({
                     mouth: [],
                     eyes: [item.name],
                     eyebrows: [],
-                  }} />
+                  }}
+                    points={item.points}
+                  />
+                  <Text style={styles.points}>{item.points}P</Text>
                 </TouchableOpacity>
               ))}
             </View>
@@ -330,7 +298,7 @@ const AvatarItemScroll = ({
         onTouchStart={(e) => e.stopPropagation()}
         onTouchMove={(e) => e.stopPropagation()}>
         <View>
-          {shopItems && shopItems.Eyebrows.reduce((rows, key, index) => (index % 3 === 0 ? rows.push([key]) : rows[rows.length - 1].push(key)) && rows, []).map((row, index) => (
+          {shopItems && shopItems.Eyebrows && shopItems.Eyebrows.reduce((rows, key, index) => (index % 3 === 0 ? rows.push([key]) : rows[rows.length - 1].push(key)) && rows, []).map((row, index) => (
             <View key={index} style={styles.rowContainer}>
               {row.map((item, index) => (
                 <TouchableOpacity key={index} style={styles.item} onPress={() => handleEyesBrowsStyleChange(item.name)}>
@@ -343,7 +311,10 @@ const AvatarItemScroll = ({
                     mouth: [],
                     eyes: [],
                     eyebrows: [item.name],
-                  }} />
+                  }}
+                    points={item.points}
+                  />
+                  <Text style={styles.points}>{item.points}P</Text>
                 </TouchableOpacity>
               ))}
             </View>
@@ -356,7 +327,7 @@ const AvatarItemScroll = ({
         onTouchStart={(e) => e.stopPropagation()}
         onTouchMove={(e) => e.stopPropagation()}>
         <View>
-          {shopItems && shopItems.Mouth.reduce((rows, key, index) => (index % 3 === 0 ? rows.push([key]) : rows[rows.length - 1].push(key)) && rows, []).map((row, index) => (
+          {shopItems && shopItems.Mouth && shopItems.Mouth.reduce((rows, key, index) => (index % 3 === 0 ? rows.push([key]) : rows[rows.length - 1].push(key)) && rows, []).map((row, index) => (
             <View key={index} style={styles.rowContainer}>
               {row.map((item, index) => (
                 <TouchableOpacity key={index} style={styles.item} onPress={() => handleMouthStyleChange(item.name)}>
@@ -369,7 +340,10 @@ const AvatarItemScroll = ({
                     clothesColor: [clothingColorStyle],
                     eyes: [],
                     eyebrows: [],
-                  }} />
+                  }}
+                    points={item.points}
+                  />
+                  <Text style={styles.points}>{item.points}P</Text>
                 </TouchableOpacity>
               ))}
             </View>
@@ -382,7 +356,7 @@ const AvatarItemScroll = ({
         onTouchStart={(e) => e.stopPropagation()}
         onTouchMove={(e) => e.stopPropagation()}>
         <View>
-          {shopItems && shopItems.ClothingColor.reduce((rows, key, index) => (index % 3 === 0 ? rows.push([key]) : rows[rows.length - 1].push(key)) && rows, []).map((row, index) => (
+          {shopItems && shopItems.ClothingColor && shopItems.ClothingColor.reduce((rows, key, index) => (index % 3 === 0 ? rows.push([key]) : rows[rows.length - 1].push(key)) && rows, []).map((row, index) => (
             <View key={index} style={styles.rowContainer}>
               {row.map((item, index) => (
                 <TouchableOpacity key={index} style={styles.item} onPress={() => handleClothingColorStyleChange(item.name)}>
@@ -395,7 +369,10 @@ const AvatarItemScroll = ({
                     clothesColor: [item.name],
                     eyes: [],
                     eyebrows: [],
-                  }} />
+                  }}
+                    points={item.points}
+                  />
+                  <Text style={styles.points}>{item.points}P</Text>
                 </TouchableOpacity>
               ))}
             </View>
@@ -408,7 +385,7 @@ const AvatarItemScroll = ({
         onTouchStart={(e) => e.stopPropagation()}
         onTouchMove={(e) => e.stopPropagation()}>
         <View>
-          {shopItems && shopItems.Clothing.reduce((rows, key, index) => (index % 3 === 0 ? rows.push([key]) : rows[rows.length - 1].push(key)) && rows, []).map((row, index) => (
+          {shopItems && shopItems.Clothing && shopItems.Clothing.reduce((rows, key, index) => (index % 3 === 0 ? rows.push([key]) : rows[rows.length - 1].push(key)) && rows, []).map((row, index) => (
             <View key={index} style={styles.rowContainer}>
               {row.map((item, index) => (
                 <TouchableOpacity key={index} style={styles.item} onPress={() => handleClothesStyleChange(item.name)}>
@@ -421,7 +398,10 @@ const AvatarItemScroll = ({
                     mouth: [],
                     eyes: [],
                     eyebrows: [],
-                  }} />
+                  }}
+                    points={item.points}
+                  />
+                  <Text style={styles.points}>{item.points}P</Text>
                 </TouchableOpacity>
               ))}
             </View>
@@ -472,8 +452,29 @@ const AvatarItemScroll = ({
           <Image style={styles.stylePickerImg} source={require('../../assets/Avatar-Shop/clothingColorStyle.png')} />
         </TouchableOpacity>
       </View>
-      )} 
+      )}
+        <View>
+    <Modal
+      visible={showModal}
+      onRequestClose={() => setShowModal(false)}
+      animationType="slide"
+      transparent={true}
+      >
+      <View style={styles.modalContainer}>
+        <Text>Do you want to purchase ?</Text>
+        <View style={styles.modalButtons}>
+          <TouchableOpacity >
+            <Text>Yes</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => setShowModal(false)} >
+            <Text>No</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </Modal>
+  </View>
     </View>
+  
   );
 };
 
