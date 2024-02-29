@@ -148,13 +148,15 @@ const Task = (props) => {
             >
                 <View style={styles.modalContainer}>
                     <View style={styles.adminModalContent}>
-                        <Text style={styles.titleModal}>Assignment</Text>
-                        {user && taskUser && user.userType === 'admin' && (
+                        <Text style={styles.titleModalMargin}>Assignment</Text>
+                        {user && taskUser && user.userType == 'admin' && (
                             <Text style={styles.assigned}>
                                 Assigned to: {taskUser.first_name ?? ''} {taskUser.last_name ?? ''}
                             </Text>
                         )}
-
+                        <TouchableOpacity style={styles.exitContainer} onPress={closeModal}>
+                            <Image style={styles.exitBtn} source={require("../../assets/Home/cross.png")}/>
+                        </TouchableOpacity>
                         <View style={styles.imageBox}>
                             <Image
                                 source={{ uri: img }}
@@ -169,9 +171,7 @@ const Task = (props) => {
                                 <Text style={styles.textBtn}>Accept</Text>
                             </TouchableOpacity>
                         </View>
-                        <TouchableOpacity style={styles.Btn1} onPress={closeModal}>
-                            <Text style={styles.textBtn}>Not yet</Text>
-                        </TouchableOpacity>
+                        
                     </View>
                 </View>
             </Modal>

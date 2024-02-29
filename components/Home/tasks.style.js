@@ -79,6 +79,7 @@ const styles = StyleSheet.create({
         paddingVertical:'5%',
         borderRadius: 10,
         alignItems: 'center',
+        justifyContent: 'space-around',
         borderColor:'#8DE1D5',
         borderWidth:6,
         flexDirection:'column',
@@ -91,7 +92,6 @@ const styles = StyleSheet.create({
         paddingVertical:'5%',
         borderRadius: 10,
         alignItems: 'center',
-        justifyContent:'space-between',
         borderColor:'#8DE1D5',
         borderWidth:6,
         flexDirection:'column',
@@ -100,7 +100,6 @@ const styles = StyleSheet.create({
         width:"90%",
         flexDirection:'row',
         justifyContent:'space-between',
-        marginBottom:15,
     },
     modalTextContainer:{
         width:'100%',
@@ -111,6 +110,11 @@ const styles = StyleSheet.create({
     titleModal: {
         fontSize: 36,
         fontWeight: 'bold',
+    },
+    titleModalMargin:{
+        fontSize: 36,
+        fontWeight: 'bold',
+        marginTop: 30
     },
     textModal: {
         fontSize: 20,
@@ -164,6 +168,16 @@ const styles = StyleSheet.create({
         height: '95%',
         borderRadius: 10,
     },
+    exitBtn: {
+        width: 30,
+        height: 30,
+        
+    },
+    exitContainer: {
+        position: 'absolute',
+        top: 10,
+        right: 10,
+    }
 });
 
 export default styles;
