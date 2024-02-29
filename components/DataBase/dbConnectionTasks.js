@@ -82,8 +82,7 @@ const dbConnectionTasks = () => {
   
 
   function getTasksByAdminId(adminId) {
-    console.log('tasks: ',tasks)
-    console.log('adminId: ', adminId)
+
     const foundTasks = tasks.filter(task => task.admin_id == adminId);
     if (foundTasks.length > 0) {
       return foundTasks;

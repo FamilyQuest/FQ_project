@@ -43,7 +43,7 @@ const dbConnectionUsers = () => {
   }, []);
 
   function getUserById(userId) {
-    const foundUser = users.find(user => user.id === userId);
+    const foundUser = users.find(user => user.id == userId);
     if (foundUser) {
       return foundUser;
     } else {
