@@ -68,6 +68,19 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(0, 0, 0, 0.5)',
         
     },
+    modalContent:{
+        backgroundColor: '#fff',
+        width: '50%',
+        height: '20%',
+        paddingHorizontal:'5%',
+        paddingVertical:'5%',
+        borderRadius: 10,
+        alignItems: 'center',
+        justifyContent:'space-between',
+        borderColor:'#8DE1D5',
+        borderWidth:6,
+        flexDirection:'column',
+    },
 });
 
 export default styles;

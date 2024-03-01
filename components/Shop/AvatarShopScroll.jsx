@@ -461,6 +461,7 @@ const AvatarItemScroll = ({
       transparent={true}
       >
       <View style={styles.modalContainer}>
+      <View style={styles.modalContent}>
         <Text>Do you want to purchase ?</Text>
         <View style={styles.modalButtons}>
           <TouchableOpacity >
@@ -469,6 +470,7 @@ const AvatarItemScroll = ({
           <TouchableOpacity onPress={() => setShowModal(false)} >
             <Text>No</Text>
           </TouchableOpacity>
+        </View>
         </View>
       </View>
     </Modal>
