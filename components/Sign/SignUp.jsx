@@ -5,6 +5,7 @@ import styles from './signUp.style';
 import dbConnectionUsers from '../DataBase/dbConnectionUsers';
 import dbConnectionItems from '../DataBase/dbConnectionItems';
 import dbConnectionAvatars from '../DataBase/dbConnectionAvatars';
+import dbConnectionUsersAchivements from '../DataBase/dbConnectionUsersAchivements';
 
 function SignUp({ navigation }) {
   const [username, setUsername] = useState('');
@@ -20,6 +21,7 @@ function SignUp({ navigation }) {
   const { users, addUser, newUserKey } = dbConnectionUsers();
   const { addItems } = dbConnectionItems();
   const { addAvatar } = dbConnectionAvatars();
+  const { newUsersAchivements } = dbConnectionUsersAchivements();
 
   const handleSignUp = () => {
     // Email validation
@@ -65,8 +67,8 @@ function SignUp({ navigation }) {
       'Points': 0,
       'age': age,
       'email': email,
-      'first_Name': firstName,
-      'last_Name': lastName,
+      'first_name': firstName,
+      'last_name': lastName,
       'password': password,
       'phone': phone,
       'userType': userType,
@@ -74,10 +76,10 @@ function SignUp({ navigation }) {
     }
     console.log('Sign-up data:', newUser);
 
-    // Reset form fields
     const newUserId = newUserKey();
     addItems(newUserId);
     addAvatar(newUserId);
+    newUsersAchivements(newUserId);
     addUser(newUser);
 
     setUsername('');

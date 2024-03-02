@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Image, View, Text, TextInput, TouchableOpacity, StatusBar } from 'react-native';
 import Checkbox from 'expo-checkbox';
 import { useFocusEffect } from '@react-navigation/native';
@@ -13,16 +13,23 @@ const Login = ({ navigation }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [incorrect, setIncorrect] = useState(false);
-  const { users, getUserById, getUserByUsername, confirmLogIn } = dbConnectionUsers();
+  const { users, reloadUsers, getUserById, getUserByUsername, confirmLogIn } = dbConnectionUsers();
 
+  useEffect(() => {
+    if (users) {
+      reloadUsers();
+    }
+  }, []);
+  
   const handleLogin = () => {
     console.log('Username:', username);
     console.log('Password:', password);
     if (confirmLogIn(username, password) === true) {
       const user = getUserByUsername(username);
+      setIncorrect(false);
       // console.log("this is my test",userId);
       // AsyncStorage.setItem('userId', JSON.stringify(userId));
-      navigation.navigate("Home", { userId: user['id'],userType: user['userType'] } );
+      navigation.navigate("Home", { userId: user['id'], userType: user['userType'] });
     } else {
       setIncorrect(true);
     }
@@ -85,7 +92,7 @@ const Login = ({ navigation }) => {
         <Text style={styles.btnText}>Login</Text>
       </TouchableOpacity>
       <Text style={styles.logInText}>Don't have an account?</Text>
-      <TouchableOpacity style={styles.signBtn} onPress={() =>  navigation.navigate("Signup")}>
+      <TouchableOpacity style={styles.signBtn} onPress={() => { setIncorrect(false); navigation.navigate("Signup");}}>
         <Text style={styles.signBtnText}>Sign Up</Text>
       </TouchableOpacity>
     </View>

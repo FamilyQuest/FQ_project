@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { initializeApp } from 'firebase/app';
 import firebase from 'firebase/compat/app';
-import { getDatabase, ref, get, set } from 'firebase/database';
+import { getDatabase, ref, get, set, onValue, off } from 'firebase/database';
 import { API_KEY, AUTH_DOMAIN, PROJECT_ID, STORAGE_BUCKET, MESSAGINGSENDER_ID, APP_ID, MEASUREMETN_ID } from '@env';
 
 const dbConnectionUsers = () => {
@@ -19,13 +19,15 @@ const dbConnectionUsers = () => {
     };
 
     if (!firebase.apps.length) {
-      const app = initializeApp(firebaseConfig);
+      initializeApp(firebaseConfig);
     }
     const db = getDatabase();
 
     const usersRef = ref(db, 'users/');
-    get(usersRef)
-      .then((snapshot) => {
+
+    const fetchData = () => {
+      // Attach an asynchronous callback to read the data at the specified reference in real-time
+      onValue(usersRef, (snapshot) => {
         if (snapshot.exists()) {
           const usersData = snapshot.val();
           const usersArray = Object.keys(usersData).map((key) => ({
@@ -36,11 +38,36 @@ const dbConnectionUsers = () => {
         } else {
           console.log("No data available");
         }
-      })
-      .catch((error) => {
-        console.error(error);
       });
+    };
+
+    fetchData();
+
+    // Return a function to detach the listener when the component unmounts
+    return () => {
+      off(usersRef);
+    };
   }, []);
+
+  const reloadUsers = () => {
+    const db = getDatabase();
+    const usersRef = ref(db, 'users/');
+    // Detach existing listener
+    off(usersRef);
+    // Fetch new data
+    onValue(usersRef, (snapshot) => {
+      if (snapshot.exists()) {
+        const usersData = snapshot.val();
+        const usersArray = Object.keys(usersData).map((key) => ({
+          id: key,
+          ...usersData[key],
+        }));
+        setUsers(usersArray);
+      } else {
+        console.log("No data available");
+      }
+    });
+  };
 
   function getUserById(userId) {
     const foundUser = users.find(user => user.id == userId);
@@ -83,11 +110,11 @@ const dbConnectionUsers = () => {
         return user;
       }
     });
-    setUsers(updatedUser); 
+    setUsers(updatedUser);
 
     const db = getDatabase();
     const userRef = ref(db, `users/${userId - 1}/Points`);
-    set(userRef, points) 
+    set(userRef, points)
       .then(() => console.log("Task status updated successfully"))
       .catch((error) => console.error("Error updating task status:", error));
   }
@@ -103,13 +130,13 @@ const dbConnectionUsers = () => {
     const newUserKey = lastUser.id + 1;
     console.log('New user key:', newUserKey);
     newUserWithId = { ...newUser, id: newUserKey };
-    const userRef = ref(db, `users/${newUserKey-1}`);
+    const userRef = ref(db, `users/${newUserKey - 1}`);
     set(userRef, newUserWithId)
       .then(() => console.log("New user added successfully"))
       .catch((error) => console.error("Error adding new user:", error));
-  }  
+  }
 
-  return { users, getUserById, getUserByUsername, confirmLogIn, updatePointsByUserId, addUser, newUserKey };
+  return { users, reloadUsers, getUserById, getUserByUsername, confirmLogIn, updatePointsByUserId, addUser, newUserKey };
 }
 
 export default dbConnectionUsers;

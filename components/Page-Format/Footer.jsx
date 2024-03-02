@@ -49,7 +49,7 @@ function Footer({ userId, navigation, screenName, userType }) {
         <TouchableOpacity onPress={() => navigation.navigate("Home", { userId: userId })}>
           <Image style={[styles.footerIcon, { opacity: opc1 }]} source={require('../../assets/General/Home.png')} />
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("Achievements", { userId: userId, userType: userType })}>
           <Image style={[styles.footerIcon, { opacity: opc2 }]} source={require('../../assets/General/Achievements.png')} />
         </TouchableOpacity>
         <View style={styles.seperator} />

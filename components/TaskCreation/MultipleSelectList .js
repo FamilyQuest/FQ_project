@@ -28,7 +28,7 @@ const useUserData = () => {
 const MySelectComponent = ({ setSelected }) => {
   
   const userData = useUserData();
-  const firstNames = userData.map(user => ({ key: user.id, value: `${user.first_name} (${user.id})` }));
+  const firstNames = userData.map(user => ({ key: user.id, value: `${user.first_name} ${user.last_name} (${user.id})` }));
   const boxStyles = {
     backgroundColor: '#fff',
     borderStyle: 'dashed',
