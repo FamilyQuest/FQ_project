@@ -43,7 +43,6 @@ const Login = ({ navigation }) => {
       setPassword('');
     }, [])
   );
-
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="#A4E7DD" barStyle="dark-content" />
@@ -79,15 +78,6 @@ const Login = ({ navigation }) => {
           <Text style={styles.incorrectText}>Incorrect username or password</Text>
         </View>
       )}
-      <View style={styles.logInContainer}>
-        <View style={styles.rememberContainer}>
-          <Checkbox style={styles.checkbox} />
-          <Text style={styles.logInText}>Remember me</Text>
-        </View>
-        <View>
-          <Text style={styles.logInText}>Forgot Password?</Text>
-        </View>
-      </View>
       <TouchableOpacity style={styles.btn} onPress={handleLogin}>
         <Text style={styles.btnText}>Login</Text>
       </TouchableOpacity>
