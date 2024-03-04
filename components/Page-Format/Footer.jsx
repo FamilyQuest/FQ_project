@@ -39,7 +39,6 @@ function Footer({ userId, navigation, screenName, userType }) {
 
   let footerUrl;
   if (userType == 'child') {
-    console.log(userType, "child");
     footerUrl = require('../../assets/General/Footer_V2.png');
   } else {
     footerUrl = require('../../assets/General/Footer.png');
