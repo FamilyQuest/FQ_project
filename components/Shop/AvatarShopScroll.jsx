@@ -181,7 +181,7 @@ const AvatarItemScroll = ({
   const { addItemToDB } = dbConnectionItems()
   const user = getUserById(userId);
   const handleConfirmPurchase = () => {
-    if (user.Points - selectedItem.points > 0) {
+    if (user.Points - selectedItem.points >= 0) {
       addItemToDB(userId, selectedCategory, selectedItem);
       updatePointsByUserId(userId, user.Points - selectedItem.points);
       setShowModal(false);
