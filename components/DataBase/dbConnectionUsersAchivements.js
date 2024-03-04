@@ -50,11 +50,25 @@ const dbConnectionUsersAchivements = () => {
     return userIdAchivements[0]['achivementsArray'];
   }
 
-  function incrementUserAchivement(userId, achivementId, status) {
+  function getStatusByUserId(userId, achivementId) {
+    const userAchivements = getUserAchivementsByUserId(userId);
+    const userAchivement = userAchivements.find(achivement => achivement.id === achivementId);
+    if (userAchivement) {
+      return userAchivement.status;
+    }
+    return false;
+  }
+
+  function incrementUserAchivement(userId, achivementId, maxCount) {
+    const status = getStatusByUserId(userId, achivementId);
     const userAchivements = getUserAchivementsByUserId(userId);
     let userAchivement = userAchivements.find(achivement => achivement.id === achivementId);
     if (userAchivement && !status) {
-      userAchivement.count = userAchivement.count + 1;
+      if (userAchivement.count < maxCount) {
+        userAchivement.count = userAchivement.count + 1;
+      } else {
+        userAchivement.status = true;
+      }
     }
     console.log('here: ', userAchivement)
     if (userAchivement) {
@@ -70,8 +84,6 @@ const dbConnectionUsersAchivements = () => {
       });
     }
   }
-
- 
 
   const newUsersAchivementsKey = () => {
     const lastAchivement = usersAchivements[usersAchivements.length - 1];
@@ -108,15 +120,19 @@ const dbConnectionUsersAchivements = () => {
       ],
       "user_id": userId
     }
-  
+
     const db = getDatabase();
     const usersAchivementsRef = ref(db, `UsersAchivements/${userId - 1}/`);
-    // const newAchivementRef = push(usersAchivementsRef); // Use push method to add new data
     set(usersAchivementsRef, newUsersAchivement);
   }
-  
 
-  return { usersAchivements, getUserAchivementsByUserId, incrementUserAchivement, newUsersAchivements };
+  function countStatusTrue(userId) {
+    const userAchivements = getUserAchivementsByUserId(userId);
+    return userAchivements.filter(achivement => achivement.status === true).length;
+  }
+
+
+  return { usersAchivements, getUserAchivementsByUserId, incrementUserAchivement, newUsersAchivements, newUsersAchivementsKey, countStatusTrue };
 }
 
 export default dbConnectionUsersAchivements;

@@ -7,8 +7,8 @@ import dbConnectionAchivements from "../DataBase/dbConnectionAchivements";
 import dbConnectionUsersAchivements from '../DataBase/dbConnectionUsersAchivements';
 
 const Achievements = ({ navigation, userId }) => {
-    const { achivements } = dbConnectionAchivements();
-    const { usersAchivements, getUserAchivementsByUserId, incrementUserAchivement } = dbConnectionUsersAchivements();
+    const { achivements, countAchivements, countMaxByAchivementId } = dbConnectionAchivements();
+    const { usersAchivements, getUserAchivementsByUserId, incrementUserAchivement, countStatusTrue } = dbConnectionUsersAchivements();
 
     let combinedAchivements = null
     if (usersAchivements) {
@@ -27,10 +27,14 @@ const Achievements = ({ navigation, userId }) => {
             });
         }
     }
-
-    // if(combinedAchivements){
-    //     incrementUserAchivement(userId, combinedAchivements[0].id, combinedAchivements[0].status);
+    
+    // const countMax = countMaxByAchivementId(2);
+    // if(countMax){
+    //     incrementUserAchivement(userId, 2, countMax);
     // }
+
+    const count = countStatusTrue(userId);
+    const maxCount = countAchivements();
 
     const imageMap = {
         'Toilet Titan': require('../../assets/Achievements/Toilet Titan.png'),
@@ -45,7 +49,7 @@ const Achievements = ({ navigation, userId }) => {
                 <Text style={styles.title}>Achievements</Text>
             </View>
             <View style={styles.subTitleContainer}>
-                <Text style={styles.subTitle}>0/5</Text>
+                <Text style={styles.subTitle}>{count}/{maxCount}</Text>
                 <Image style={styles.subImage} source={require('../../assets/Achievements/Trophy.png')} />
             </View>
             <View style={styles.scrollViewContainer} >

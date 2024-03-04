@@ -42,9 +42,18 @@ const dbConnectionAchivements = () => {
       });
   }, []);
 
-  
+  function countAchivements() {
+    return achivements.length;
+  }
 
-  return { achivements };
+  function countMaxByAchivementId(id){
+    const achivement = achivements.find(achivement => achivement.id === id);
+    if (achivement){
+      return achivement.countMax;
+    }
+  }
+
+  return { achivements, countAchivements, countMaxByAchivementId };
 }
 
 export default dbConnectionAchivements;
