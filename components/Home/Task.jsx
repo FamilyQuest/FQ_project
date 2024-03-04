@@ -18,10 +18,10 @@ const Task = (props) => {
     const { getUserById, updatePointsByUserId } = dbConnectionUsers();
     const { getUserIdByTaskId, updateStatusTaskByTaskIdAndUserId } = dbConnectionTasks();
     const [statusColor, setStatusColor] = useState({
-        'in progress': '#E4E4E4',
-        'pending': '#ffd166',
-        'done': '#57cc99',
-        'to fix': '#ff6b6b'
+        'On the Way': '#E4E4E4',
+        'Waiting to Happen': '#ffd166',
+        'All Finished!': '#57cc99',
+        'Needs a Tune-Up': '#ff6b6b'
     });
 
     const user = getUserById(props.userId);
@@ -34,7 +34,7 @@ const Task = (props) => {
     }
 
     const openModal = () => {
-        if(props.status === 'done') return;
+        if(props.status === 'All Finished!') return;
         if (user && user.userType === 'admin') {
             setAdminModalVisible(true);
         } else {
@@ -48,7 +48,7 @@ const Task = (props) => {
     };
 
     const openCamera = () => {
-        if (props.status === 'in progress' || props.status === 'to fix') {
+        if (props.status === 'On the Way' || props.status === 'Needs a Tune-Up') {
             closeModal();
             props.navigation.navigate("Camera", { userId: props.userId, taskId: props.taskId, taskTitle: props.text });
         }
@@ -56,7 +56,7 @@ const Task = (props) => {
 
     const AcceptTask = () => {
         if (user && user.userType === 'admin') {
-            updateStatusTaskByTaskIdAndUserId(props.userId, props.taskId, 'done');
+            updateStatusTaskByTaskIdAndUserId(props.userId, props.taskId, 'All Finished!');
             updatePointsByUserId(props.userId, user.Points + props.points);
             closeModal();
         }
@@ -64,12 +64,12 @@ const Task = (props) => {
 
     const DeclineTask = () => {
         if (user && user.userType === 'admin') {
-            updateStatusTaskByTaskIdAndUserId(props.userId, props.taskId, 'to fix');
+            updateStatusTaskByTaskIdAndUserId(props.userId, props.taskId, 'Needs a Tune-Up');
             closeModal();
         }
     }
 
-    if (taskUser && props.status === 'pending') {
+    if (taskUser && props.status === 'Waiting to Happen') {
         firebase.storage().ref().child(`images/user_id_${taskUser.id}/${props.text.replace(/\s/g, '_')}.jpg`)
             .getDownloadURL()
             .then((url) => {
