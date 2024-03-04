@@ -9,7 +9,7 @@ import Header from '../components/Page-Format/Header';
 import Footer from '../components/Page-Format/Footer';
 
 const ShopScreen = ({ route, navigation }) => {
-  const { userId } = route.params;
+  const { userId, userType } = route.params;
 
   return (
     <ImageBackground
@@ -23,7 +23,7 @@ const ShopScreen = ({ route, navigation }) => {
 
       </View>
 
-      <Footer userId={userId} navigation={navigation} screenName={'Shop'}/>
+      <Footer userId={userId} userType={userType} navigation={navigation} screenName={'Shop'}/>
     </ImageBackground>
 
   );
