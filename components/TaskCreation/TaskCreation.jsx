@@ -46,7 +46,7 @@ function TaskCreation({ userId }) {
                 description: values.Description,
                 id: newCount+1,
                 points: values.points,
-                status: 'in progress',
+                status: 'Getting Ready',
                 time: formattedTime,
                 title: values.title,
                 user_id: multiSelected,
