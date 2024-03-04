@@ -26,13 +26,9 @@ const ShopCreation = ({ userId, navigation }) => {
   return (
     <View style={{ alignItems: 'center' }}>
       <View style={styles.titleContainer}>
-        {/* <Image source={require('../../assets/Avatar-Shop/confetti2.png')} /> */}
+        <Image source={require('../../assets/Avatar-Shop/confetti2.png')} />
         <Text style={styles.titleText}>Shop</Text>
-        {/* <Image source={require('../../assets/Avatar-Shop/confetti1.png')} /> */}
-      </View>
-      <View style={styles.currentPointsContainer}>
-      {/* <Image style={styles.pointImage} source={require('../../assets/Home/Points.png')} /> */}
-      <Text style={{fontWeight:'bold',}}></Text>
+        <Image source={require('../../assets/Avatar-Shop/confetti1.png')} />
       </View>
       <View style={styles.buttonsContainer}>
         <TouchableOpacity style={styles.Btn1}>

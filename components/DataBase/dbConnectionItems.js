@@ -51,7 +51,32 @@ const dbConnectionItems = () => {
     }
   }
 
-  return { items, getItemsByUserId };
+  const addItemToDB = async (userId, category, ShopItem) => {
+    const db = getDatabase();
+    const { id, name } = ShopItem;
+    const itemsRef = ref(db, `items/${userId-1}/itemsArray/${category}`);
+    const newItem = {
+      id,
+      name,
+    };
+   
+    const snapshot = await get(itemsRef);
+    let latestItemId = 0;
+    if (snapshot.exists()) {
+      const itemsData = snapshot.val();
+      const itemIds = Object.keys(itemsData).map(Number);
+      latestItemId = Math.max(...itemIds);
+    }
+
+    const newItemId = latestItemId + 1;
+
+    const newItemRef = ref(db, `items/${userId-1}/itemsArray/${category}/${newItemId}`);
+    await set(newItemRef, newItem);
+  };
+  
+
+
+  return { items, getItemsByUserId,addItemToDB };
 
 }
 

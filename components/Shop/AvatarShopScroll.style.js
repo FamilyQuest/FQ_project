@@ -70,8 +70,8 @@ const styles = StyleSheet.create({
     },
     modalContent:{
         backgroundColor: '#fff',
-        width: '50%',
-        height: '20%',
+        width: '70%',
+        height: '25%',
         paddingHorizontal:'5%',
         paddingVertical:'5%',
         borderRadius: 10,
@@ -80,6 +80,37 @@ const styles = StyleSheet.create({
         borderColor:'#8DE1D5',
         borderWidth:6,
         flexDirection:'column',
+    },
+    modalContentText:{
+        fontWeight:'bold',
+        fontSize:18,
+        textAlign:'center',
+    },
+    Btn1: {
+        width: '45%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#D9D9D9',
+        padding: 10,
+        borderRadius: 35,
+    },
+    Btn2: {
+        width: '45%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#A4E7DD',
+        padding: 10,
+        borderRadius: 35,
+    },
+    textBtn: {
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
+    buttonsContainer:{
+        width:"100%",
+        flexDirection:'row',
+        justifyContent:'space-between',
+        marginBottom:15,
     },
 });
 
