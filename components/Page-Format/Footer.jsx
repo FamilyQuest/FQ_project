@@ -37,6 +37,14 @@ function Footer({ userId, navigation, screenName, userType }) {
     navigation.navigate("SubmitTask", { userId: userId, userType: userType })
   }
 
+  let footerUrl;
+  if (userType == 'child') {
+    console.log(userType, "child");
+    footerUrl = require('../../assets/General/Footer_V2.png');
+  } else {
+    footerUrl = require('../../assets/General/Footer.png');
+  }
+
   return (
     <View style={styles.footer}>
       {showPlus && (
@@ -44,7 +52,7 @@ function Footer({ userId, navigation, screenName, userType }) {
           <Image style={styles.footerImg} source={require('../../assets/General/Plus.png')} />
         </TouchableOpacity>
       )}
-      <Image style={styles.footerImage} source={require('../../assets/General/Footer.png')} />
+      <Image style={styles.footerImage} source={footerUrl} />
       <View style={styles.footerIcons}>
         <TouchableOpacity onPress={() => navigation.navigate("Home", { userId: userId })}>
           <Image style={[styles.footerIcon, { opacity: opc1 }]} source={require('../../assets/General/Home.png')} />
@@ -53,7 +61,7 @@ function Footer({ userId, navigation, screenName, userType }) {
           <Image style={[styles.footerIcon, { opacity: opc2 }]} source={require('../../assets/General/Achievements.png')} />
         </TouchableOpacity>
         <View style={styles.seperator} />
-        <TouchableOpacity onPress={() => navigation.navigate("Shop", { userId: userId })}>
+        <TouchableOpacity onPress={() => navigation.navigate("Shop", { userId: userId, userType: userType })}>
           <Image style={[styles.footerIcon, { opacity: opc3 }]} source={require('../../assets/General/Shop.png')} />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate("Avatar", { userId: userId, userType: userType })}>
