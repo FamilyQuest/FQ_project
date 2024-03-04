@@ -5,6 +5,7 @@ import AvatarScreen from './screens/AvatarScreen';
 import SignupScreen from './screens/SignupScreen';
 import SubmitTaskScreen from './screens/SubmitTaskScreen';
 import AchievementsScreen from './screens/AchievementsScreen';
+import ShopScreen from './screens/ShopScreen';
 // import { useState, useEffect, useRef } from 'react';
 // import { Text, View, Button, Platform } from 'react-native';
 // import * as Device from 'expo-device';
@@ -113,6 +114,7 @@ export default function App() {
         <Stack.Screen name="Avatar" component={AvatarScreen} options={{ headerShown: false }} />
         <Stack.Screen name="SubmitTask" component={SubmitTaskScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Achievements" component={AchievementsScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="Shop" component={ShopScreen} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );

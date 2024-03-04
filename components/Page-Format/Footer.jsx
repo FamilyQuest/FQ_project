@@ -53,7 +53,7 @@ function Footer({ userId, navigation, screenName, userType }) {
           <Image style={[styles.footerIcon, { opacity: opc2 }]} source={require('../../assets/General/Achievements.png')} />
         </TouchableOpacity>
         <View style={styles.seperator} />
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("Shop", { userId: userId })}>
           <Image style={[styles.footerIcon, { opacity: opc3 }]} source={require('../../assets/General/Shop.png')} />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate("Avatar", { userId: userId, userType: userType })}>
