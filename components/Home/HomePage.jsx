@@ -14,6 +14,7 @@ const HomePage = ({ navigation, userId }) => {
   const { getTasksByUserId, getTasksByAdminId } = dbConnectionTasks();
   const { getUserById } = dbConnectionUsers();
   const user = getUserById(userId);
+  
   let tasksArray = [];
   if (user) {
     if(user.userType === 'admin'){
@@ -22,11 +23,10 @@ const HomePage = ({ navigation, userId }) => {
        tasksArray = getTasksByUserId(userId);
     }
   }
-
   if( tasksArray[0] === 'no tasks found'){
     return (
       <View style={styles.container}>
-        <Text style={styles.sectionTitle}>Welcome Back!</Text>
+        <Text style={styles.sectionTitle}>Welcome {user.first_name}!</Text>
         <View style={{ height: "60%",alignItems:'center',justifyContent:'center' }}>
         <Text style={styles.sectionSubTitle}>No tasks found for today</Text>
         </View>
@@ -45,7 +45,7 @@ const HomePage = ({ navigation, userId }) => {
   
   return (
     <View style={styles.container}>
-      <Text style={styles.sectionTitle}>Welcome Back!</Text>
+      <Text style={styles.sectionTitle}>Welcome {user.first_name}!</Text>
       <Text style={styles.sectionSubTitle}>Today's Tasks </Text>
       <View style={{ height: "60%" }}>
         <ScrollView
