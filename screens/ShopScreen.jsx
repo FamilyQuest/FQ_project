@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, ImageBackground, I18nManager,SafeAreaView,StatusBar } from 'react-native';
-// import AvatarCreationForm from '../components/Avatar/AvatarCreationForm';
 import ShopCreation from '../components/Shop/ShopCreation';
 I18nManager.forceRTL(false);
 I18nManager.allowRTL(false);
@@ -18,14 +17,10 @@ const ShopScreen = ({ route, navigation }) => {
       <Header navigation={navigation} screenName={'Home'} visible={true} />
       <View style={{ height: "100%", width: "100%" }}>
           <StatusBar backgroundColor="#A4E7DD" barStyle="dark-content" />
-
           <ShopCreation userId={userId} navigation={navigation}/>
-
       </View>
-
       <Footer userId={userId} userType={userType} navigation={navigation} screenName={'Shop'}/>
     </ImageBackground>
-
   );
 };
 
