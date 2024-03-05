@@ -42,6 +42,10 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
   },
+  lockImage:{
+    width: 50,
+    height: 50,
+  },
   imageContainer: {
     backgroundColor: '#f2f2f2',
     width: '25%',
@@ -52,7 +56,18 @@ const styles = StyleSheet.create({
     borderStyle: 'dashed',
     alignItems: 'center',
     justifyContent: 'center',
-  }
+  },
+  lockContainer: {
+    backgroundColor: '#A9A9A9',
+    width: '25%',
+    padding: 16,
+    borderRadius: 8,
+    borderWidth: 2,
+    borderColor: '#FF6E6B',
+    borderStyle: 'dashed',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });
 
 
