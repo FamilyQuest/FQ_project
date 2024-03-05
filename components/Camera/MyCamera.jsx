@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, ActivityIndicator  } from 'react-native';
 import { Camera } from 'expo-camera';
 import * as MediaLibrary from 'expo-media-library';
 import { firebase } from '../DataBase/dbConnection';
@@ -18,6 +18,7 @@ export default function MyCamera( {navigation, userId, taskId, taskTitle} ) {
   const [image, setImage] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [flash, setFlash] = useState(Camera.Constants.FlashMode.off);
+  const [loading, setLoading] = useState(false);
   const cameraRef = useRef(null);
   
   useEffect(() => {
@@ -42,6 +43,7 @@ export default function MyCamera( {navigation, userId, taskId, taskTitle} ) {
 
   const saveImage = async () => {
     if (image) {
+      setLoading(true);
       try {
         const asset = await MediaLibrary.createAssetAsync(image);
         const filename = taskTitle.replace(/\s/g, '_') + '.jpg';
@@ -51,6 +53,7 @@ export default function MyCamera( {navigation, userId, taskId, taskTitle} ) {
         await ref.put(blob);
         setImage(null);
         updateStatusTaskByTaskIdAndUserId(userId, taskId, 'pending');
+        setLoading(false);
         navigation.goBack()
       } catch (error) {
         console.error(error);
@@ -98,13 +101,17 @@ export default function MyCamera( {navigation, userId, taskId, taskTitle} ) {
         <Image source={{ uri: image }} style={styles.camera} />
       )}
       <View style={styles.bottomButtons}>
-        {image ? (
-          <View style={styles.buttonsContainer}>
-            <Button title="Re-take" icon="retweet" onPress={() => setImage(null)} />
-            <Button title="Save" icon="check" onPress={saveImage} />
-          </View>
+      {loading ? ( // Render loading indicator if loading is true
+          <ActivityIndicator size="large" color="#ffffff" />
         ) : (
-          <Button title="Take a picture" icon="camera" onPress={takePicture} />
+          !image ? (
+            <Button title="Take a picture" icon="camera" onPress={takePicture} />
+          ) : (
+            <View style={styles.buttonsContainer}>
+              <Button title="Re-take" icon="retweet" onPress={() => setImage(null)} />
+              <Button title="Save" icon="check" onPress={saveImage} />
+            </View>
+          )
         )}
       </View>
     </View>
@@ -128,15 +135,23 @@ const styles = StyleSheet.create({
   },
   bottomButtons: {
     position: 'absolute',
-    bottom: 20,
+    bottom: 50,
     left: 0,
     right: 0,
     alignItems: 'center',
+  },
+  saveRetakeButtons: {
+    position: 'absolute',
+    bottom: 50,
+    left: 0,
+    right: 0,
+    alignItems: 'flex-end',
   },
   buttonsContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: 50,
+    width:"100%",
   },
 });
 
