@@ -66,6 +66,7 @@ const Achievements = ({ navigation, userId }) => {
                             text={achivement.title}
                             countMax={achivement.countMax}
                             count={achivement.count}
+                            status={achivement.status}
                         />
                     ))}
                 </ScrollView>

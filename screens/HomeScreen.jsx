@@ -10,6 +10,7 @@ import Footer from '../components/Page-Format/Footer';
 
 const HomeScreen = ({route,navigation}) => {
   const { userId,userType } = route.params;
+  console.log('HomeScreen',userId,userType);
   return (
     <ImageBackground
       style={{height: "100%",width: "100%"}}
