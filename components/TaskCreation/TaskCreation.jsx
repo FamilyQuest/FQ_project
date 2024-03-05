@@ -17,7 +17,6 @@ const formattedHours = String(hours).padStart(2, '0');
 const formattedMinutes = String(minutes).padStart(2, '0');
 const formattedTime = `${formattedHours}:${formattedMinutes}`;
 function TaskCreation({ navigation,userId }) {
-    console.log("This is ", userId);
     const [selected, setSelected] = useState('');
     const [currentCount, setCurrentCount] = useState(0);
     const [multiSelected, multiSetSelected] = useState([]);

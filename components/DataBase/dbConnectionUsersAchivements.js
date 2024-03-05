@@ -73,7 +73,6 @@ const dbConnectionUsersAchivements = () => {
     console.log('here: ', userAchivement)
     if (userAchivement) {
       const db = getDatabase();
-      console.log(achivementId);
       console.log('paht: ', `UsersAchivements/${userId - 1}`)
       const usersAchivementsRef = ref(db, `UsersAchivements/${userId - 1}/achivementsArray/${achivementId - 1}`);
       set(usersAchivementsRef, {
