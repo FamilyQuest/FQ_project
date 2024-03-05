@@ -33,7 +33,6 @@ export default function MyCamera( {navigation, userId, taskId, taskTitle} ) {
     if (cameraRef.current) {
       try {
         const data = await cameraRef.current.takePictureAsync();
-        console.log(data);
         setImage(data.uri);
       } catch (error) {
         console.error(error);
