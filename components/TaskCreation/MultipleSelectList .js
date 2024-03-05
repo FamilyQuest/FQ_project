@@ -37,6 +37,7 @@ const MySelectComponent = ({ setSelected }) => {
     borderRadius: 10,
     width: '100%',
     marginBottom: '10%',
+    boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
   };
   return (
     <MultipleSelectList
