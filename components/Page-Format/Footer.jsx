@@ -39,7 +39,7 @@ function Footer({ userId, navigation, screenName, userType }) {
 
   let footerUrl;
   if (userType == 'child') {
-    footerUrl = require('../../assets/General/Footer_V2.png');
+    footerUrl = require('../../assets/General/Footer_v2.png');
   } else {
     footerUrl = require('../../assets/General/Footer.png');
   }

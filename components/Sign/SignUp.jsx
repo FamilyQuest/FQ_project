@@ -60,7 +60,6 @@ function SignUp({ navigation }) {
 
     // All validations passed, proceed with sign-up
     // You can call your sign-up function here or navigate to another screen
-    // For demonstration purpose, I'll just log the form data
     const newUser =
     {
       'Enviorment_id': 1,
@@ -219,7 +218,7 @@ function SignUp({ navigation }) {
             selectedValue={userType}
             onValueChange={(itemValue) => setUserType(itemValue)}
           >
-            <Picker.Item label="Select User Type" value="" />
+            <Picker.Item label="* Select" value="" style={styles.pickerItem}/>
             <Picker.Item label="Child" value="child" />
             <Picker.Item label="Admin" value="admin" />
           </Picker>
