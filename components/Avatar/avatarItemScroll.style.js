@@ -13,6 +13,14 @@ const styles = StyleSheet.create({
         borderColor: "#A4E7DD",
         backgroundColor: "#fff",
     },
+    emptyItem:{
+        backgroundColor: "#fff",
+        width: "25%",
+        height: 90,
+        borderRadius: 20,
+        alignItems: "center",
+        justifyContent: "center",
+    },
     item: {
         backgroundColor: "#F2F2F2",
         width: "25%",

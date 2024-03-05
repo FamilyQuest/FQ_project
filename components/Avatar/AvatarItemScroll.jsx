@@ -162,6 +162,7 @@ const AvatarItemScroll = ({
     dataJson = userItems['itemsArray']
   }
 
+
   return (
     <View style={styles.formContainer}>
       {showLoading && (
@@ -169,33 +170,56 @@ const AvatarItemScroll = ({
           <Image style={{ width: 100, height: 100 }} source={require('../../assets/Avatar-Shop/loading.gif')} />
         </View>
       )}
-      {showHairStylePage && (<ScrollView style={styles.listContainer}
-        showsVerticalScrollIndicator={false}
-        onTouchStart={(e) => e.stopPropagation()}
-        onTouchMove={(e) => e.stopPropagation()}>
-        <View>
-          {dataJson && dataJson.Top.reduce((rows, key, index) => (index % 3 === 0 ? rows.push([key]) : rows[rows.length - 1].push(key)) && rows, []).map((row, index) => (
-            <View key={index} style={styles.rowContainer}>
-              {row.map((item, index) => (
-                <TouchableOpacity key={index} style={styles.item} onPress={() => handleHairStyleChange(item.name)}>
-                  <Avatar params={{
-                    top: [item.name],
-                    hairColor: [hairColor],
-                    skinColor: [skinColorStyle],
-                    clothing: [clothingStyle],
-                    clothesColor: [clothingColorStyle],
-                    mouth: [],
-                    eyes: [],
-                    eyebrows: [],
-                  }} />
-                </TouchableOpacity>
+      {showHairStylePage && (
+        <ScrollView
+          style={styles.listContainer}
+          showsVerticalScrollIndicator={false}
+          onTouchStart={(e) => e.stopPropagation()}
+          onTouchMove={(e) => e.stopPropagation()}
+        >
+          <View>
+            {dataJson &&
+              dataJson.Top.reduce(
+                (rows, key, index) => (
+                  index % 3 === 0 ? rows.push([key]) : rows[rows.length - 1].push(key),
+                  rows
+                ),
+                []
+              ).map((row, index) => (
+                <View key={index} style={styles.rowContainer}>
+                  {row.map((item, index) => (
+                    <TouchableOpacity
+                      key={index}
+                      style={styles.item}
+                      onPress={() => handleHairStyleChange(item.name)}
+                    >
+                      <Avatar
+                        params={{
+                          top: [item.name],
+                          hairColor: [hairColor],
+                          skinColor: [skinColorStyle],
+                          clothing: [clothingStyle],
+                          clothesColor: [clothingColorStyle],
+                          mouth: [],
+                          eyes: [],
+                          eyebrows: [],
+                        }}
+                      />
+                    </TouchableOpacity>
+                  ))}
+                  {row.length % 3 === 2 && <View style={styles.emptyItem} />}
+                  {row.length % 3 === 1 && (
+                    <>
+                      <View style={styles.emptyItem} />
+                      <View style={styles.emptyItem} />
+                    </>
+                  )}
+                </View>
               ))}
-            </View>
-          ))}
-        </View>
-      </ScrollView>
-
+          </View>
+        </ScrollView>
       )}
+
       {showHairColorStylePage && (<ScrollView style={styles.listContainer}
         showsVerticalScrollIndicator={false}
         onTouchStart={(e) => e.stopPropagation()}
@@ -218,6 +242,13 @@ const AvatarItemScroll = ({
                   }} />
                 </TouchableOpacity>
               ))}
+              {row.length % 3 === 2 && <View style={styles.emptyItem} />}
+              {row.length % 3 === 1 && (
+                <>
+                  <View style={styles.emptyItem} />
+                  <View style={styles.emptyItem} />
+                </>
+              )}
             </View>
           ))}
         </View>
@@ -244,6 +275,13 @@ const AvatarItemScroll = ({
                   }} />
                 </TouchableOpacity>
               ))}
+              {row.length % 3 === 2 && <View style={styles.emptyItem} />}
+              {row.length % 3 === 1 && (
+                <>
+                  <View style={styles.emptyItem} />
+                  <View style={styles.emptyItem} />
+                </>
+              )}
             </View>
           ))}
         </View>
@@ -272,6 +310,13 @@ const AvatarItemScroll = ({
                   }} />
                 </TouchableOpacity>
               ))}
+              {row.length % 3 === 2 && <View style={styles.emptyItem} />}
+              {row.length % 3 === 1 && (
+                <>
+                  <View style={styles.emptyItem} />
+                  <View style={styles.emptyItem} />
+                </>
+              )}
             </View>
           ))}
         </View>
@@ -299,6 +344,13 @@ const AvatarItemScroll = ({
                   }} />
                 </TouchableOpacity>
               ))}
+              {row.length % 3 === 2 && <View style={styles.emptyItem} />}
+              {row.length % 3 === 1 && (
+                <>
+                  <View style={styles.emptyItem} />
+                  <View style={styles.emptyItem} />
+                </>
+              )}
             </View>
           ))}
         </View>
@@ -325,6 +377,13 @@ const AvatarItemScroll = ({
                   }} />
                 </TouchableOpacity>
               ))}
+              {row.length % 3 === 2 && <View style={styles.emptyItem} />}
+              {row.length % 3 === 1 && (
+                <>
+                  <View style={styles.emptyItem} />
+                  <View style={styles.emptyItem} />
+                </>
+              )}
             </View>
           ))}
         </View>
@@ -351,6 +410,13 @@ const AvatarItemScroll = ({
                   }} />
                 </TouchableOpacity>
               ))}
+              {row.length % 3 === 2 && <View style={styles.emptyItem} />}
+              {row.length % 3 === 1 && (
+                <>
+                  <View style={styles.emptyItem} />
+                  <View style={styles.emptyItem} />
+                </>
+              )}
             </View>
           ))}
         </View>
@@ -377,6 +443,13 @@ const AvatarItemScroll = ({
                   }} />
                 </TouchableOpacity>
               ))}
+              {row.length % 3 === 2 && <View style={styles.emptyItem} />}
+              {row.length % 3 === 1 && (
+                <>
+                  <View style={styles.emptyItem} />
+                  <View style={styles.emptyItem} />
+                </>
+              )}
             </View>
           ))}
         </View>
@@ -398,7 +471,6 @@ const AvatarItemScroll = ({
           onPress={() => handlePage('Mouth')}>
           <Image style={styles.stylePickerImg} source={require('../../assets/Avatar-Shop/mouthStyle.png')} />
         </TouchableOpacity>
-
         <TouchableOpacity
           style={[styles.stylePicker, { backgroundColor: buttonColor['Eyes'] }]}
           onPress={() => handlePage('Eyes')}>
