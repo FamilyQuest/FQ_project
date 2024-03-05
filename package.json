@@ -19,7 +19,7 @@
     "expo-checkbox": "^2.7.0",
     "expo-dev-client": "~3.3.8",
     "expo-media-library": "^15.9.1",
-    "firebase": "^10.8.0",
+    "firebase": "^10.8.1",
     "formik": "^2.4.5",
     "react-native-dotenv": "^3.4.10",
     "react-native-dropdown-select-list": "^2.0.5",
