@@ -70,13 +70,10 @@ const Task = (props) => {
             closeModal();
         }
     }
-    // console.log("this is my test to see the status: ",props.status);
-    // console.log("this is my test to see the status: ",taskUser);
     if (taskUser && props.status === 'Almost There') {
         firebase.storage().ref().child(`images/user_id_${taskUser.id}/${props.text.replace(/\s/g, '_')}.jpg`)
             .getDownloadURL()
             .then((url) => {
-                console.log("this is my test",url);
                 setImg(url); // Set the image URL using state
             })
             .catch((error) => {
