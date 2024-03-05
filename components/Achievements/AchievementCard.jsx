@@ -18,6 +18,7 @@ const AchievementCard = ({ image, text, countMax, count, status }) => {
             )}
             <View style={styles.textContainer}>
                 <Text style={styles.description1}>{text}</Text>
+                
                 <Text style={styles.description2}>{count}/{countMax}</Text>
             </View>
         </View>
