@@ -52,7 +52,7 @@ export default function MyCamera( {navigation, userId, taskId, taskTitle} ) {
         const ref = firebase.storage().ref().child(`images/user_id_${userId}/${filename}`);
         await ref.put(blob);
         setImage(null);
-        updateStatusTaskByTaskIdAndUserId(userId, taskId, 'pending');
+        updateStatusTaskByTaskIdAndUserId(userId, taskId, 'Almost There');
         setLoading(false);
         navigation.goBack()
       } catch (error) {

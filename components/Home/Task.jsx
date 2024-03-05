@@ -28,8 +28,10 @@ const Task = (props) => {
     let taskUser = null;
     if (user && user.userType === 'admin') {
         const taskUserId = getUserIdByTaskId(props.taskId);
+        
         if (taskUserId) {
             taskUser = getUserById(taskUserId);
+            
         }
     }
 
@@ -68,11 +70,13 @@ const Task = (props) => {
             closeModal();
         }
     }
-
+    // console.log("this is my test to see the status: ",props.status);
+    // console.log("this is my test to see the status: ",taskUser);
     if (taskUser && props.status === 'Almost There') {
         firebase.storage().ref().child(`images/user_id_${taskUser.id}/${props.text.replace(/\s/g, '_')}.jpg`)
             .getDownloadURL()
             .then((url) => {
+                console.log("this is my test",url);
                 setImg(url); // Set the image URL using state
             })
             .catch((error) => {
@@ -112,11 +116,11 @@ const Task = (props) => {
                         <Text style={styles.titleModal}>Assignment</Text>
                         <View style={styles.modalTextContainer}>
                             <View>
-                                <Text style={styles.textModal}>the task is {props.text} </Text>
-                                <Text style={styles.textModal}>assigned to: {user && user.first_name ? user.first_name : ''} {user && user.last_name ? user.last_name : ''}</Text>
-                                <Text style={styles.textModal}>category: {props.category}</Text>
-                                <Text style={styles.textModal}>points: {props.points}</Text>
-                                <Text style={styles.textModal}>description:</Text>
+                                <Text style={styles.textModal}>The task is {props.text} </Text>
+                                <Text style={styles.textModal}>Assigned to: {user && user.first_name ? user.first_name : ''} {user && user.last_name ? user.last_name : ''}</Text>
+                                <Text style={styles.textModal}>Category: {props.category}</Text>
+                                <Text style={styles.textModal}>Points: {props.points}</Text>
+                                <Text style={styles.textModal}>Description:</Text>
                                 <View style={styles.modalScrollView}>
                                     <ScrollView
                                         showsVerticalScrollIndicator={false}
@@ -159,6 +163,7 @@ const Task = (props) => {
                         </TouchableOpacity>
                         <View style={styles.imageBox}>
                             <Image
+                            
                                 source={{ uri: img }}
                                 style={styles.image}
                             />

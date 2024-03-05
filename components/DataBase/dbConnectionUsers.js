@@ -68,9 +68,14 @@ const dbConnectionUsers = () => {
       }
     });
   };
-
+  //need logic fixes
   function getUserById(userId) {
+    if (Array.isArray(userId) && userId.length > 1) {
+      userId = [userId[0]]; 
+    }
+
     const foundUser = users.find(user => user.id == userId);
+    
     if (foundUser) {
       return foundUser;
     } else {
