@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { TextInput, Text, View, TouchableOpacity } from 'react-native';
+import { TextInput, Text, View, TouchableOpacity,ScrollView } from 'react-native';
 import { StatusBar } from "react-native";
 import { Formik } from 'formik';
 import { initializeApp } from "firebase/app";
@@ -65,7 +65,7 @@ function TaskCreation({ navigation,userId }) {
         <View>
             <StatusBar backgroundColor="#A4E7DD" barStyle="dark-content" />
             <Text style={styles.title}>New Task</Text>
-            <View style={styles.container}>
+            <ScrollView contentContainerStyle={styles.container}>
                 <Formik initialValues={{ title: '', user_id: '', status: '', category: '', points: '', Description: '' }}
                     onSubmit={(values) => addTask(values)}>
                     {(props) => (
@@ -94,7 +94,7 @@ function TaskCreation({ navigation,userId }) {
                                 placeholderTextColor='black'
                                 onChangeText={props.handleChange('Description')}
                                 value={props.values.Description}
-                                textAlignVertical="center"
+                                textAlignVertical="top"
                             />
                             <TouchableOpacity
                                 style={styles.buttonContainer}
@@ -104,14 +104,13 @@ function TaskCreation({ navigation,userId }) {
                                     navigation.goBack();
                                 }}
                             >
-
                                 <Text style={styles.btnText}>Add now</Text>
                             </TouchableOpacity>
 
                         </View>
                     )}
                 </Formik>
-            </View>
+            </ScrollView>
         </View>
     );
 }

@@ -13,9 +13,12 @@ const styles = StyleSheet.create({
     },
     title: {
       fontSize: 40,
+      color: '#363636',
+      fontWeight: 'bold',
       justifyContent: 'center',
       textAlign: 'center',
       marginTop:35,
+      marginBottom: 30,
     },
     input: {
       marginBottom: 30,
