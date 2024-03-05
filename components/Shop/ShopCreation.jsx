@@ -1,15 +1,16 @@
 // AvatarCreationForm
-import React, { useState } from 'react';
-import { View, Text, ImageBackground, Image,TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, ImageBackground, Image, TouchableOpacity } from 'react-native';
 import { I18nManager } from "react-native";
+import { FontAwesome6 } from '@expo/vector-icons';
 
 I18nManager.forceRTL(false);
 I18nManager.allowRTL(false);
 
 import AvatarCreation from '../Avatar/AvatarCreation';
-// import AvatarItemScroll from '../Avatar/AvatarItemScroll';
 import AvatarShopScroll from './AvatarShopScroll';
 import styles from './ShopCreation.style';
+import dbConnectionUsers from '../DataBase/dbConnectionUsers';
 
 const ShopCreation = ({ userId, navigation }) => {
   const [hairStyle, setHairStyle] = useState('shortFlat');
@@ -20,8 +21,21 @@ const ShopCreation = ({ userId, navigation }) => {
   const [eyesBrowsStyle, setEyesBrowsStyle] = useState('default');
   const [skinColorStyle, setSkinColorStyle] = useState('f2d3b1');
   const [clothingStyle, setClothingStyle] = useState('hoodie');
-
   const [showAvatar, setShowAvatar] = useState(true);
+  const [score, setScore] = useState(0);
+  const { users, getUserById } = dbConnectionUsers();
+
+  useEffect(() => {
+    if (users) {
+      const user = getUserById(userId);
+      if (user) {
+        setScore(user.Points);
+      }
+    }
+  }, [users]);
+
+  useEffect(() => {
+  }, [score]);
 
   return (
     <View style={{ alignItems: 'center' }}>
@@ -30,6 +44,8 @@ const ShopCreation = ({ userId, navigation }) => {
         <Text style={styles.titleText}>Shop</Text>
         <Image source={require('../../assets/Avatar-Shop/confetti1.png')} />
       </View>
+      <Text>{score}</Text>
+      <Image style={styles.pointImage} source={require('../../assets/Avatar-Shop/star.png')} />
       <View style={styles.buttonsContainer}>
         <TouchableOpacity style={styles.Btn1}>
           <Text style={styles.textBtn}>Virtual</Text>
@@ -38,29 +54,18 @@ const ShopCreation = ({ userId, navigation }) => {
           <Text style={styles.textBtn}>Physical</Text>
         </TouchableOpacity>
       </View>
-    
       <AvatarShopScroll
         userId={userId}
         hairStyle={hairStyle}
-        // setHairStyle={setHairStyle}
         hairColor={hairColor}
-        // setHairColor={setHairColor}
         mouthStyle={mouthStyle}
-        // setMouthStyle={setMouthStyle}
         clothingColorStyle={clothingColorStyle}
-        // setClothingColorStyle={setClothingColorStyle}
         eyesStyle={eyesStyle}
-        // setEyesStyle={setEyesStyle}
         eyesBrowsStyle={eyesBrowsStyle}
-        // setEyesBrowsStyle={setEyesBrowsStyle}
         skinColorStyle={skinColorStyle}
-        // setSkinColorStyle={setSkinColorStyle}
         clothingStyle={clothingStyle}
-        // setClothingStyle={setClothingStyle}
         showAvatar={showAvatar}
-      // setShowAvatar={setShowAvatar}
       />
-  
     </View>
 
   );
