@@ -109,7 +109,8 @@ const dbConnectionUsers = () => {
 
   function updatePointsByUserId(userId, points) {
     const updatedUser = users.map(user => {
-      if (user.id === userId) {
+      console.log('User id:', user.id, 'User points:', user.Points, 'New points:', points)
+      if (user.id == userId) {
         return { ...user, Points: points };
       } else {
         return user;

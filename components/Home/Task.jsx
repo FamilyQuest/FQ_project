@@ -28,15 +28,15 @@ const Task = (props) => {
     let taskUser = null;
     if (user && user.userType === 'admin') {
         const taskUserId = getUserIdByTaskId(props.taskId);
-        
+
         if (taskUserId) {
             taskUser = getUserById(taskUserId);
-            
+
         }
     }
 
     const openModal = () => {
-        if(props.status === 'All Set!') return;
+        if (props.status === 'All Set!') return;
         if (user && user.userType === 'admin') {
             setAdminModalVisible(true);
         } else {
@@ -59,8 +59,9 @@ const Task = (props) => {
     const AcceptTask = () => {
         if (user && user.userType === 'admin') {
             updateStatusTaskByTaskIdAndUserId(props.userId, props.taskId, 'All Set!');
-            updatePointsByUserId(props.userId, user.Points + props.points);
+            updatePointsByUserId(taskUser.id, parseInt(taskUser.Points) + parseInt(props.points));
             closeModal();
+
         }
     }
 
@@ -156,11 +157,11 @@ const Task = (props) => {
                             </Text>
                         )}
                         <TouchableOpacity style={styles.exitContainer} onPress={closeModal}>
-                            <Image style={styles.exitBtn} source={require("../../assets/Home/cross.png")}/>
+                            <Image style={styles.exitBtn} source={require("../../assets/Home/cross.png")} />
                         </TouchableOpacity>
                         <View style={styles.imageBox}>
                             <Image
-                            
+
                                 source={{ uri: img }}
                                 style={styles.image}
                             />
@@ -173,7 +174,7 @@ const Task = (props) => {
                                 <Text style={styles.textBtn}>Accept</Text>
                             </TouchableOpacity>
                         </View>
-                        
+
                     </View>
                 </View>
             </Modal>
