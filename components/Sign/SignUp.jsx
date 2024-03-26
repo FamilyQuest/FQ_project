@@ -6,6 +6,7 @@ import dbConnectionUsers from '../DataBase/dbConnectionUsers';
 import dbConnectionItems from '../DataBase/dbConnectionItems';
 import dbConnectionAvatars from '../DataBase/dbConnectionAvatars';
 import dbConnectionUsersAchivements from '../DataBase/dbConnectionUsersAchivements';
+import dbConnectionEnviorments from '../DataBase/dbConnectionEnviorments';
 
 function SignUp({ navigation }) {
   const [username, setUsername] = useState('');
@@ -17,49 +18,49 @@ function SignUp({ navigation }) {
   const [phone, setPhone] = useState('');
   const [userType, setUserType] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [enviormentName, setEnviormentName] = useState('');
+  const [enviormentId, setEnviormentId] = useState('');
 
   const { users, addUser, newUserKey } = dbConnectionUsers();
   const { addItems } = dbConnectionItems();
   const { addAvatar } = dbConnectionAvatars();
   const { newUsersAchivements } = dbConnectionUsersAchivements();
+  const { environments, createEnviorment, addUserToEnviorment } = dbConnectionEnviorments();
+
+  if(environments.length > 0) {
+    console.log('enviorments:', environments);
+  }
 
   const handleSignUp = () => {
-    // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       Alert.alert('Invalid Email', 'Please enter a valid email address.');
       return;
     }
 
-    // First name and last name validation
     const nameRegex = /^[a-zA-Z]+$/;
     if (!nameRegex.test(firstName) || !nameRegex.test(lastName)) {
       Alert.alert('Invalid Name', 'First name and last name should contain only alphabetic characters.');
       return;
     }
 
-    // Age validation
     const ageNumber = parseInt(age);
     if (isNaN(ageNumber) || ageNumber <= 0 || ageNumber >= 150) {
       Alert.alert('Invalid Age', 'Please enter a valid age.');
       return;
     }
 
-    // Phone validation
     const phoneRegex = /^\d{10}$/;
     if (!phoneRegex.test(phone)) {
       Alert.alert('Invalid Phone', 'Please enter a valid 10-digit phone number.');
       return;
     }
 
-    // User type validation
     if (userType !== 'child' && userType !== 'admin') {
       Alert.alert('Invalid User Type', 'User type should be either "child" or "admin".');
       return;
     }
 
-    // All validations passed, proceed with sign-up
-    // You can call your sign-up function here or navigate to another screen
     const newUser =
     {
       'Enviorment_id': 1,
@@ -80,6 +81,13 @@ function SignUp({ navigation }) {
     addAvatar(newUserId);
     newUsersAchivements(newUserId);
     addUser(newUser);
+
+    if (userType === 'admin') {
+      createEnviorment(newUserId, enviormentName);
+    } else if (userType === 'child') {
+      addUserToEnviorment(enviormentId, newUserId);
+    }
+    
 
     setUsername('');
     setEmail('');
@@ -218,12 +226,47 @@ function SignUp({ navigation }) {
             selectedValue={userType}
             onValueChange={(itemValue) => setUserType(itemValue)}
           >
-            <Picker.Item label="* Select" value="" style={styles.pickerItem}/>
+            <Picker.Item label="* Select" value="" style={styles.pickerItem} />
             <Picker.Item label="Child" value="child" />
             <Picker.Item label="Admin" value="admin" />
           </Picker>
           <View style={styles.empty} />
         </View>
+        {userType === 'child' && (
+          <View style={{ width: '100%', alignItems: 'center' }}>
+            <View style={styles.signUpInputContainer}>
+              <Text style={styles.signUpInputTitle}>Enviorment Name</Text>
+            </View>
+            <View style={styles.inputContainer}>
+              <Picker
+                style={styles.input}
+                selectedValue={enviormentId}
+                onValueChange={(itemValue) => setEnviormentId(itemValue)}
+              >
+                <Picker.Item label="* Select" value="" style={styles.pickerItem} />
+                {environments.map((enviorment) => (
+                  <Picker.Item key={enviorment.id} label={`${enviorment.id} ${enviorment.name}`} value={enviorment.id} />
+                ))}
+              </Picker>
+            </View>
+          </View>
+        )}
+        {userType === 'admin' && (
+          <View style={{ width: '100%', alignItems: 'center' }}>
+            <View style={styles.signUpInputContainer}>
+              <Text style={styles.signUpInputTitle}>Enviorment Name</Text>
+            </View>
+            <View style={styles.inputContainer}>
+              <TextInput
+                style={styles.input}
+                placeholder='* Enviorment Name'
+                value={enviormentName}
+                onChangeText={setEnviormentName}
+                ref={(input) => { nameInput = input; }}
+              />
+            </View>
+          </View>
+        )}
 
         <TouchableOpacity style={styles.btn} onPress={handleSignUp}>
           <Text style={styles.btnText}>Sign Up</Text>
