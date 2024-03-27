@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { TextInput, Text, View, TouchableOpacity,ScrollView } from 'react-native';
 import { StatusBar } from "react-native";
 import { Formik } from 'formik';
-import { initializeApp } from "firebase/app";
 import { getDatabase, ref, push, set, get } from "firebase/database";
 import CustomSelectList from './dropDown';
 import styles from './taskCreation.style';
