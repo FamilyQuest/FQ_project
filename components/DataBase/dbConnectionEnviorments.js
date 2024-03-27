@@ -65,6 +65,8 @@ const dbConnectionUsersAchivements = () => {
       .catch((error) => {
         console.error("Error adding environment: ", error);
       });
+
+      return newEnviorment;
   }
   
 
