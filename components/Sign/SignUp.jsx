@@ -25,7 +25,7 @@ function SignUp({ navigation }) {
   const { addItems } = dbConnectionItems();
   const { addAvatar } = dbConnectionAvatars();
   const { newUsersAchivements } = dbConnectionUsersAchivements();
-  const { environments, createEnviorment, addUserToEnviorment } = dbConnectionEnviorments();
+  const { environments, createEnviorment, addUserToEnviorment, getEnviormentByAdminId } = dbConnectionEnviorments();
 
   // if(environments.length > 0) {
   //   console.log('enviorments:', environments);
@@ -61,9 +61,19 @@ function SignUp({ navigation }) {
       return;
     }
 
+    let tmpEnviormentId;
+    const newUserId = newUserKey();
+    if (userType === 'admin') {
+      const tmp = createEnviorment(newUserId, enviormentName);
+      tmpEnviormentId = tmp.id;
+    } else if (userType === 'child') {
+      addUserToEnviorment(enviormentId, newUserId);
+      tmpEnviormentId = enviormentId;
+    }
+
     const newUser =
     {
-      'Enviorment_id': 1,
+      'Enviorment_id': tmpEnviormentId,
       'Points': 0,
       'age': age,
       'email': email,
@@ -76,17 +86,12 @@ function SignUp({ navigation }) {
     }
     console.log('Sign-up data:', newUser);
 
-    const newUserId = newUserKey();
     addItems(newUserId);
     addAvatar(newUserId);
     newUsersAchivements(newUserId);
     addUser(newUser);
 
-    if (userType === 'admin') {
-      createEnviorment(newUserId, enviormentName);
-    } else if (userType === 'child') {
-      addUserToEnviorment(enviormentId, newUserId);
-    }
+    
     
 
     setUsername('');

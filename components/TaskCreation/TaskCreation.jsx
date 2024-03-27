@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { TextInput, Text, View, TouchableOpacity,ScrollView } from 'react-native';
+import { TextInput, Text, View, TouchableOpacity, ScrollView } from 'react-native';
 import { StatusBar } from "react-native";
 import { Formik } from 'formik';
 import { getDatabase, ref, push, set, get } from "firebase/database";
@@ -15,7 +15,7 @@ const minutes = currentTime.getMinutes();
 const formattedHours = String(hours).padStart(2, '0');
 const formattedMinutes = String(minutes).padStart(2, '0');
 const formattedTime = `${formattedHours}:${formattedMinutes}`;
-function TaskCreation({ navigation,userId }) {
+function TaskCreation({ navigation, userId }) {
     const [selected, setSelected] = useState('');
     const [currentCount, setCurrentCount] = useState(0);
     const [multiSelected, multiSetSelected] = useState([]);
@@ -77,7 +77,7 @@ function TaskCreation({ navigation,userId }) {
                                 value={props.values.title}
                             />
                             <CustomSelectList setSelected={setSelected} />
-                            <MySelectComponent setSelected={multiSetSelected} />
+                            <MySelectComponent setSelected={multiSetSelected} userId={userId} />
 
                             <TextInput
                                 style={styles.input}
