@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { MultipleSelectList } from 'react-native-dropdown-select-list';
-import { initializeApp } from "firebase/app";
-import { getDatabase, ref, push, set, get } from "firebase/database";
+import { getDatabase, ref, get } from "firebase/database";
 import firebase from './firebaseConfig';
 const db = getDatabase(firebase);
 const useUserData = () => {

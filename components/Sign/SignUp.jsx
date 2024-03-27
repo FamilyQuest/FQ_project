@@ -27,9 +27,9 @@ function SignUp({ navigation }) {
   const { newUsersAchivements } = dbConnectionUsersAchivements();
   const { environments, createEnviorment, addUserToEnviorment } = dbConnectionEnviorments();
 
-  if(environments.length > 0) {
-    console.log('enviorments:', environments);
-  }
+  // if(environments.length > 0) {
+  //   console.log('enviorments:', environments);
+  // }
 
   const handleSignUp = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
