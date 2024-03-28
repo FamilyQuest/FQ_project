@@ -102,26 +102,6 @@ const dbConnectionTasks = () => {
     }
   }
 
-  function getTasksByAdminId(adminId) {
-    const foundTasks = tasks.filter(task => task.admin_id === adminId);
-    if (foundTasks.length > 0) {
-      return foundTasks;
-    } else {
-      console.log("No tasks found for user with ID " + adminId);
-      return [];
-    }
-  }
-
-  function getUserIdByTaskId(taskId) {
-    const foundTask = tasks.find(task => task.id === taskId);
-    if (foundTask) {
-      return foundTask.user_id;
-    } else {
-      console.log("No task found with ID " + taskId);
-      return undefined;
-    }
-  }
-
   function updateStatusTaskByTaskIdAndUserId(userId, taskId, newStatus) {
     const updatedTasks = tasks.map(task => {
       if (task.user_id === userId && task.id === taskId) {
