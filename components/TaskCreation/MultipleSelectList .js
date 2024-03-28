@@ -7,34 +7,41 @@ import dbConnectionEnviorments from '../DataBase/dbConnectionEnviorments';
 
 const MySelectComponent = ({ setSelected, userId }) => {
 
-const db = getDatabase(firebase);
-const useUserData = () => {
-  const [userData, setUserData] = useState([]);
-  const { environments, getEnviormentByAdminId } = dbConnectionEnviorments();
-  const enviorment = getEnviormentByAdminId(userId);
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const enviorment = getEnviormentByAdminId(userId);
-        if (enviorment && enviorment.id === userId) {
-          const snapshot = await get(ref(db, 'users'));
-          const userData = snapshot.val();
+  const db = getDatabase(firebase);
+  const useUserData = () => {
+    const [userData, setUserData] = useState([]);
+    const { environments, getEnviormentByAdminId } = dbConnectionEnviorments();
+    const enviorment = getEnviormentByAdminId(userId);
+    useEffect(() => {
+      const fetchUserData = async () => {
+        try {
+          if (enviorment && enviorment.id) { // Check if enviorment and its id are defined
+            const snapshot = await get(ref(db, 'users'));
+            const userData = snapshot.val();
 
-          const userDataArray = Object.entries(userData).map(([id, userData]) => ({ id, ...userData }));
-          setUserData(userDataArray);
-        } else {
-          console.log('User does not have access to this environment.');
+            if (userData) {
+              // Filter users based on Enviorment_id matching the environment id
+              const filteredUsers = Object.entries(userData)
+                .filter(([id, user]) => user.Enviorment_id === enviorment.id)
+                .map(([id, user]) => ({ id, ...user }));
+
+              setUserData(filteredUsers);
+            } else {
+              console.log('No user data found.');
+            }
+          } else {
+            console.log('Environment or its ID is undefined.');
+          }
+        } catch (error) {
+          console.error('Error fetching data: ', error);
         }
-      } catch (error) {
-        console.error('Error fetching data: ', error);
-      }
-    };
+      };
 
-    fetchUserData();
-  }, [userId]);
+      fetchUserData();
+    }, [userId, enviorment]);
 
-  return userData;
-};
+    return userData;
+  };
 
   const userData = useUserData();
   const firstNames = userData.map(user => ({ key: user.id, value: `${user.first_name} ${user.last_name} (${user.id})` }));
