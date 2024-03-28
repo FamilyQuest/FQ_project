@@ -15,12 +15,11 @@ const MySelectComponent = ({ setSelected, userId }) => {
     useEffect(() => {
       const fetchUserData = async () => {
         try {
-          if (enviorment && enviorment.id) { // Check if enviorment and its id are defined
+          if (enviorment && enviorment.id) {
             const snapshot = await get(ref(db, 'users'));
             const userData = snapshot.val();
 
             if (userData) {
-              // Filter users based on Enviorment_id matching the environment id
               const filteredUsers = Object.entries(userData)
                 .filter(([id, user]) => user.Enviorment_id === enviorment.id)
                 .map(([id, user]) => ({ id, ...user }));

@@ -8,6 +8,7 @@ I18nManager.allowRTL(false);
 import 'firebase/compat/storage';
 import dbConnectionUsers from '../DataBase/dbConnectionUsers';
 import dbConnectionTasks from '../DataBase/dbConnectionTasks';
+import dbConnectionUsersAchivements from "../DataBase/dbConnectionUsersAchivements";
 import { firebase } from '../DataBase/dbConnection';
 import styles from './tasks.style';
 
@@ -17,12 +18,25 @@ const Task = (props) => {
     const [img, setImg] = useState('../assets/Empty.png');
     const { getUserById, updatePointsByUserId } = dbConnectionUsers();
     const { getUserIdByTaskId, updateStatusTaskByTaskIdAndUserId } = dbConnectionTasks();
+    const {incrementUserAchivement} = dbConnectionUsersAchivements();
     const [statusColor, setStatusColor] = useState({
         'Getting Ready': '#E4E4E4',
         'Almost There': '#ffd166',
         'All Set!': '#57cc99',
         'Time to Fix': '#ff6b6b'
     });
+
+    console.log('in task: ',props);
+
+    CheckForAchivement = (userId) => {
+        if(props.category === 'cleaning'){
+            incrementUserAchivement(userId, 1,5);
+        }
+        if(props.category === 'homework'){
+            incrementUserAchivement(userId, 2,5);
+        }
+        incrementUserAchivement(userId, 3,5);
+    }
 
     const user = getUserById(props.userId);
     let taskUser = null;
@@ -58,6 +72,7 @@ const Task = (props) => {
 
     const AcceptTask = () => {
         if (user && user.userType === 'admin') {
+            CheckForAchivement(taskUser.id);
             updateStatusTaskByTaskIdAndUserId(props.userId, props.taskId, 'All Set!');
             updatePointsByUserId(taskUser.id, parseInt(taskUser.Points) + parseInt(props.points));
             closeModal();

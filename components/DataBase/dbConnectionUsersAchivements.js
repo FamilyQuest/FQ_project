@@ -66,11 +66,13 @@ const dbConnectionUsersAchivements = () => {
     if (userAchivement && !status) {
       if (userAchivement.count < maxCount) {
         userAchivement.count = userAchivement.count + 1;
+        if (userAchivement.count === maxCount) {
+          userAchivement.status = true;
+        }
       } else {
         userAchivement.status = true;
       }
     }
-    console.log('here: ', userAchivement)
     if (userAchivement) {
       const db = getDatabase();
       console.log('paht: ', `UsersAchivements/${userId - 1}`)
@@ -79,7 +81,7 @@ const dbConnectionUsersAchivements = () => {
         'achivement_id': userAchivement.achivement_id,
         'count': userAchivement.count,
         'id': userAchivement.id,
-        'status': status,
+        'status': userAchivement.status,
       });
     }
   }
