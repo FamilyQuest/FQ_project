@@ -1,7 +1,7 @@
 import firebase from 'firebase/compat/app';
 import { useState, useEffect } from 'react';
 import { initializeApp } from 'firebase/app';
-import { getDatabase, ref, get, set } from 'firebase/database';
+import { getDatabase, ref, get, set, update, query, orderByChild, equalTo, child } from 'firebase/database';
 import { API_KEY, AUTH_DOMAIN, PROJECT_ID, STORAGE_BUCKET, MESSAGINGSENDER_ID, APP_ID, MEASUREMETN_ID } from '@env';
 
 const dbConnectionPhysicalShopItems = (enviormentId) => {
@@ -27,10 +27,10 @@ const dbConnectionPhysicalShopItems = (enviormentId) => {
 
         get(shopItemsRef)
             .then((snapshot) => {
-              let count = 0;
+                let count = 0;
                 const items = [];
                 snapshot.forEach((childSnapshot) => {
-                  count++;
+                    count++;
                     const item = childSnapshot.val();
                     if (item.Enviorment_id === enviormentId) { // Filter items based on Enviorment_id
                         items.push({ id: childSnapshot.key, ...item });
@@ -44,35 +44,63 @@ const dbConnectionPhysicalShopItems = (enviormentId) => {
             });
     }, [enviormentId]);
 
-    const dbSetNewPrize = (enviormentId,newPrizeName, newPrizePoints) => {
+    const dbSetNewPrize = (enviormentId, newPrizeName, newPrizePoints) => {
         const db = getDatabase();
         const shopItemsRef = ref(db, `/PhysicalShop/${shopItemCount}`);
         set(shopItemsRef, {
-            Enviorment_id:enviormentId,
+            Enviorment_id: enviormentId,
             name: newPrizeName,
             points: newPrizePoints,
-            status:"available"
+            status: "available"
         })
-        .then(() => {
-            console.log('New prize added successfully');
-            get(shopItemsRef)
-                .then((snapshot) => {
-                    const items = [];
-                    snapshot.forEach((childSnapshot) => {
-                        const item = childSnapshot.val();
-                        items.push({ id: childSnapshot.key, ...item });
+            .then(() => {
+                console.log('New prize added successfully');
+                get(shopItemsRef)
+                    .then((snapshot) => {
+                        const items = [];
+                        snapshot.forEach((childSnapshot) => {
+                            const item = childSnapshot.val();
+                            items.push({ id: childSnapshot.key, ...item });
+                        });
+                        setShopItems(items);
+                    })
+                    .catch((error) => {
+                        console.error(error);
                     });
-                    setShopItems(items);
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
-        })
-        .catch((error) => {
-            console.error('Error adding new prize:', error);
-        });
+            })
+            .catch((error) => {
+                console.error('Error adding new prize:', error);
+            });
     };
-    return { shopItems, dbSetNewPrize };
+
+    const updateStatus = (enviormentId, itemName, newStatus) => {
+        const db = getDatabase();
+        const shopItemsRef = ref(db, '/PhysicalShop');
+        
+        get(shopItemsRef)
+            .then((snapshot) => {
+                snapshot.forEach((childSnapshot) => {
+                    const item = childSnapshot.val();
+                    if (item.Enviorment_id === enviormentId && item.name === itemName) {
+                        const itemId = childSnapshot.key;
+                        const itemRef = ref(db, `/PhysicalShop/${itemId}`);
+                        update(itemRef, { status: newStatus })
+                            .then(() => {
+                                console.log('Status updated successfully');
+                                // You can update the local state here if needed
+                            })
+                            .catch((error) => {
+                                console.error('Error updating status:', error);
+                            });
+                    }
+                });
+            })
+            .catch((error) => {
+                console.error('Error fetching items:', error);
+            });
+    };
+
+    return { shopItems, dbSetNewPrize, updateStatus };
 };
 
 export default dbConnectionPhysicalShopItems;

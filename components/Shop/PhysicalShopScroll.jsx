@@ -15,28 +15,32 @@ const PhysicalItemScroll = ({ userId }) => {
     const [showPages, setShowPages] = useState(true);
     const [showLoading, setShowLoading] = useState(false);
     const [showModal, setShowModal] = useState(false);
+    const [showItemModal, setItemModal] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
     const [insufficientPoints, setInsufficientPoints] = useState(false);
     const [newPrizeName, setNewPrizeName] = useState('');
     const [newPrizePoints, setNewPrizePoints] = useState('');
 
-    // Fetch shopItems from the database whenever userId changes
-    const { user, shopItems } = useUserDataAndShopItems(userId);
 
+    const handleItem = (itemValue) => {
+        setSelectedItem(itemValue);
+        setItemModal(true);
+    };
+    const { dbSetNewPrize, updateStatus } = dbConnectionPhysicalShop();
+    const { user, shopItems } = useUserDataAndShopItems(userId);
+    const { updatePointsByUserId } = dbConnectionUsers();
     const handleConfirmPurchase = () => {
         if (user && selectedItem && user.Points - selectedItem.points >= 0) {
-            // Update points and close modal
-            setShowModal(false);
+            updatePointsByUserId(userId, user.Points - selectedItem.points);
+            updateStatus(user.Enviorment_id,selectedItem.name,"acquired")
+            setItemModal(false);
         } else {
             setInsufficientPoints(true);
         }
     };
-
     const handleSetNewPrize = () => {
         setShowModal(true);
     };
-
-    const { dbSetNewPrize } = dbConnectionPhysicalShop();
     const handleConfirmNewPrize = () => {
         dbSetNewPrize(user.Enviorment_id, newPrizeName, newPrizePoints);
         setShowModal(false);
@@ -46,20 +50,19 @@ const PhysicalItemScroll = ({ userId }) => {
 
     return (
         <View style={styles.formContainer}>
-            {showLoading && (
-                <View style={styles.loading}>
-                    {/* Render loading indicator */}
-                </View>
-            )}
             <ScrollView style={styles.listContainer} showsVerticalScrollIndicator={false}>
                 <View>
                     {/* Render shop items */}
                     <View style={styles.columnContainer}>
                         {shopItems.map((item, index) => (
-                            <TouchableOpacity key={index} style={styles.item}>
+                            <TouchableOpacity key={index} style={styles.item} onPress={item.status === 'available' ? () => handleItem(item) : null}>
                                 <Text style={{ fontWeight: 'bold' }}>{item.name}</Text>
                                 <Text style={{ fontWeight: 'bold' }}>{item.points}P</Text>
-                                <Image style={{ width: "20%", height: "85%" }} source={require('../../assets/Avatar-Shop/giftbox.png')} />
+                                {item.status === 'available' ? (
+                <Image style={{ width: "20%", height: "85%" }} source={require('../../assets/Avatar-Shop/giftbox.png')} />
+            ) : (
+                <Image style={{ width: "22%", height: "90%" }} source={require('../../assets/Avatar-Shop/present.png')} />
+            )}
                             </TouchableOpacity>
                         ))}
                     </View>
@@ -70,7 +73,6 @@ const PhysicalItemScroll = ({ userId }) => {
                     <TouchableOpacity style={styles.Btn3} onPress={handleSetNewPrize}>
                         <Text style={styles.textBtn}>Set New Prize</Text>
                     </TouchableOpacity>
-                    {/* Add delete button here if needed */}
                 </View>
             )}
             <Modal
@@ -94,17 +96,47 @@ const PhysicalItemScroll = ({ userId }) => {
                             value={newPrizePoints}
                             onChangeText={setNewPrizePoints}
                         />
-                         <View style={styles.buttonsContainer}>
-                        <TouchableOpacity style={styles.Btn4} onPress={handleConfirmNewPrize}>
-                            <Text style={styles.textBtn}>Confirm</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.Btn5} onPress={() => {setShowModal(false);}}>
-                            <Text style={styles.textBtn}>Cancel</Text>
-                        </TouchableOpacity>
+                        <View style={styles.buttonsContainer}>
+                            <TouchableOpacity style={styles.Btn4} onPress={handleConfirmNewPrize}>
+                                <Text style={styles.textBtn}>Confirm</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.Btn5} onPress={() => { setShowModal(false); }}>
+                                <Text style={styles.textBtn}>Cancel</Text>
+                            </TouchableOpacity>
                         </View>
                     </View>
                 </View>
             </Modal>
+            <View>
+                <Modal
+                    visible={showItemModal}
+                    onRequestClose={() => {
+                        setItemModal(false);
+                    }}
+                    animationType="slide"
+                    transparent={true} >
+                    <View style={styles.modalContainer}>
+                        <View style={styles.modalItemContent}>
+                            <Text style={styles.modalContentText}>
+                                {insufficientPoints
+                                    ? `Insufficient points! your current points: ${user.Points}.`
+                                    : `Do you wish to purchase the item?`}
+                            </Text>
+                            <View style={styles.buttonsContainer}>
+                                <TouchableOpacity style={styles.Btn2} onPress={handleConfirmPurchase}>
+                                    <Text style={styles.textBtn}>Yes</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={styles.Btn1} onPress={() => {
+                                    setInsufficientPoints(false);
+                                    setItemModal(false);
+                                }}>
+                                    <Text style={styles.textBtn}>No</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </View>
+                </Modal>
+            </View>
         </View>
     );
 };

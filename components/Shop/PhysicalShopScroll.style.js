@@ -70,6 +70,20 @@ const styles = StyleSheet.create({
         flexDirection:'column',
       
     },
+    modalItemContent:{
+        backgroundColor: '#fff',
+        width: '70%',
+        height: '22%',
+        paddingHorizontal:'5%',
+        paddingVertical:'5%',
+        borderRadius: 10,
+        alignItems: 'center',
+        justifyContent:'space-between',
+        borderColor:'#8DE1D5',
+        borderWidth:6,
+        flexDirection:'column',
+      
+    },
     modalContentText:{
         fontWeight:'bold',
         fontSize:18,
