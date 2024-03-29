@@ -1,16 +1,13 @@
-// AvatarCreationForm
 import React, { useState, useEffect } from 'react';
-import { View, Text, ImageBackground, Image, TouchableOpacity } from 'react-native';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { I18nManager } from "react-native";
-import { FontAwesome6 } from '@expo/vector-icons';
+import AvatarShopScroll from './AvatarShopScroll';
+import PhysicalShopScroll from './PhysicalShopScroll'; 
+import styles from './ShopCreation.style';
+import dbConnectionUsers from '../DataBase/dbConnectionUsers';
 
 I18nManager.forceRTL(false);
 I18nManager.allowRTL(false);
-
-import AvatarCreation from '../Avatar/AvatarCreation';
-import AvatarShopScroll from './AvatarShopScroll';
-import styles from './ShopCreation.style';
-import dbConnectionUsers from '../DataBase/dbConnectionUsers';
 
 const ShopCreation = ({ userId, navigation }) => {
   const [hairStyle, setHairStyle] = useState('shortFlat');
@@ -23,6 +20,10 @@ const ShopCreation = ({ userId, navigation }) => {
   const [clothingStyle, setClothingStyle] = useState('hoodie');
   const [showAvatar, setShowAvatar] = useState(true);
   const [score, setScore] = useState(0);
+  const [shopType, setShopType] = useState('virtual'); 
+  const [virtualBtnColor, setVirtualBtnColor] = useState('#8DE1D5');
+  const [physicalBtnColor, setPhysicalBtnColor] = useState('#DAF4F0');
+
   const { users, getUserById } = dbConnectionUsers();
 
   useEffect(() => {
@@ -35,7 +36,20 @@ const ShopCreation = ({ userId, navigation }) => {
   }, [users]);
 
   useEffect(() => {
+    
   }, [score]);
+
+  const handleVirtualPress = () => {
+    setShopType('virtual'); 
+    setVirtualBtnColor('#8DE1D5'); 
+    setPhysicalBtnColor('#DAF4F0'); 
+  };
+
+  const handlePhysicalPress = () => {
+    setShopType('physical'); 
+    setVirtualBtnColor('#DAF4F0'); 
+    setPhysicalBtnColor('#8DE1D5'); 
+  };
 
   return (
     <View style={{ alignItems: 'center' }}>
@@ -47,27 +61,32 @@ const ShopCreation = ({ userId, navigation }) => {
       <Text>{score}</Text>
       <Image style={styles.pointImage} source={require('../../assets/Avatar-Shop/star.png')} />
       <View style={styles.buttonsContainer}>
-        <TouchableOpacity style={styles.Btn1}>
+        <TouchableOpacity style={[styles.Btn1, { backgroundColor: virtualBtnColor }]} onPress={handleVirtualPress}>
           <Text style={styles.textBtn}>Virtual</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.Btn2}>
+        <TouchableOpacity style={[styles.Btn2, { backgroundColor: physicalBtnColor }]} onPress={handlePhysicalPress}>
           <Text style={styles.textBtn}>Physical</Text>
         </TouchableOpacity>
       </View>
-      <AvatarShopScroll
+      {shopType === 'virtual' ? (
+        <AvatarShopScroll
+          userId={userId}
+          hairStyle={hairStyle}
+          hairColor={hairColor}
+          mouthStyle={mouthStyle}
+          clothingColorStyle={clothingColorStyle}
+          eyesStyle={eyesStyle}
+          eyesBrowsStyle={eyesBrowsStyle}
+          skinColorStyle={skinColorStyle}
+          clothingStyle={clothingStyle}
+          showAvatar={showAvatar}
+        />
+      ) : (
+        <PhysicalShopScroll
         userId={userId}
-        hairStyle={hairStyle}
-        hairColor={hairColor}
-        mouthStyle={mouthStyle}
-        clothingColorStyle={clothingColorStyle}
-        eyesStyle={eyesStyle}
-        eyesBrowsStyle={eyesBrowsStyle}
-        skinColorStyle={skinColorStyle}
-        clothingStyle={clothingStyle}
-        showAvatar={showAvatar}
-      />
+        />
+      )}
     </View>
-
   );
 };
 

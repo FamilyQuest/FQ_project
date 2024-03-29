@@ -1,0 +1,142 @@
+import { StyleSheet, Platform } from "react-native";
+
+const styles = StyleSheet.create({
+    formContainer: {
+        width: "90%",
+        height: "100%",
+        maxHeight: 420,
+        marginBottom: 20,
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: 25,
+        borderWidth: 8,
+        borderColor: "#A4E7DD",
+        backgroundColor: "#fff",
+    },
+    item: {
+        backgroundColor: "#F2F2F2",
+        width: "80%",
+        height: 74,
+        borderWidth: 2,
+        borderColor: "#FF6E6B",
+        borderStyle: "dashed",
+        borderRadius: 30,
+        alignItems: "center",
+        justifyContent: "space-around",
+        flexDirection:'row',
+        marginBottom:'5%',
+    },
+    columnContainer: {
+        flexDirection: "column",
+        // justifyContent: "space-around",
+        alignItems:'center',
+
+        width: "100%",
+        width: "100%",
+        minHeight: 50,
+        marginVertical: 15,
+    },
+    listContainer: {
+        height: "100%",
+        width: "100%",
+    },
+    buttonContainer: {
+        width: "95%",
+        marginBottom: 5,
+        marginTop: 5,
+        height: 40,
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+    },
+    modalContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        
+    },
+    modalContent:{
+        backgroundColor: '#fff',
+        width: '70%',
+        height: '40%',
+        paddingHorizontal:'5%',
+        paddingVertical:'5%',
+        borderRadius: 10,
+        alignItems: 'center',
+        justifyContent:'space-between',
+        borderColor:'#8DE1D5',
+        borderWidth:6,
+        flexDirection:'column',
+      
+    },
+    modalContentText:{
+        fontWeight:'bold',
+        fontSize:18,
+        textAlign:'center',
+    },
+    modalContentInput:{
+        borderWidth:3,
+        borderColor:'#FFA8A6',
+        borderStyle:"dashed",
+        width:"80%",
+        textAlign:'center',
+        marginTop:10,
+    },
+    Btn1: {
+        width: '45%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#D9D9D9',
+        padding: 10,
+        borderRadius: 35,
+    },
+    Btn2: {
+        width: '45%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#A4E7DD',
+        padding: 10,
+        borderRadius: 35,
+    },
+    Btn3: {
+        width: '35%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#D9D9D9',
+        padding: 5,
+        borderRadius: 20,
+    },
+    Btn4: {
+        width: '35%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#FFA8A6',
+        padding: 5,
+        borderRadius: 20,
+    },
+    Btn5: {
+        width: '35%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#D9D9D9',
+        padding: 5,
+        borderRadius: 20,
+    },
+    textBtn: {
+        fontSize: 15,
+        fontWeight: 'bold',
+    },
+    buttonsContainer:{
+        width:"100%",
+        flexDirection:'row',
+        justifyContent:'space-between',
+        marginBottom:15,
+        marginTop:5,
+    },
+    setPrize:{
+
+    },
+});
+
+export default styles;
