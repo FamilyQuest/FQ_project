@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ScrollView, View, Image, TouchableOpacity, Text, ImageBackground, Modal } from 'react-native';
+import { ScrollView, View, Image, TouchableOpacity, Text, Modal } from 'react-native';
 
 import Avatar from '../Avatar/Avatar';
 import dbConnectionShop from '../DataBase/dbConnectionShop';
@@ -10,23 +10,10 @@ import styles from './AvatarShopScroll.style';
 const AvatarItemScroll = ({
   userId,
   hairStyle,
-  setHairStyle,
   hairColor,
-  setHairColor,
-  mouthStyle,
-  setMouthStyle,
   clothingColorStyle,
-  setClothingColorStyle,
-  eyesStyle,
-  setEyesStyle,
-  eyesBrowsStyle,
-  setEyesBrowsStyle,
   skinColorStyle,
-  setSkinColorStyle,
   clothingStyle,
-  setClothingStyle,
-  showAvatar,
-  setShowAvatar,
 }) => {
   const [showHairStylePage, setShowHairStylePage] = useState(true);
   const [showHairColorStylePage, setShowHairColorStylePage] = useState(false);

@@ -27,11 +27,6 @@ const Achievements = ({ navigation, userId }) => {
             });
         }
     }
-    
-    // const countMax = countMaxByAchivementId(2);
-    // if(countMax){
-    //     incrementUserAchivement(userId, 2, countMax);
-    // }
 
     const count = countStatusTrue(userId);
     const maxCount = countAchivements();

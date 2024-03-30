@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { TextInput, Text, View, TouchableOpacity, ScrollView } from 'react-native';
-import { StatusBar } from "react-native";
 import { Formik } from 'formik';
 import { getDatabase, ref, push, set, get } from "firebase/database";
 import CustomSelectList from './dropDown';
@@ -61,10 +60,10 @@ function TaskCreation({ navigation, userId }) {
     };
 
     return (
-        <View>
-            <StatusBar backgroundColor="#A4E7DD" barStyle="dark-content" />
-            <Text style={styles.title}>New Task</Text>
+        
             <ScrollView contentContainerStyle={styles.container}>
+            <Text style={styles.title}>New Task</Text>
+            
                 <Formik initialValues={{ title: '', user_id: '', status: '', category: '', points: '', Description: '' }}
                     onSubmit={(values) => addTask(values)}>
                     {(props) => (
@@ -85,6 +84,7 @@ function TaskCreation({ navigation, userId }) {
                                 placeholderTextColor='black'
                                 onChangeText={props.handleChange('points')}
                                 value={props.values.points}
+                                keyboardType='numeric'
                             />
                             <TextInput
                                 style={[styles.input, styles.multilineInput]}
@@ -109,8 +109,7 @@ function TaskCreation({ navigation, userId }) {
                         </View>
                     )}
                 </Formik>
-            </ScrollView>
-        </View>
+            </ScrollView>   
     );
 }
 

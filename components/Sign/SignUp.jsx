@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ScrollView, View, Text, TextInput, TouchableOpacity, Image, Alert } from 'react-native';
+import { ScrollView, View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import styles from './signUp.style';
 import dbConnectionUsers from '../DataBase/dbConnectionUsers';
@@ -21,7 +21,7 @@ function SignUp({ navigation }) {
   const [enviormentName, setEnviormentName] = useState('');
   const [enviormentId, setEnviormentId] = useState('');
 
-  const { users, addUser, newUserKey } = dbConnectionUsers();
+  const { addUser, newUserKey } = dbConnectionUsers();
   const { addItems } = dbConnectionItems();
   const { addAvatar } = dbConnectionAvatars();
   const { newUsersAchivements } = dbConnectionUsersAchivements();

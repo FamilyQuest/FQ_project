@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { initializeApp } from 'firebase/app';
 import firebase from 'firebase/compat/app';
-import { getDatabase, ref, get, set } from 'firebase/database';
+import { getDatabase, ref, get } from 'firebase/database';
 import { API_KEY, AUTH_DOMAIN, PROJECT_ID, STORAGE_BUCKET, MESSAGINGSENDER_ID, APP_ID, MEASUREMETN_ID } from '@env';
 
 const dbConnectionShopItems = () => {

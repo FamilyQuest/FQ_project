@@ -1,4 +1,4 @@
-import { StyleSheet, Platform } from "react-native";
+import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
     formContainer: {
@@ -28,7 +28,6 @@ const styles = StyleSheet.create({
     },
     columnContainer: {
         flexDirection: "column",
-        // justifyContent: "space-around",
         alignItems:'center',
 
         width: "100%",
@@ -147,9 +146,6 @@ const styles = StyleSheet.create({
         justifyContent:'space-between',
         marginBottom:15,
         marginTop:5,
-    },
-    setPrize:{
-
     },
 });
 

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Image, View, Text, TextInput, TouchableOpacity, StatusBar } from 'react-native';
-import Checkbox from 'expo-checkbox';
 import { useFocusEffect } from '@react-navigation/native';
 import dbConnectionUsers from '../DataBase/dbConnectionUsers';
 import styles from './logIn.style';
@@ -13,7 +12,7 @@ const Login = ({ navigation }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [incorrect, setIncorrect] = useState(false);
-  const { users, reloadUsers, getUserById, getUserByUsername, confirmLogIn } = dbConnectionUsers();
+  const { users, reloadUsers, getUserByUsername, confirmLogIn } = dbConnectionUsers();
 
   useEffect(() => {
     if (users) {

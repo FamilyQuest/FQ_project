@@ -1,4 +1,4 @@
-import { StyleSheet, Platform } from "react-native";
+import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
     container: {
@@ -58,7 +58,6 @@ const styles = StyleSheet.create({
         alignContent:'center',
         marginTop: 20,
         flexDirection:'row',
-        // padding:10, 
     },
     topScreenContainer: {
         width: "100%",
@@ -195,16 +194,6 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start',
         textAlign:'auto',
         marginLeft:'15%',
-        // justifyContent: 'center',
-        // backgroundColor: '#FF6E6B',
-        // alignSelf:'flex-end',
-        // borderWidth:3,
-        // borderColor: '#FF6E6B',
-        // padding: 10,
-        // borderRadius: 35,
-        // marginBottom:'1%',
-        // marginTop:'4%',
-        
     },
     pointImage:{
         width:40,

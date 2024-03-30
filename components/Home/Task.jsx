@@ -25,9 +25,6 @@ const Task = (props) => {
         'All Set!': '#57cc99',
         'Time to Fix': '#ff6b6b'
     });
-
-    console.log('in task: ',props);
-
     CheckForAchivement = (userId) => {
         if(props.category === 'cleaning'){
             incrementUserAchivement(userId, 1,5);

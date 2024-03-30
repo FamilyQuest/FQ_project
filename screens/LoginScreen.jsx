@@ -1,5 +1,5 @@
 import React from 'react';
-import { ImageBackground, I18nManager,View} from 'react-native';
+import { I18nManager,View } from 'react-native';
 import styles from './Screen.style'
 I18nManager.forceRTL(false);
 I18nManager.allowRTL(false);

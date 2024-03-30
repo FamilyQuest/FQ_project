@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Image, TouchableOpacity, StatusBar, Text, Modal, BackHandler, Linking  } from 'react-native';
+import { View, Image, TouchableOpacity, StatusBar, Text, Modal, BackHandler } from 'react-native';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { I18nManager } from "react-native";
 

@@ -1,7 +1,7 @@
 import firebase from 'firebase/compat/app';
 import { useState, useEffect } from 'react';
 import { initializeApp } from 'firebase/app';
-import { getDatabase, ref, get, set, update, query, orderByChild, equalTo, child } from 'firebase/database';
+import { getDatabase, ref, get, set, update } from 'firebase/database';
 import { API_KEY, AUTH_DOMAIN, PROJECT_ID, STORAGE_BUCKET, MESSAGINGSENDER_ID, APP_ID, MEASUREMETN_ID } from '@env';
 
 const dbConnectionPhysicalShopItems = (enviormentId) => {
@@ -87,7 +87,7 @@ const dbConnectionPhysicalShopItems = (enviormentId) => {
                         update(itemRef, { status: newStatus })
                             .then(() => {
                                 console.log('Status updated successfully');
-                                // You can update the local state here if needed
+                                
                             })
                             .catch((error) => {
                                 console.error('Error updating status:', error);

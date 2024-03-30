@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { ScrollView, View, Image, TouchableOpacity, Text, Modal, TextInput, Button } from 'react-native';
 import dbConnectionUsers from '../DataBase/dbConnectionUsers';
 import dbConnectionPhysicalShop from '../DataBase/dbConnectionPhysicalShop';
@@ -12,8 +12,6 @@ const useUserDataAndShopItems = (userId) => {
 };
 
 const PhysicalItemScroll = ({ userId }) => {
-    const [showPages, setShowPages] = useState(true);
-    const [showLoading, setShowLoading] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [showItemModal, setItemModal] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
@@ -32,7 +30,7 @@ const PhysicalItemScroll = ({ userId }) => {
     const handleConfirmPurchase = () => {
         if (user && selectedItem && user.Points - selectedItem.points >= 0) {
             updatePointsByUserId(userId, user.Points - selectedItem.points);
-            updateStatus(user.Enviorment_id,selectedItem.name,"acquired")
+            updateStatus(user.Enviorment_id, selectedItem.name, "acquired")
             setItemModal(false);
         } else {
             setInsufficientPoints(true);
@@ -56,13 +54,13 @@ const PhysicalItemScroll = ({ userId }) => {
                     <View style={styles.columnContainer}>
                         {shopItems.map((item, index) => (
                             <TouchableOpacity key={index} style={styles.item} onPress={item.status === 'available' ? () => handleItem(item) : null}>
-                                <Text style={{ fontWeight: 'bold' }}>{item.name}</Text>
+                                <Text style={{ fontWeight: 'bold', width: '24%' }}>{item.name}</Text>
                                 <Text style={{ fontWeight: 'bold' }}>{item.points}P</Text>
                                 {item.status === 'available' ? (
-                <Image style={{ width: "20%", height: "85%" }} source={require('../../assets/Avatar-Shop/giftbox.png')} />
-            ) : (
-                <Image style={{ width: "22%", height: "90%" }} source={require('../../assets/Avatar-Shop/present.png')} />
-            )}
+                                    <Image style={{}} source={require('../../assets/Avatar-Shop/giftbox.png')} />
+                                ) : (
+                                    <Image style={{ width: "22%", height: "90%" }} source={require('../../assets/Avatar-Shop/present.png')} />
+                                )}
                             </TouchableOpacity>
                         ))}
                     </View>
